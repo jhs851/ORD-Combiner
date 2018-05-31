@@ -15,9 +15,11 @@ class CreateFormulasTable extends Migration
     {
         Schema::create('formulas', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('target_id')->index();
             $table->unsignedInteger('unit_id')->index();
-            $table->unsignedInteger('rate_id')->index();
-            $table->string('name', 50);
+            $table->unsignedInteger('count')->default(1);
+
+            $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
         });
     }
 

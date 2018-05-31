@@ -16,16 +16,23 @@ class UnitsTableSeeder extends Seeder
     {
         $units = config('units');
 
-        foreach ($units as $rating => $unit) {
-            if (! $rate = Rate::where('name', $rating)->first()) {
-                throw new Exception("rates 테이블에 '{$rating}' 이름을 가진 칼럼이 존재하지 않습니다.");
+        foreach ($units as $rateName => $unit) {
+            if (! $rate = Rate::where('name', $rateName)->first()) {
+                throw new Exception("rates 테이블에 '{$rateName}' 이름을 가진 칼럼이 존재하지 않습니다.");
             }
 
-            collect($unit)->filter(function($item) use ($rate) {
-                    return $this->has($rate, $item);
+            collect($unit)->filter(function($item, $unitName) use ($rate) {
+                    return $this->has($rate, $unitName);
                 })
-                ->each(function($item) use ($rate) {
-                    $rate->units()->create(['name' => $item]);
+                ->each(function($item, $unitName) use ($rate) {
+                    $rate->units()->create([
+                        'name' => $unitName,
+                        'description' => $item['description'],
+                        'image' => $item['image'],
+                        'warn' => $item['warn'] ?? false,
+                        'etc' => $item['etc'] ?? false,
+                        'lowest' => $item['lowest'] ?? false,
+                    ]);
                 });
         }
 
@@ -34,14 +41,14 @@ class UnitsTableSeeder extends Seeder
 
     /**
      * @param Rate   $rate
-     * @param string  $item
+     * @param string  $unitName
      * @return bool
      */
-    protected function has(Rate $rate, string $item) : bool
+    protected function has(Rate $rate, string $unitName) : bool
     {
         return ! Unit::where([
             ['rate_id', $rate->id],
-            ['name', $item],
+            ['name', $unitName],
         ])->exists();
     }
 }

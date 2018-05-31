@@ -12,14 +12,14 @@ class RateTest extends TestCase
     function it_has_all_rates()
     {
         $this->assertEquals(
-            config('rates'),
-            Rate::pluck('name')->toArray()
+            array_flatten(config('rates')),
+            Rate::orderBy('id', 'asc')->pluck('name')->toArray()
         );
     }
 
     /** @test */
     function it_has_many_units()
     {
-        $this->assertInstanceOf(Collection::class, Rate::first()->units()->get());
+        $this->assertInstanceOf(Collection::class, Rate::first()->units);
     }
 }

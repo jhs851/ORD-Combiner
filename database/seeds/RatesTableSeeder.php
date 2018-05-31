@@ -1,6 +1,8 @@
 <?php
 
-use App\Rate;
+use App\{
+    Column, Rate
+};
 use Illuminate\Database\Seeder;
 
 class RatesTableSeeder extends Seeder
@@ -12,16 +14,19 @@ class RatesTableSeeder extends Seeder
      */
     public function run() : void
     {
-        $rates = collect(config('rates'));
+        $columns = config('rates');
 
-        $rates->filter(function($rate) {
-                return ! Rate::where('name', $rate)->exists();
-            })
-            ->each(function($rate) {
-                Rate::create([
-                    'name' => $rate
-                ]);
-            });
+        foreach ($columns as $columnId => $rates) {
+            collect($rates)
+                ->filter(function($rate) {
+                    return ! Rate::where('name', $rate)->exists();
+                })
+                ->each(function($rate) use ($columnId) {
+                    Column::find($columnId)->rates()->create([
+                        'name' => $rate
+                    ]);
+                });
+        }
 
         $this->command->info('Seeded Rates Table.');
     }

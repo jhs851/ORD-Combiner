@@ -11,8 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run() : void
     {
+        $this->call(ColumnsTableSeeder::class);
+
         $this->call(RatesTableSeeder::class);
 
         $this->call(UnitsTableSeeder::class);
+
+        $this->call(FormulasTableSeeder::class);
     }
 }

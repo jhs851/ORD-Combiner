@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\{
-    Model, Relations\HasMany
+    Model, Relations\BelongsTo, Relations\HasMany
 };
 
 class Rate extends Model
@@ -18,6 +18,15 @@ class Rate extends Model
     ];
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'units',
+    ];
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
@@ -29,6 +38,6 @@ class Rate extends Model
      */
     public function units() : HasMany
     {
-        return $this->hasMany(Unit::class);
+        return $this->hasMany(Unit::class)->with(['rate', 'formulas']);
     }
 }

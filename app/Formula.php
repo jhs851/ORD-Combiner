@@ -15,8 +15,7 @@ class Formula extends Model
      */
     protected $fillable = [
         'unit_id',
-        'rate_id',
-        'name',
+        'count',
     ];
 
     /**
@@ -29,8 +28,8 @@ class Formula extends Model
     /**
      * @return BelongsTo
      */
-    public function rate() : BelongsTo
+    public function unit() : BelongsTo
     {
-        return $this->belongsTo(Rate::class);
+        return $this->belongsTo(Unit::class);
     }
 }

@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\{
-    Model, Relations\HasMany
+    Model, Relations\BelongsTo, Relations\HasMany
 };
 
 class Unit extends Model
@@ -15,6 +15,22 @@ class Unit extends Model
      */
     protected $fillable = [
         'name',
+        'description',
+        'image',
+        'warn',
+        'etc',
+        'lowest',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'warn' => 'boolean',
+        'etc' => 'boolean',
+        'lowest' => 'boolean',
     ];
 
     /**
@@ -25,10 +41,18 @@ class Unit extends Model
     public $timestamps = false;
 
     /**
+     * @return BelongsTo
+     */
+    public function rate() : BelongsTo
+    {
+        return $this->belongsTo(Rate::class)->without('units');
+    }
+
+    /**
      * @return HasMany
      */
     public function formulas() : HasMany
     {
-        return $this->hasMany(Formula::class);
+        return $this->hasMany(Formula::class, 'target_id');
     }
 }

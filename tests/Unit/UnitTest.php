@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Unit;
+use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 
 class UnitTest extends TestCase
@@ -11,6 +12,12 @@ class UnitTest extends TestCase
     function it_has_all_units()
     {
         $this->assertEquals($this->getUnitsCount(), Unit::count());
+    }
+
+    /** @test */
+    function it_can_has_many_formulas()
+    {
+        $this->assertInstanceOf(Collection::class, Unit::first()->formulas);
     }
 
     /**

@@ -47,7 +47,8 @@ $(() => {
 });
 
 function InitTool() {
-    let column = createColumn();
+    let column = createColumn(),
+        unitsCount = 0;
 
     $.each($(GROUPS), (index, group) => {
         if (group.units.length != 0) {
@@ -59,7 +60,7 @@ function InitTool() {
                 itemVisibleCount = 0;
 
             $(group.units).each((index, unit) => {
-                itemVisibleCount ++;
+                itemVisibleCount++;
                 AddInitItem(itemlist, Unit.get(unit.id));
             });
         } else {
@@ -119,8 +120,9 @@ function AddInitItem(itemlist, item) {
         }
         Unit.RefreshAll();
     }
+
     function build(){
-        if(item.Build(true))
+        if(item.build(true))
         {
             Unit.RefreshAll();
         }
@@ -183,7 +185,7 @@ function AddInitItem(itemlist, item) {
         item.SetCount(item.count - 1);
         Unit.RefreshAll();
     });
-    itemDom.find(".ibtn.Build").click(build);
+    itemDom.find(".ibtn.build").click(build);
 
     // 상세페이지
     itemDom.find(".detail").click(function(){

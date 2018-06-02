@@ -11,6 +11,8 @@ window.Popper = require('popper.js').default;
 try {
     window.$ = window.jQuery = require('jquery');
 
+    window.Vue = require('vue');
+
     require('bootstrap');
 } catch (e) {}
 
@@ -38,19 +40,9 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily Build robust real-time web applications.
- */
+window.PRE_BUILD_ID = 0;
+window.LockItems = [];
+window.USE_ETC = true;
 
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+window.events = new Vue();
+window.refreshAll = () => window.events.$emit('refreshAll');

@@ -3,7 +3,6 @@ let ITEMS = [];
 let THUMB_ROOT = "/images/units/";
 
 $(() => {
-    $("#mk").show();
     LoadFromWrContent();
 });
 

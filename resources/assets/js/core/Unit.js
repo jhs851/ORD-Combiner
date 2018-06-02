@@ -8,9 +8,8 @@ class Unit {
         this.warn = data.warn;
         this.etc = data.etc;
         this.lowest = data.lowest;
-        this.formulas = [];
+        this.formulas = data.formulas;
         this.upperBuild = [];
-        this.allUnits = window.units;
         this.count = 0;
         this.buildScore = 0;
         this.etcBuildScore = 0;
@@ -18,14 +17,6 @@ class Unit {
         this.preBuildWarn = 0;
         this.preBuildID = 0;
         this.percent = 0;
-
-        this.init(data);
-    }
-
-    init(data) {
-        this.setUpperBuild();
-        this.setFormulas(data.formulas);
-        this.calculate();
     }
 
     calculate() {
@@ -44,6 +35,7 @@ class Unit {
                 });
             } else {
                 this.buildScore = 1;
+
                 if (this.etc) {
                     this.etcBuildScore = 1;
                 }
@@ -53,52 +45,53 @@ class Unit {
         return this.buildScore;
     }
 
-    setFormulas(formulas) {
-        formulas.forEach(formula => {
-            this.formulas.push([
-                new Unit(this.get(formula.unit_id)),
-                formula.count,
-            ]);
+    setFormulas() {
+        let formulas = [];
+
+        this.formulas.forEach(formula => {
+            axios.get(`units/${formula.unit_id}`)
+                 .then(({data}) => {
+                     formulas.push([
+                         new Unit(data),
+                         formula.count,
+                     ]);
+                 });
         });
+
+        this.formulas = formulas;
+
+        return this;
     }
 
-    setUpperBuild() {
-        this.allUnits.forEach(unit => {
+    setUpperBuild(units) {
+        units.forEach(unit => {
             unit.formulas.forEach(formula => {
                 if (this.id == formula.unit_id) {
                     this.upperBuild.push(unit);
                 }
             });
         });
+
+        return this;
     }
 
-    ToString() {
-        return this.rate
-            ? `${this.name}-${this.rate.name}`
-            : this.name;
-    }
-
-    GetBuildScore() {
-        return USE_ETC ? this.buildScore : this.buildScore-this.etcBuildScore;
-    }
-
-    SetCount(count) {
+    setCount(count) {
         if (! isNaN(count)) {
             this.count = count < 0 ? 0 : count;
         }
     }
 
     refresh() {
-        let preBuild = this.PreBuild(true, true),
-            currScore = preBuild.score,
+        let preBuild = this.preventBuild(true, true),
+            currentScore = preBuild.score,
             maxScore = this.buildScore;
 
-        if (! USE_ETC) {
-            currScore -= this.etcBuildScore;
+        if (! window.USE_ETC) {
+            currentScore -= this.etcBuildScore;
             maxScore -= this.etcBuildScore;
         }
 
-        this.percent = Math.round(Math.min(currScore/maxScore, 1) * 100);
+        this.percent = Math.round(Math.min(currentScore / maxScore, 1) * 100);
 
         // change name
         if (this.percent == 100) {
@@ -107,7 +100,7 @@ class Unit {
 
             if (! this.etc) {
                 for (let i = 0; i < 100; i++) {
-                    if (this.PreBuild(false, true).score == this.buildScore) {
+                    if (this.preventBuild(false, true).score == this.buildScore) {
                         makeCount++;
                     } else {
                         break;
@@ -116,9 +109,7 @@ class Unit {
             }
 
             // 이름 지정
-            // name.text(
-            //     makeCount == 1 ? this.name : `(${makeCount}) ${this.name}`
-            // );
+            this.name = makeCount == 1 ? this.name : `(${makeCount}) ${this.name}`;
 
             // class 추가
             // this.html.addClass('success');
@@ -127,66 +118,20 @@ class Unit {
             // } else {
             //     this.html.removeClass('warn');
             // }
-        } else if (percent > 0) {
-            // name.text(`${percent}% ${this.name}`);
+        } else if (this.percent > 0) {
+            this.name = `${this.percent}% ${this.name}`;
             // this.html.removeClass('warn');
             // this.html.removeClass('success');
         } else {
-            // name.text(this.name);
             // this.html.removeClass('warn');
             // this.html.removeClass('success');
         }
 
-        // lock Item
-        // if (LockItems.indexOf(this) != -1) {
-        //     count.addClass('lock');
-        // } else {
-        //     count.removeClass('lock');
-        // }
-    }
-
-    /**
-     * 갯수의 변동(클릭,숫자입력 등으로 아이템의 갯수가 변경)이 있을때 호출되며
-     * 모든 아이템의 제작 완료도 등을 다시 계산하게합니다.
-     */
-    refreshAll() {
-        this.allUnits.forEach(unit => {
-            new Unit(unit).refresh();
-        });
-    }
-
-
-    Build(newBuild) {
-        if (newBuild) {
-            let result = this.PreBuild(true, true);
-
-            if (result.score != this.buildScore) {
-                console.log(`Can not make ${this.name}. because not passed Pre Build`);
-
-                return false;
-            }
-        }
-
-        RD.log(document.title, 'Build', this.name);
-
-        if (! newBuild && this.count > 0) {
-            this.SetCount(this.count - 1);
+        // Lock Item
+        if (window.LockItems.indexOf(this) != -1) {
+            // count.addClass('lock');
         } else {
-            if (this.formulas && this.formulas.length) {
-                for (let j = 0; j < this.formulas.length; j++) {
-                    let formula = this.formulas[j];
-
-                    for (let i = 0; i < formula[1]; i++) {
-                        formula[0].Build();
-                    }
-                }
-            }
-        }
-
-        if (newBuild) {
-            this.SetCount(this.count + 1);
-
-            return true;
+            // count.removeClass('lock');
         }
     }
 
@@ -200,28 +145,28 @@ class Unit {
      * @param skipLocks 락을 제외한 체로 조합가능성을 따진다. (최상위 조합법을 판별하기위함)
      * @param absMake 갯수검사를 하지않고 조합만으로 제작여부를 판별한다 (최상위 조합법을 판별하기 위함)
      */
-    PreBuild(newBuild, skipCount, skipLocks, absMake) {
+    preventBuild(newBuild, skipCount, skipLocks, absMake) {
         if (newBuild) {
-            PRE_BUILD_ID++;
+            window.PRE_BUILD_ID++;
 
             if (! skipLocks) {
-                let self = this;
-                for (let i = 0; i < LockItems.length; i++) {
-                    let litem = LockItems[i];
-                    if (litem && self != litem) {
-                        litem.PreBuild(false, true);
+                for (let i = 0; i < window.LockItems.length; i++) {
+                    let lockUnit = window.LockItems[i];
+
+                    if (lockUnit && this != lockUnit) {
+                        lockUnit.preventBuild(false, true);
                     }
                 }
             }
         }
 
         // 초기화
-        if (this.preBuildID != PRE_BUILD_ID) {
-            this.preBuildID = PRE_BUILD_ID;
+        if (this.preBuildID != window.PRE_BUILD_ID) {
+            this.preBuildID = window.PRE_BUILD_ID;
             this.preCount = this.count;
         }
 
-        if (! newBuild && ! USE_ETC && this.etc) {
+        if (! newBuild && ! window.USE_ETC && this.etc) {
             return {
                 score: this.buildScore,
                 warn: false
@@ -236,55 +181,26 @@ class Unit {
                 warn: false
             };
         } else {
-            let result = {},
-                addRecord = false;
+            let result = {};
 
-            // 기록모드이면서 최하유닛이라면 기록한다.
-            if (isRecord && ! newBuild && this.lowest) {
-                addRecord = true;
-
-            } else if (this.formulas && this.formulas.length) {
+            if (this.formulas && this.formulas.length) {
                 let buildScore = 0,
-                    warn = (! newBuild && this.warn), // 자기 자신을 만드는데 warning은 필요없음
-                    recorderSize = recorder.length;
+                    warn = (! newBuild && this.warn); // 자기 자신을 만드는데 warning은 필요없음
 
-                for(let j = 0; j < this.formulas.length; j++) {
-                    let formula = this.formulas[j];
-
+                this.formulas.forEach(formula => {
                     for (let i = 0; i < formula[1]; i++) {
-                        let result = formula[0].PreBuild(false, false, false, absMake);
+                        let build = formula[0].preventBuild(false, false, false, absMake);
 
-                        buildScore += result.score;
-                        warn |= result.warn;
+                        buildScore += build.score;
+                        warn |= build.warn;
                     }
-                }
+                });
 
-                // 제작할 수 없는경우, 이 유닛이 경고유닛이라면 레코드한다. (단, 하위 조합의 레코드를 제거한다)
-                if (isRecord && ! newBuild && buildScore < this.buildScore && (! isRecordLowest && this.warn)) {
-                    recorder = recorder.slice(0,recorderSize);
-                    addRecord = true;
-                } else {
-                    result = {
-                        score: buildScore,
-                        warn: warn
-                    };
-                }
+                result = {
+                    score: buildScore,
+                    warn: warn
+                };
             } else {
-                // 재료도 부족한데 레시피도 없는대상이라면 당연히 기록해야죠
-                // 최하위라는 증거
-                if (isRecord && !newBuild) {
-                    addRecord = true;
-                } else {
-                    result = {
-                        score: 0,
-                        warn: false
-                    };
-                }
-            }
-
-            if (addRecord) {
-                recorder.push(this);
-
                 result = {
                     score: 0,
                     warn: false
@@ -295,18 +211,36 @@ class Unit {
         }
     }
 
-    get(id) {
-        let result = null;
+    canBuild() {
+        if (this.build(true)) {
+            refreshAll();
+        }
+    }
 
-        this.allUnits.forEach(unit => {
-            if (unit && unit.id == id) {
-                result = unit;
+    build(newBuild) {
+        if (newBuild) {
+            if (this.preventBuild(true, true).score != this.buildScore) {
+                console.log(`Can not make '${this.name}'. Because not passed Prevent Build.`);
 
                 return false;
             }
-        });
+        }
 
-        return result;
+        if (! newBuild && this.count > 0) {
+            this.setCount(this.count - 1);
+        } else {
+            this.formulas.forEach(formula => {
+                for (let i = 0; i < formula[1]; i++) {
+                    formula[0].build();
+                }
+            });
+        }
+
+        if (newBuild) {
+            this.setCount(this.count + 1);
+
+            return true;
+        }
     }
 }
 

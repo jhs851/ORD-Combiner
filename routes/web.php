@@ -6,7 +6,11 @@ use App\{
 
 Route::get('/', function () {
     $columns = Column::orderBy('id', 'asc')->with('rates')->get();
-    $units = Unit::orderby('id', 'asc')->with('formulas')->get();
+    $unitsCount = Unit::count();
 
-    return view('combiner', compact('columns', 'units'));
+    return view('combiner', compact('columns', 'unitsCount'));
+});
+
+Route::get('units/{unit}', function(Unit $unit) {
+    return $unit;
 });

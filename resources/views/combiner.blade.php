@@ -1,22 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="units" class="d-none">{{ $units }}</div>
-
-    <div class="container-fluid p-0">
+    <combiner-view inline-template class="container-fluid p-0" :units-count="{{ $unitsCount
+     }}">
         <div class="row no-gutters">
             <div class="d-flex flex-wrap w-100">
                 @forelse ($columns as $column)
                     <div style="width: {{ 100 / $columns->count() }}%;">
-                        <rates-component :data="{{ $column->rates }}"></rates-component>
+                        <rates-component :data="{{ $column->rates }}" @fetch="fetched"></rates-component>
                     </div>
                 @empty
                 @endforelse
             </div>
         </div>
-    </div>
+    </combiner-view>
 
-    {{--@include('items')--}}
+    {{--<div id="wr_content_json">--}}
+        {{--{{ App\Rate::orderBy('id', 'asc')->with('units')->get() }}--}}
+    {{--</div>--}}
 
     {{--<div id="detail">--}}
         {{--<div class="window">--}}

@@ -26,9 +26,9 @@
             },
 
             init() {
-                this.units.forEach(unit =>
-                    unit.setUpperBuild(this.units)
-                        .setFormulas()
+                this.units.forEach((unit, index, units) =>
+                    unit.setUpperBuild(units)
+                        .setFormulas(units)
                         .calculate()
                 );
             },

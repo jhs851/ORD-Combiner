@@ -12,5 +12,5 @@ Route::get('/', function () {
 });
 
 Route::get('units/{unit}', function(Unit $unit) {
-    return $unit;
+    return $unit->load('formulas');
 });

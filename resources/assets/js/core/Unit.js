@@ -8,7 +8,7 @@ class Unit {
         this.warn = data.warn;
         this.etc = data.etc;
         this.lowest = data.lowest;
-        this.formulas = data.formulas;
+        this.formulas = data.formulas || [];
         this.upperBuild = [];
         this.count = 0;
         this.buildScore = 0;
@@ -45,14 +45,14 @@ class Unit {
         return this.buildScore;
     }
 
-    setFormulas() {
+    setFormulas(units) {
         let formulas = [];
 
         this.formulas.forEach(formula => {
             axios.get(`units/${formula.unit_id}`)
                  .then(({data}) => {
                      formulas.push([
-                         new Unit(data),
+                         Unit.get(data.id, units),
                          formula.count,
                      ]);
                  });
@@ -240,6 +240,14 @@ class Unit {
             this.setCount(this.count + 1);
 
             return true;
+        }
+    }
+
+    static get(id, units) {
+        for (let i = 0; i < units.length; i++) {
+            if (units[i].id == id) {
+                return units[i];
+            }
         }
     }
 }

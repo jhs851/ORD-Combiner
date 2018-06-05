@@ -86,6 +86,8 @@ function AddInitItem(itemlist, item) {
     item.html = itemDom;
     item.upperBuild = [];
 
+    console.log($(ITEMS));
+
     // 상위 조합
     $(ITEMS).each(function(i,it){
         for(var j=0; j<it.formulas.length; j++){

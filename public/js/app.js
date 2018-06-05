@@ -14055,7 +14055,6 @@ window.LockItems = [];
 window.USE_ETC = true;
 
 window.events = new Vue();
-
 window.refreshAll = function () {
   return window.events.$emit('refreshAll');
 };
@@ -47334,10 +47333,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.units.push(unit);
         },
         init: function init() {
-            var _this = this;
-
-            this.units.forEach(function (unit) {
-                return unit.setUpperBuild(_this.units).setFormulas().calculate();
+            this.units.forEach(function (unit, index, units) {
+                return unit.setUpperBuild(units).setFormulas(units).calculate();
             });
         },
         refreshAll: function refreshAll() {
@@ -47348,10 +47345,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     created: function created() {
-        var _this2 = this;
+        var _this = this;
 
         window.events.$on('refreshAll', function () {
-            return _this2.refreshAll();
+            return _this.refreshAll();
         });
     }
 });
@@ -47512,6 +47509,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -47651,7 +47651,7 @@ var Unit = function () {
         this.warn = data.warn;
         this.etc = data.etc;
         this.lowest = data.lowest;
-        this.formulas = data.formulas;
+        this.formulas = data.formulas || [];
         this.upperBuild = [];
         this.count = 0;
         this.buildScore = 0;
@@ -47693,14 +47693,14 @@ var Unit = function () {
         }
     }, {
         key: "setFormulas",
-        value: function setFormulas() {
+        value: function setFormulas(units) {
             var formulas = [];
 
             this.formulas.forEach(function (formula) {
                 axios.get("units/" + formula.unit_id).then(function (_ref) {
                     var data = _ref.data;
 
-                    formulas.push([new Unit(data), formula.count]);
+                    formulas.push([Unit.get(data.id, units), formula.count]);
                 });
             });
 
@@ -47837,17 +47837,16 @@ var Unit = function () {
             } else {
                 var result = {};
 
-                // 기록모드이면서 최하유닛이라면 기록한다.
                 if (this.formulas && this.formulas.length) {
                     var buildScore = 0,
                         warn = !newBuild && this.warn; // 자기 자신을 만드는데 warning은 필요없음
 
                     this.formulas.forEach(function (formula) {
                         for (var _i = 0; _i < formula[1]; _i++) {
-                            result = formula[0].preventBuild(false, false, false, absMake);
+                            var build = formula[0].preventBuild(false, false, false, absMake);
 
-                            buildScore += result.score;
-                            warn |= result.warn;
+                            buildScore += build.score;
+                            warn |= build.warn;
                         }
                     });
 
@@ -47897,6 +47896,15 @@ var Unit = function () {
                 this.setCount(this.count + 1);
 
                 return true;
+            }
+        }
+    }], [{
+        key: "get",
+        value: function get(id, units) {
+            for (var i = 0; i < units.length; i++) {
+                if (units[i].id == id) {
+                    return units[i];
+                }
             }
         }
     }]);
@@ -47999,21 +48007,13 @@ var render = function() {
   return _c(
     "div",
     _vm._l(_vm.data, function(unit) {
-      return _c(
-        "div",
-        {
-          staticClass:
-            "list-group-item d-flex align-items-center justify-content-between py-1 px-2",
-          attrs: { "data-id": unit.id }
-        },
-        [
-          _c("unit-component", {
-            attrs: { data: unit },
-            on: { modify: _vm.modified }
-          })
-        ],
-        1
-      )
+      return _c("unit-component", {
+        key: unit.id,
+        staticClass:
+          "list-group-item d-flex align-items-center justify-content-between py-1 px-2",
+        attrs: { data: unit, "data-id": unit.id },
+        on: { modify: _vm.modified }
+      })
     })
   )
 }

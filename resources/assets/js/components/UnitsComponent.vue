@@ -1,8 +1,11 @@
 <template>
     <div>
-        <div v-for="unit in data" class="list-group-item d-flex align-items-center justify-content-between py-1 px-2" :data-id="unit.id">
-            <unit-component :data="unit" @modify="modified"></unit-component>
-        </div>
+        <unit-component v-for="unit in data"
+                        :data="unit"
+                        :key="unit.id"
+                        @modify="modified"
+                        class="list-group-item d-flex align-items-center justify-content-between py-1 px-2"
+                        :data-id="unit.id"></unit-component>
     </div>
 </template>
 

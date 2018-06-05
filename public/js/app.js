@@ -14051,7 +14051,7 @@ if (token) {
 }
 
 window.PRE_BUILD_ID = 0;
-window.LockItems = [];
+window.LOCK_ITEMS = [];
 window.USE_ETC = true;
 
 window.events = new Vue();
@@ -47333,8 +47333,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.units.push(unit);
         },
         init: function init() {
-            this.units.forEach(function (unit, index, units) {
-                return unit.setUpperBuild(units).setFormulas(units).calculate();
+            var _this = this;
+
+            this.units.forEach(function (unit) {
+                return unit.setUpperBuild(_this.units).setFormulas(_this.units);
+            });
+
+            // 하위 조합을 모두 구성해야 빌드 스코어 계산이 가능합니다.
+            this.units.forEach(function (unit) {
+                return unit.calculateBuildScore();
             });
         },
         refreshAll: function refreshAll() {
@@ -47345,10 +47352,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     created: function created() {
-        var _this = this;
+        var _this2 = this;
 
         window.events.$on('refreshAll', function () {
-            return _this.refreshAll();
+            return _this2.refreshAll();
         });
     }
 });
@@ -47596,6 +47603,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47613,18 +47629,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        click: function click(e) {
+        setCountByClick: function setCountByClick(e) {
             if (e.shiftKey) {
                 if (this.unit.count > 0) {
-                    this.unit.setCount(this.unit.count - 1);
+                    this.unit.setCount(parseInt(this.unit.count) - 1);
                     refreshAll();
                 }
             } else {
-                this.unit.setCount(this.unit.count + 1);
+                this.unit.setCount(parseInt(this.unit.count) + 1);
                 refreshAll();
             }
         },
-        rightClick: function rightClick() {
+        setCountByKeyUp: function setCountByKeyUp() {
+            this.unit.setCount(this.unit.count);
+
+            refreshAll();
+        },
+        toggleLock: function toggleLock() {},
+        build: function build() {
             this.unit.canBuild();
         }
     }
@@ -47660,17 +47682,18 @@ var Unit = function () {
         this.preBuildWarn = 0;
         this.preBuildID = 0;
         this.percent = 0;
+        this.output = data.name;
     }
 
     _createClass(Unit, [{
-        key: "calculate",
-        value: function calculate() {
+        key: "calculateBuildScore",
+        value: function calculateBuildScore() {
             var _this = this;
 
             if (!this.buildScore) {
                 if (this.formulas && this.formulas.length) {
                     this.formulas.forEach(function (formula) {
-                        formula[0].calculate();
+                        formula[0].calculateBuildScore();
 
                         _this.buildScore += formula[0].buildScore * formula[1];
 
@@ -47697,11 +47720,7 @@ var Unit = function () {
             var formulas = [];
 
             this.formulas.forEach(function (formula) {
-                axios.get("units/" + formula.unit_id).then(function (_ref) {
-                    var data = _ref.data;
-
-                    formulas.push([Unit.get(data.id, units), formula.count]);
-                });
+                formulas.push([Unit.get(formula.unit_id, units), formula.count]);
             });
 
             this.formulas = formulas;
@@ -47744,12 +47763,11 @@ var Unit = function () {
 
             this.percent = Math.round(Math.min(currentScore / maxScore, 1) * 100);
 
-            // change name
             if (this.percent == 100) {
                 // 만들 수 있는 갯수 계산
                 var makeCount = 1;
 
-                if (!this.etc) {
+                if (window.USE_ETC || !this.etc) {
                     for (var i = 0; i < 100; i++) {
                         if (this.preventBuild(false, true).score == this.buildScore) {
                             makeCount++;
@@ -47760,7 +47778,7 @@ var Unit = function () {
                 }
 
                 // 이름 지정
-                this.name = makeCount == 1 ? this.name : "(" + makeCount + ") " + this.name;
+                this.output = makeCount == 1 ? this.name : "(" + makeCount + ") " + this.name;
 
                 // class 추가
                 // this.html.addClass('success');
@@ -47770,7 +47788,7 @@ var Unit = function () {
                 //     this.html.removeClass('warn');
                 // }
             } else if (this.percent > 0) {
-                this.name = this.percent + "% " + this.name;
+                this.output = this.percent + "% " + this.name;
                 // this.html.removeClass('warn');
                 // this.html.removeClass('success');
             } else {}
@@ -47779,7 +47797,7 @@ var Unit = function () {
 
 
                 // Lock Item
-            if (window.LockItems.indexOf(this) != -1) {
+            if (window.LOCK_ITEMS.indexOf(this) != -1) {
                 // count.addClass('lock');
             } else {
                     // count.removeClass('lock');
@@ -47804,8 +47822,8 @@ var Unit = function () {
                 window.PRE_BUILD_ID++;
 
                 if (!skipLocks) {
-                    for (var i = 0; i < window.LockItems.length; i++) {
-                        var lockUnit = window.LockItems[i];
+                    for (var i = 0; i < window.LOCK_ITEMS.length; i++) {
+                        var lockUnit = window.LOCK_ITEMS[i];
 
                         if (lockUnit && this != lockUnit) {
                             lockUnit.preventBuild(false, true);
@@ -47926,35 +47944,45 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "namewrap d-flex",
+        staticClass: "namewrap d-flex position-relative align-items-center",
         on: {
           click: function($event) {
             $event.preventDefault()
-            return _vm.click($event)
+            return _vm.setCountByClick($event)
           },
           contextmenu: function($event) {
             $event.preventDefault()
-            return _vm.rightClick($event)
+            return _vm.build($event)
           }
         }
       },
       [
         _c("img", {
-          staticClass: "img-fluid",
-          staticStyle: { width: "21px" },
+          staticClass: "img-fluid position-relative",
           attrs: { src: "/images/units/" + _vm.unit.image, alt: "" }
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "progress" }),
+        _c("div", { staticClass: "progress position-absolute w-100 h-100" }, [
+          _c("div", {
+            staticClass: "progress-bar bg-info h-100",
+            style: "width:" + _vm.unit.percent + "%;",
+            attrs: {
+              role: "progressbar",
+              "aria-valuenow": _vm.unit.percent,
+              "aria-valuemin": "0",
+              "aria-valuemax": "100"
+            }
+          })
+        ]),
         _vm._v(" "),
         _c("div", {
-          staticClass: "name ml-1",
-          domProps: { textContent: _vm._s(_vm.unit.name) }
+          staticClass: "name ml-1 position-relative",
+          domProps: { textContent: _vm._s(_vm.unit.output) }
         })
       ]
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "d-flex align-items-center" }, [
+    _c("div", { staticClass: "d-flex align-items-center ml-1" }, [
       _c("input", {
         directives: [
           {
@@ -47965,10 +47993,17 @@ var render = function() {
           }
         ],
         staticClass: "count form-control py-0 px-1",
-        staticStyle: { width: "24px" },
         attrs: { type: "number", min: "0" },
         domProps: { value: _vm.unit.count },
         on: {
+          keyup: _vm.setCountByKeyUp,
+          focus: function($event) {
+            $event.target.select()
+          },
+          contextmenu: function($event) {
+            $event.preventDefault()
+            return _vm.toggleLock($event)
+          },
           input: function($event) {
             if ($event.target.composing) {
               return
@@ -47980,7 +48015,6 @@ var render = function() {
       _vm._v(" "),
       _c("i", {
         staticClass: "detail fa fa-question-circle ml-2",
-        staticStyle: { "font-size": "1.3rem" },
         attrs: { "aria-hidden": "true" }
       })
     ])
@@ -48009,8 +48043,7 @@ var render = function() {
     _vm._l(_vm.data, function(unit) {
       return _c("unit-component", {
         key: unit.id,
-        staticClass:
-          "list-group-item d-flex align-items-center justify-content-between py-1 px-2",
+        staticClass: "list-group-item d-flex justify-content-between py-1 px-2",
         attrs: { data: unit, "data-id": unit.id },
         on: { modify: _vm.modified }
       })

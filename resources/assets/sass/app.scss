@@ -12,6 +12,7 @@
 @import '~font-awesome/scss/font-awesome';
 
 input[type='number'] {
+
     -moz-appearance: textfield;
 }
 
@@ -19,4 +20,31 @@ input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+.namewrap {
+    flex: 1;
+
+    .img-fluid {
+        width: 21px;
+        z-index: 1;
+    }
+
+    .progress {
+        background-color: transparent;
+    }
+
+    .name {
+        z-index: 1;
+        font-size: .7rem;
+    }
+}
+
+input.count {
+    width: 24px;
+    font-size: .7rem;
+
+}
+
+.detail {
+    font-size: 1rem;
 }

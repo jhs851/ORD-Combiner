@@ -41,7 +41,7 @@ if (token) {
 }
 
 window.PRE_BUILD_ID = 0;
-window.LockItems = [];
+window.LOCK_ITEMS = [];
 window.USE_ETC = true;
 
 window.events = new Vue();

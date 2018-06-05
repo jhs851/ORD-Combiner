@@ -17,20 +17,21 @@ class Unit {
         this.preBuildWarn = 0;
         this.preBuildID = 0;
         this.percent = 0;
+        this.output = data.name;
     }
 
-    calculate() {
+    calculateBuildScore() {
         if (! this.buildScore) {
             if (this.formulas && this.formulas.length) {
                 this.formulas.forEach(formula => {
-                    formula[0].calculate();
+                    formula[0].calculateBuildScore();
 
-                    this.buildScore += (formula[0].buildScore * formula[1]);
+                    this.buildScore += formula[0].buildScore * formula[1];
 
                     if (formula[0].etc) {
-                        this.etcBuildScore += (formula[0].buildScore * formula[1]);
+                        this.etcBuildScore += formula[0].buildScore * formula[1];
                     } else {
-                        this.etcBuildScore += (formula[0].etcBuildScore * formula[1]);
+                        this.etcBuildScore += formula[0].etcBuildScore * formula[1];
                     }
                 });
             } else {
@@ -49,13 +50,10 @@ class Unit {
         let formulas = [];
 
         this.formulas.forEach(formula => {
-            axios.get(`units/${formula.unit_id}`)
-                 .then(({data}) => {
-                     formulas.push([
-                         Unit.get(data.id, units),
-                         formula.count,
-                     ]);
-                 });
+            formulas.push([
+                Unit.get(formula.unit_id, units),
+                formula.count
+            ]);
         });
 
         this.formulas = formulas;
@@ -93,12 +91,11 @@ class Unit {
 
         this.percent = Math.round(Math.min(currentScore / maxScore, 1) * 100);
 
-        // change name
         if (this.percent == 100) {
             // 만들 수 있는 갯수 계산
             let makeCount = 1;
 
-            if (! this.etc) {
+            if (window.USE_ETC || ! this.etc) {
                 for (let i = 0; i < 100; i++) {
                     if (this.preventBuild(false, true).score == this.buildScore) {
                         makeCount++;
@@ -109,7 +106,7 @@ class Unit {
             }
 
             // 이름 지정
-            this.name = makeCount == 1 ? this.name : `(${makeCount}) ${this.name}`;
+            this.output = makeCount == 1 ? this.name : `(${makeCount}) ${this.name}`;
 
             // class 추가
             // this.html.addClass('success');
@@ -119,7 +116,7 @@ class Unit {
             //     this.html.removeClass('warn');
             // }
         } else if (this.percent > 0) {
-            this.name = `${this.percent}% ${this.name}`;
+            this.output = `${this.percent}% ${this.name}`;
             // this.html.removeClass('warn');
             // this.html.removeClass('success');
         } else {
@@ -128,7 +125,7 @@ class Unit {
         }
 
         // Lock Item
-        if (window.LockItems.indexOf(this) != -1) {
+        if (window.LOCK_ITEMS.indexOf(this) != -1) {
             // count.addClass('lock');
         } else {
             // count.removeClass('lock');
@@ -150,8 +147,8 @@ class Unit {
             window.PRE_BUILD_ID++;
 
             if (! skipLocks) {
-                for (let i = 0; i < window.LockItems.length; i++) {
-                    let lockUnit = window.LockItems[i];
+                for (let i = 0; i < window.LOCK_ITEMS.length; i++) {
+                    let lockUnit = window.LOCK_ITEMS[i];
 
                     if (lockUnit && this != lockUnit) {
                         lockUnit.preventBuild(false, true);

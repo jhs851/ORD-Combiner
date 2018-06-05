@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <combiner-view inline-template class="container-fluid p-0" :units-count="{{ $unitsCount
-     }}">
+    <combiner-view inline-template class="container-fluid p-0" :units-count="{{ $unitsCount }}">
         <div class="row no-gutters">
             <div class="d-flex flex-wrap w-100">
                 @forelse ($columns as $column)

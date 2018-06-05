@@ -22,7 +22,7 @@ class Unit {
         if (! this.buildScore) {
             if (this.formulas && this.formulas.length) {
                 this.formulas.forEach(formula => {
-                    formula[0].calculate();
+                    formula[0].calculateBuildScore();
 
                     this.buildScore += (formula[0].buildScore * formula[1]);
 

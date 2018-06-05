@@ -1,14 +1,23 @@
 <template>
     <div>
-        <div class="namewrap d-flex" @click.prevent="click" v-on:contextmenu.prevent="rightClick">
-            <img class="img-fluid" :src="`/images/units/${unit.image}`" alt="" style="width: 21px;">
-            <div class="progress"></div>
-            <div class="name ml-1" v-text="unit.name"></div>
+        <div class="namewrap d-flex position-relative align-items-center" @click.prevent="setCountByClick" v-on:contextmenu.prevent="build">
+            <img class="img-fluid position-relative" :src="`/images/units/${unit.image}`" alt="">
+            <div class="progress position-absolute w-100 h-100">
+                <div class="progress-bar bg-info h-100" role="progressbar" :style="'width:' + unit.percent + '%;'" :aria-valuenow="unit.percent" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="name ml-1 position-relative" v-text="unit.output"></div>
         </div>
 
-        <div class="d-flex align-items-center">
-            <input class="count form-control py-0 px-1" type="number" min="0" style="width: 24px;" v-model="unit.count">
-            <i class="detail fa fa-question-circle ml-2" aria-hidden="true" style="font-size: 1.3rem;"></i>
+        <div class="d-flex align-items-center ml-1">
+            <input class="count form-control py-0 px-1"
+                   type="number"
+                   min="0"
+                   v-model="unit.count"
+                   @keyup="setCountByKeyUp"
+                   @focus="$event.target.select()"
+                   v-on:contextmenu.prevent="toggleLock">
+
+            <i class="detail fa fa-question-circle ml-2" aria-hidden="true"></i>
         </div>
     </div>
 </template>
@@ -30,19 +39,29 @@
         },
 
         methods: {
-            click(e) {
+            setCountByClick(e) {
                 if (e.shiftKey) {
                     if (this.unit.count > 0) {
-                        this.unit.setCount(this.unit.count - 1);
+                        this.unit.setCount(parseInt(this.unit.count) - 1);
                         refreshAll();
                     }
                 } else {
-                    this.unit.setCount(this.unit.count + 1);
+                    this.unit.setCount(parseInt(this.unit.count) + 1);
                     refreshAll();
                 }
             },
 
-            rightClick() {
+            setCountByKeyUp() {
+                this.unit.setCount(this.unit.count);
+
+                refreshAll();
+            },
+
+            toggleLock() {
+
+            },
+
+            build() {
                 this.unit.canBuild();
             }
         }

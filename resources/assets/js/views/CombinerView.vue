@@ -26,10 +26,14 @@
             },
 
             init() {
-                this.units.forEach((unit, index, units) =>
-                    unit.setUpperBuild(units)
-                        .setFormulas(units)
-                        .calculate()
+                this.units.forEach(unit =>
+                    unit.setUpperBuild(this.units)
+                        .setFormulas(this.units)
+                );
+
+                // 하위 조합을 모두 구성해야 빌드 스코어 계산이 가능합니다.
+                this.units.forEach(unit =>
+                    unit.calculateBuildScore()
                 );
             },
 

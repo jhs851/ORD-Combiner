@@ -1,11 +1,17 @@
 <template>
-    <div>
-        <div class="namewrap d-flex position-relative align-items-center" @click.prevent="setCountByClick" v-on:contextmenu.prevent="build">
-            <img class="img-fluid position-relative" :src="`/images/units/${unit.image}`" alt="">
+    <div :class="{ 'burn': burn }" @mouseover="burn = true" @mouseout="burn = false">
+        <div class="unit d-flex position-relative align-items-center" @click.prevent="setCountByClick" v-on:contextmenu.prevent="build">
             <div class="progress position-absolute w-100 h-100">
-                <div class="progress-bar bg-info h-100" role="progressbar" :style="'width:' + unit.percent + '%;'" :aria-valuenow="unit.percent" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar h-100"
+                     role="progressbar"
+                     :style="progressStyles"
+                     :aria-valuenow="unit.percent"
+                     aria-valuemin="0"
+                     aria-valuemax="100"></div>
             </div>
-            <div class="name ml-1 position-relative" v-text="unit.output"></div>
+
+            <img class="img-fluid position-relative" :src="`/images/units/${unit.image}`" alt="">
+            <div class="output ml-1 position-relative" v-text="unit.output"></div>
         </div>
 
         <div class="d-flex align-items-center ml-1">
@@ -17,7 +23,7 @@
                    @focus="$event.target.select()"
                    v-on:contextmenu.prevent="toggleLock">
 
-            <i class="detail fa fa-question-circle ml-2" aria-hidden="true"></i>
+            <i class="fa fa-question-circle pl-2" aria-hidden="true" @click="showModal"></i>
         </div>
     </div>
 </template>
@@ -30,7 +36,8 @@
 
         data() {
             return {
-                unit: new Unit(this.data)
+                unit: new Unit(this.data),
+                burn: false
             };
         },
 
@@ -38,15 +45,24 @@
             this.$emit('modify', this.unit);
         },
 
+        computed: {
+            progressStyles() {
+                return {
+                    width: this.unit.percent + '%',
+                    backgroundColor: this.unit.percent == 100 ? '#76ff03' : '#bbdefb'
+                }
+            }
+        },
+
         methods: {
             setCountByClick(e) {
                 if (e.shiftKey) {
                     if (this.unit.count > 0) {
-                        this.unit.setCount(parseInt(this.unit.count) - 1);
+                        this.unit.setCount(parseInt(this.unit.count || 0) - 1);
                         refreshAll();
                     }
                 } else {
-                    this.unit.setCount(parseInt(this.unit.count) + 1);
+                    this.unit.setCount(parseInt(this.unit.count || 0) + 1);
                     refreshAll();
                 }
             },
@@ -63,6 +79,10 @@
 
             build() {
                 this.unit.canBuild();
+            },
+
+            showModal() {
+                this.$root.$emit('viewModal', this.unit);
             }
         }
     }

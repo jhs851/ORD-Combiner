@@ -20,6 +20,12 @@ class Unit {
         this.output = data.name;
     }
 
+    getName() {
+        return this.rate
+            ? `${this.name}-${this.rate.name}`
+            : this.name;
+    }
+
     calculateBuildScore() {
         if (! this.buildScore) {
             if (this.formulas && this.formulas.length) {
@@ -120,6 +126,7 @@ class Unit {
             // this.html.removeClass('warn');
             // this.html.removeClass('success');
         } else {
+            this.output = this.name;
             // this.html.removeClass('warn');
             // this.html.removeClass('success');
         }

@@ -21,8 +21,15 @@ input[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-.namewrap {
+
+.burn {
+    border: 1px solid $primary;
+    background-color: #bbdefb;
+}
+
+.unit {
     flex: 1;
+    cursor: pointer;
 
     .img-fluid {
         width: 21px;
@@ -33,18 +40,23 @@ input[type='number']::-webkit-inner-spin-button {
         background-color: transparent;
     }
 
-    .name {
+    .output {
         z-index: 1;
         font-size: .7rem;
+        white-space: nowrap;
     }
 }
 
 input.count {
-    width: 24px;
+    width: 36px;
     font-size: .7rem;
 
 }
 
 .detail {
     font-size: 1rem;
+}
+
+.fa.fa-question-circle {
+    cursor: pointer;
 }

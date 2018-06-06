@@ -218,11 +218,7 @@ class Unit {
             let result = {},
                 addRecord = false;
 
-            // 기록모드이면서 최하유닛이라면 기록한다.
-            if (isRecord && ! newBuild && this.lowest) {
-                addRecord = true;
-
-            } else if (this.formulas && this.formulas.length) {
+             if (this.formulas && this.formulas.length) {
                 let buildScore = 0,
                     warn = (! newBuild && this.warn), // 자기 자신을 만드는데 warning은 필요없음
                     recorderSize = recorder.length;

@@ -2,15 +2,21 @@
 
 @section('content')
     <combiner-view inline-template class="container-fluid p-0" :units-count="{{ $unitsCount }}">
-        <div class="row no-gutters">
-            <div class="d-flex flex-wrap w-100">
-                @forelse ($columns as $column)
-                    <div style="width: {{ 100 / $columns->count() }}%;">
-                        <rates-component :data="{{ $column->rates }}" @fetch="fetched"></rates-component>
+        <div>
+            <div class="container-fluid p-0">
+                <div class="row no-gutters">
+                    <div class="d-flex flex-wrap w-100">
+                        @forelse ($columns as $column)
+                            <div style="width: {{ 100 / $columns->count() }}%;">
+                                <rates-component :data="{{ $column->rates }}" @fetch="fetched"></rates-component>
+                            </div>
+                        @empty
+                        @endforelse
                     </div>
-                @empty
-                @endforelse
+                </div>
             </div>
+
+            <modal-component></modal-component>
         </div>
     </combiner-view>
 

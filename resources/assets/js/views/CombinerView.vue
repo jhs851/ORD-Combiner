@@ -1,10 +1,11 @@
 <script>
     import RatesComponent from '../components/RatesComponent.vue';
+    import ModalComponent from '../components/ModalComponent.vue';
 
     export default {
         props: ['unitsCount'],
 
-        components: { RatesComponent },
+        components: { RatesComponent, ModalComponent },
 
         data() {
             return {
@@ -12,17 +13,13 @@
             };
         },
 
-        watch: {
-            units() {
-                if (this.unitsCount == this.units.length) {
-                    this.init();
-                }
-            }
-        },
-
         methods: {
             fetched(unit) {
                 this.units.push(unit);
+
+                if (this.unitsCount == this.units.length) {
+                    this.init();
+                }
             },
 
             init() {
@@ -32,9 +29,7 @@
                 );
 
                 // 하위 조합을 모두 구성해야 빌드 스코어 계산이 가능합니다.
-                this.units.forEach(unit =>
-                    unit.calculateBuildScore()
-                );
+                this.units.forEach(unit => unit.calculateBuildScore());
             },
 
             refreshAll() {

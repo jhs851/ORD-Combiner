@@ -1,6 +1,6 @@
 <template>
     <div :class="{ 'burn': burn }" @mouseover="burn = true" @mouseout="burn = false">
-        <div class="unit d-flex position-relative align-items-center" @click.prevent="setCountByClick" v-on:contextmenu.prevent="build">
+        <div class="unit d-flex position-relative align-items-center" @click.prevent="setCountByClick" @contextmenu.prevent="build">
             <div class="progress position-absolute w-100 h-100">
                 <div class="progress-bar h-100"
                      role="progressbar"
@@ -21,7 +21,7 @@
                    v-model="unit.count"
                    @keyup="setCountByKeyUp"
                    @focus="$event.target.select()"
-                   v-on:contextmenu.prevent="toggleLock">
+                   @contextmenu.prevent="toggleLock">
 
             <i class="fa fa-question-circle pl-2" aria-hidden="true" @click="showModal"></i>
         </div>
@@ -59,12 +59,12 @@
                 if (e.shiftKey) {
                     if (this.unit.count > 0) {
                         this.unit.setCount(parseInt(this.unit.count || 0) - 1);
-                        refreshAll();
                     }
                 } else {
                     this.unit.setCount(parseInt(this.unit.count || 0) + 1);
-                    refreshAll();
                 }
+
+                refreshAll();
             },
 
             setCountByKeyUp() {

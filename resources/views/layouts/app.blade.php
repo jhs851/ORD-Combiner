@@ -48,37 +48,16 @@
 
     {{-- Styles --}}
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    {{--<link rel="stylesheet" href="http://home.sions.kr/thema/Sions/assets/bs3/css/bootstrap.min.css" type="text/css" class="thema-mode">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/thema/Sions/colorset/Basic/colorset.css" type="text/css" class="thema-colorset">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/thema/Sions/widget/basic-keyword/widget.css?ver=171013">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/skin/board/makeHelper/style.css">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/skin/board/makeHelper/css/view.makeHelper.css">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/skin/board/makeHelper/css/view.tool.css?reg=2018-05-26 10:20:51">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/skin/addon/sign-basic/widget.css">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/thema/Sions/widget/basic-outlogin/widget.css?ver=171013">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/thema/Sions/widget/basic-category/widget.css?ver=171013">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/thema/Sions/widget/basic-post-list/widget.css?ver=171013">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/thema/Sions/widget/basic-sidebar/widget.css?ver=171013">--}}
-    {{--<link rel="stylesheet" href="http://home.sions.kr/css/level/basic.css?ver=171013">--}}
 
     @yield('style')
-
-    {{--<script src="http://home.sions.kr/js/jquery-1.11.3.min.js"></script>--}}
-    {{--<script src="http://home.sions.kr/js/jquery-migrate-1.2.1.min.js"></script>--}}
-    {{--<script src="/js/temp/common.js"></script>--}}
-    {{--<script src="/js/temp/Template.js"></script>--}}
-    {{--<script src="/js/temp/Rate.js"></script>--}}
-    {{--<script src="/js/temp/Unit.js"></script>--}}
-    {{--<script src="/js/temp/helpers.js"></script>--}}
-    {{--<script src="/js/temp/tool.js"></script>--}}
 </head>
 
 <body class="responsive is-pc">
     <div id="app">
         @yield('content')
-    </div>
 
-    @include('layouts.partial.footer')
+        @include('layouts.partial.footer')
+    </div>
 
     {{-- Scripts --}}
     <script src="{{ mix('js/app.js') }}"></script>

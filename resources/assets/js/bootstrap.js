@@ -43,6 +43,9 @@ if (token) {
 window.PRE_BUILD_ID = 0;
 window.LOCK_ITEMS = [];
 window.USE_ETC = true;
+window.RECORDER = [];
+window.IS_RECORD_LOWEST = false;
+window.IS_RECORD = false;
 
 window.events = new Vue();
 window.refreshAll = () => window.events.$emit('refreshAll');

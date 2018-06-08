@@ -540,8 +540,7 @@ Item.prototype.PreBuild = function(newBuild, skipCount, skipLocks, absMake)
             var warn = (!newBuild && this.warn); // 자기 자신을 만드는데 warning은 필요없음
             var recorderSize = recorder.length;
 
-            for(var j=0; j<this.recipes.length; j++)
-            {
+            for (var j = 0; j < this.recipes.length; j++) {
                 var recipe = this.recipes[j];
                 for(var i=0; i<recipe[1]; i++)
                 {

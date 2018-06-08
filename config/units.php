@@ -15,7 +15,7 @@ return [
             'lowest' => true,
         ],
         '조로' => [
-            'description' => '',
+            'description' => '정형석입니다.',
             'image' => 'File00000248.jpg',
             'warn' => true,
             'lowest' => true,
@@ -196,11 +196,11 @@ return [
             'image' => 'File00000226.jpg',
         ],
         '조로 귀기' => [
-            'description' => '',
+            'description' => '정형석 귀기 입니다.',
             'image' => '33845a1ea8de190ef6.11876619.png',
         ],
         '조로 초신성' => [
-            'description' => '',
+            'description' => '정형석 초신성 입니다.',
             'image' => 'File00000248.jpg',
         ],
         '징베' => [
@@ -382,7 +382,7 @@ return [
             'image' => 'File00000560.jpg',
         ],
         '조로' => [
-            'description' => '',
+            'description' => '정형석 입니다.',
             'image' => '33845a1ea8de190ef6.11876619.png',
         ],
         '죠즈' => [
@@ -516,7 +516,7 @@ return [
             'image' => 'File00000560.jpg',
         ],
         '조로' => [
-            'description' => '',
+            'description' => '정형석 입니다.',
             'image' => 'File00000248.jpg',
         ],
         '징베' => [
@@ -716,7 +716,7 @@ return [
             'image' => 'File00000379.jpg',
         ],
         '조로' => [
-            'description' => 'Command: 최강의검사',
+            'description' => 'Command: 최강의검사 or 최강의형석',
             'image' => 'File00000378.jpg',
         ],
         '쵸파' => [
@@ -740,7 +740,7 @@ return [
             'image' => 'File00000509.jpg',
         ],
         '빅맘' => [
-            'description' => '탐식의 강철풍선',
+            'description' => 'Command: 탐식의 강철풍선',
             'image' => '',
         ],
     ],
@@ -882,7 +882,7 @@ return [
             'etc' => true,
         ],
         '좀비' => [
-            'description' => '모리아-전설의 스킬로 얻을 수 있습니다',
+            'description' => '모리아-특별함의 스킬로 얻을 수 있습니다',
             'image' => 'zombie.jpg',
             'etc' => true,
         ],

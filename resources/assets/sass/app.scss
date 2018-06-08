@@ -12,7 +12,6 @@
 @import '~font-awesome/scss/font-awesome';
 
 input[type='number'] {
-
     -moz-appearance: textfield;
 }
 
@@ -59,4 +58,8 @@ input.count {
 
 .fa.fa-question-circle {
     cursor: pointer;
+}
+
+.modal-body img {
+    width: 40px;
 }

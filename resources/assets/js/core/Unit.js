@@ -10,6 +10,7 @@ class Unit {
         this.lowest = data.lowest;
         this.formulas = data.formulas || [];
         this.upperBuild = [];
+        this.topBuild = [];
         this.count = 0;
         this.buildScore = 0;
         this.etcBuildScore = 0;
@@ -24,6 +25,46 @@ class Unit {
         return this.rate
             ? `${this.name}-${this.rate.name}`
             : this.name;
+    }
+
+    getNecessaries() {
+        window.RECORDER = [];
+        window.IS_RECORD = true;
+
+        this.preventBuild(true, true);
+
+        window.IS_RECORD = false;
+
+        return this.calculateRecorderData();
+    }
+
+    getLowestNecessaries() {
+        window.RECORDER = [];
+        window.IS_RECORD = true;
+        window.IS_RECORD_LOWEST = true;
+
+        this.preventBuild(true, true);
+
+        window.IS_RECORD = false;
+        window.IS_RECORD_LOWEST = false;
+
+        return this.calculateRecorderData();
+    }
+
+    calculateRecorderData() {
+        let newRecorder = [];
+
+        window.RECORDER.forEach(recorder => {
+            let unitSet = newRecorder.find((a) => a[0] == recorder);
+
+            if (unitSet) {
+                unitSet[1]++;
+            } else {
+                newRecorder.push([recorder, 1]);
+            }
+        });
+
+        return newRecorder;
     }
 
     calculateBuildScore() {
@@ -63,6 +104,20 @@ class Unit {
         });
 
         this.formulas = formulas;
+
+        return this;
+    }
+
+    setTopBuild(units) {
+        units.forEach(unit => {
+            if (unit != this && unit.upperBuild) {
+                unit.preventBuild(true, true, true, true);
+
+                if (this.preBuildID == window.PRE_BUILD_ID) {
+                    this.topBuild.push(unit);
+                }
+            }
+        });
 
         return this;
     }
@@ -114,21 +169,10 @@ class Unit {
             // 이름 지정
             this.output = makeCount == 1 ? this.name : `(${makeCount}) ${this.name}`;
 
-            // class 추가
-            // this.html.addClass('success');
-            // if (preBuild.warn) {
-            //     this.html.addClass('warn');
-            // } else {
-            //     this.html.removeClass('warn');
-            // }
         } else if (this.percent > 0) {
             this.output = `${this.percent}% ${this.name}`;
-            // this.html.removeClass('warn');
-            // this.html.removeClass('success');
         } else {
             this.output = this.name;
-            // this.html.removeClass('warn');
-            // this.html.removeClass('success');
         }
 
         // Lock Item
@@ -185,11 +229,15 @@ class Unit {
                 warn: false
             };
         } else {
-            let result = {};
+            let result = {},
+                addRecord = false;
 
-            if (this.formulas && this.formulas.length) {
+            if (window.IS_RECORD && ! newBuild && this.lowest) {
+                addRecord = true;
+            } else if (this.formulas && this.formulas.length) {
                 let buildScore = 0,
-                    warn = (! newBuild && this.warn); // 자기 자신을 만드는데 warning은 필요없음
+                    warn = (! newBuild && this.warn),
+                    recorderSize = window.RECORDER.length;
 
                 this.formulas.forEach(formula => {
                     for (let i = 0; i < formula[1]; i++) {
@@ -200,11 +248,29 @@ class Unit {
                     }
                 });
 
-                result = {
-                    score: buildScore,
-                    warn: warn
-                };
+                if (window.IS_RECORD && ! newBuild && buildScore < this.buildScore && ! window.IS_RECORD_LOWEST) {
+                    window.RECORDER = window.RECORDER.slice(0, recorderSize);
+                    addRecord = true;
+                } else {
+                    result = {
+                        score: buildScore,
+                        warn: warn
+                    };
+                }
             } else {
+                if(window.IS_RECORD && ! newBuild) {
+                    addRecord = true;
+                } else {
+                    result = {
+                        score: 0,
+                        warn: false
+                    };
+                }
+            }
+
+            if (addRecord) {
+                window.RECORDER.push(this);
+
                 result = {
                     score: 0,
                     warn: false

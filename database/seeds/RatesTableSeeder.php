@@ -19,11 +19,12 @@ class RatesTableSeeder extends Seeder
         foreach ($columns as $columnId => $rates) {
             collect($rates)
                 ->filter(function($rate) {
-                    return ! Rate::where('name', $rate)->exists();
+                    return ! Rate::where('name', $rate['name'])->exists();
                 })
                 ->each(function($rate) use ($columnId) {
                     Column::find($columnId)->rates()->create([
-                        'name' => $rate
+                        'name' => $rate['name'],
+                        'color' => $rate['color'],
                     ]);
                 });
         }

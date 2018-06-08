@@ -19,9 +19,10 @@ class Unit {
         this.preBuildID = 0;
         this.percent = 0;
         this.output = data.name;
+        this.lock = false;
     }
 
-    getName() {
+    getNameWithRate() {
         return this.rate
             ? `${this.name}-${this.rate.name}`
             : this.name;
@@ -174,13 +175,6 @@ class Unit {
         } else {
             this.output = this.name;
         }
-
-        // Lock Item
-        if (window.LOCK_ITEMS.indexOf(this) != -1) {
-            // count.addClass('lock');
-        } else {
-            // count.removeClass('lock');
-        }
     }
 
     /**
@@ -198,13 +192,11 @@ class Unit {
             window.PRE_BUILD_ID++;
 
             if (! skipLocks) {
-                for (let i = 0; i < window.LOCK_ITEMS.length; i++) {
-                    let lockUnit = window.LOCK_ITEMS[i];
-
-                    if (lockUnit && this != lockUnit) {
-                        lockUnit.preventBuild(false, true);
+                window.LOCK_UNITS.forEach(unit => {
+                    if (unit && this != unit) {
+                        unit.preventBuild(false, true);
                     }
-                }
+                });
             }
         }
 

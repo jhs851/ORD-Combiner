@@ -13,7 +13,7 @@ class RateTest extends TestCase
     {
         $this->assertEquals(
             array_flatten(config('rates')),
-            Rate::orderBy('id', 'asc')->pluck('name')->toArray()
+            array_flatten(Rate::orderBy('id', 'asc')->without('units')->get(['name', 'color'])->toArray())
         );
     }
 

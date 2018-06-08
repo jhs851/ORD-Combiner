@@ -41,7 +41,7 @@ if (token) {
 }
 
 window.PRE_BUILD_ID = 0;
-window.LOCK_ITEMS = [];
+window.LOCK_UNITS = [];
 window.USE_ETC = true;
 window.RECORDER = [];
 window.IS_RECORD_LOWEST = false;

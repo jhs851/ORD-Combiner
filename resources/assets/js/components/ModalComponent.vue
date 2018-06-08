@@ -63,7 +63,7 @@
                         <div class="border-top d-flex justify-content-center pt-3 pb-2">
                             <div class="text-center mx-2" v-for="upper in upperBuild">
                                 <img class="img-fluid" :src="'/images/units/' + upper.image" alt="">
-                                <small class="d-block mt-1" v-text="upper ? upper.getName() : ''"></small>
+                                <small class="d-block mt-1" v-text="upper ? upper.getNameWithRate() : ''"></small>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                         <div class="border-top d-flex justify-content-center pt-3 pb-2">
                             <div class="text-center mx-2" v-for="top in topBuild">
                                 <img class="img-fluid" :src="'/images/units/' + top.image" alt="">
-                                <small class="d-block mt-1" v-text="top ? top.getName() : ''"></small>
+                                <small class="d-block mt-1" v-text="top ? top.getNameWithRate() : ''"></small>
                             </div>
                         </div>
                     </div>
@@ -112,13 +112,13 @@
 
         filters: {
             nameWithCount(unit) {
-                return unit[0].getName() + (unit[1] > 1 ? ` x${unit[1]}` : '');
+                return unit[0].getNameWithRate() + (unit[1] > 1 ? ` x${unit[1]}` : '');
             }
         },
 
         computed: {
             name() {
-                return this.unit ? this.unit.getName() : '';
+                return this.unit ? this.unit.getNameWithRate() : '';
             }
         }
     }

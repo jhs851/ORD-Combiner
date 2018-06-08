@@ -15,6 +15,7 @@ class Rate extends Model
      */
     protected $fillable = [
         'name',
+        'color',
     ];
 
     /**

@@ -15,7 +15,7 @@
         </div>
 
         <div class="d-flex align-items-center ml-1">
-            <input class="count form-control py-0 px-1"
+            <input :class="countClasses"
                    type="number"
                    min="0"
                    v-model="unit.count"
@@ -51,6 +51,10 @@
                     width: this.unit.percent + '%',
                     backgroundColor: this.unit.percent == 100 ? '#76ff03' : '#bbdefb'
                 }
+            },
+
+            countClasses() {
+                return ['count', 'form-control', 'py-0', 'px-1', this.unit.lock ? 'bg-warning' : ''];
             }
         },
 
@@ -74,7 +78,29 @@
             },
 
             toggleLock() {
+                // let idx = window.LOCK_UNITS.indexOf(this.unit);
+                //
+                // if (idx != -1) {
+                //     window.LOCK_UNITS[idx] = null;
+                // } else {
+                //     let added = false;
+                //
+                //     for (let i = 0; i < window.LOCK_UNITS.length; i++) {
+                //         if (! window.LOCK_UNITS[i]) {
+                //             window.LOCK_UNITS[i] = this.unit;
+                //             added = true;
+                //             break;
+                //         }
+                //     }
+                //
+                //     if (! added) {
+                //         window.LOCK_UNITS.push(this.unit);
+                //     }
+                // }
+                //
+                // refreshAll();
 
+                // this.unit.lock = ! this.unit.lock;
             },
 
             build() {

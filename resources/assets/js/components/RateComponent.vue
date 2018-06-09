@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="list-group-item py-1 px-2 text-white" v-text="data.name" @click="show = ! show" :style="styles"></div>
+        <div class="list-group-item py-1 px-2 text-white waves-effect waves-light" v-text="data.name" @click="show = ! show" :style="styles"></div>
 
         <units-component :class="classes" :data="data.units" @update="updated"></units-component>
     </div>
@@ -28,7 +28,8 @@
             styles() {
                 return {
                     backgroundColor: this.data.color,
-                    borderColor: this.data.color
+                    borderColor: this.data.color,
+                    cursor: 'pointer'
                 }
             }
         },

@@ -9,8 +9,7 @@ class Unit {
         this.etc = data.etc;
         this.lowest = data.lowest;
         this.formulas = data.formulas || [];
-        this.upperBuild = [];
-        this.topBuild = [];
+        this.uppers = data.uppers || [];
         this.count = 0;
         this.buildScore = 0;
         this.etcBuildScore = 0;
@@ -53,19 +52,19 @@ class Unit {
     }
 
     calculateRecorderData() {
-        let newRecorder = [];
+        let result = [];
 
         window.RECORDER.forEach(recorder => {
-            let unitSet = newRecorder.find((a) => a[0] == recorder);
+            let unitSet = result.find((a) => a[0] == recorder);
 
             if (unitSet) {
                 unitSet[1]++;
             } else {
-                newRecorder.push([recorder, 1]);
+                result.push([recorder, 1]);
             }
         });
 
-        return newRecorder;
+        return result;
     }
 
     calculateBuildScore() {
@@ -109,30 +108,16 @@ class Unit {
         return this;
     }
 
-    setTopBuild(units) {
-        units.forEach(unit => {
-            if (unit != this && unit.upperBuild) {
-                unit.preventBuild(true, true, true, true);
+     setUppers(units) {
+         let uppers = [];
 
-                if (this.preBuildID == window.PRE_BUILD_ID) {
-                    this.topBuild.push(unit);
-                }
-            }
-        });
+         this.uppers.forEach(upper => {
+             uppers.push(Unit.get(upper.unit_id, units));
+         });
 
-        return this;
-    }
+         this.uppers = uppers;
 
-    setUpperBuild(units) {
-        units.forEach(unit => {
-            unit.formulas.forEach(formula => {
-                if (this.id == formula.unit_id) {
-                    this.upperBuild.push(unit);
-                }
-            });
-        });
-
-        return this;
+         return this;
     }
 
     setCount(count) {
@@ -154,7 +139,6 @@ class Unit {
         this.percent = Math.round(Math.min(currentScore / maxScore, 1) * 100);
 
         if (this.percent == 100) {
-            // 만들 수 있는 갯수 계산
             let makeCount = 1;
 
             if (window.USE_ETC || ! this.etc) {
@@ -167,11 +151,10 @@ class Unit {
                 }
             }
 
-            // 이름 지정
             this.output = makeCount == 1 ? this.name : `(${makeCount}) ${this.name}`;
 
         } else if (this.percent > 0) {
-            this.output = `${this.percent}% ${this.name}`;
+            this.output = `<span class="font-weight-bold">${this.percent}%</span> ${this.name}`;
         } else {
             this.output = this.name;
         }

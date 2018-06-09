@@ -12,4 +12,12 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .scripts([
+        'public/js/app.js',
+        'node_modules/mdbootstrap/js/mdb.js',
+    ], 'public/js/app.js');
+
+if (mix.inProduction()) {
+    mix.version();
+}

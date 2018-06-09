@@ -1,7 +1,7 @@
 <template>
     <div :class="{ 'burn': burn }" @mouseover="burn = true" @mouseout="burn = false">
-        <div class="unit d-flex position-relative align-items-center" @click.prevent="setCountByClick" @contextmenu.prevent="build">
-            <div class="progress position-absolute w-100 h-100">
+        <div class="unit d-flex position-relative align-items-center py-1 px-1 waves-effect waves-dark" @click.prevent="setCountByClick" @contextmenu.prevent="build">
+            <div class="progress position-absolute h-100 py-1" style="left: .25rem; right: .25rem;">
                 <div class="progress-bar h-100"
                      role="progressbar"
                      :style="progressStyles"
@@ -11,10 +11,10 @@
             </div>
 
             <img class="img-fluid position-relative" :src="`/images/units/${unit.image}`" alt="">
-            <div class="output ml-1 position-relative" v-text="unit.output"></div>
+            <div class="output ml-1 position-relative" v-html="unit.output"></div>
         </div>
 
-        <div class="d-flex align-items-center ml-1">
+        <div class="d-flex align-items-center py-1 pr-1">
             <input :class="countClasses"
                    type="number"
                    min="0"

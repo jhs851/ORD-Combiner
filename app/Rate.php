@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsTo, Relations\HasMany
+    Model, Relations\HasMany
 };
 
 class Rate extends Model
@@ -39,6 +39,6 @@ class Rate extends Model
      */
     public function units() : HasMany
     {
-        return $this->hasMany(Unit::class)->with(['rate', 'formulas']);
+        return $this->hasMany(Unit::class)->with(['rate', 'formulas', 'uppers']);
     }
 }

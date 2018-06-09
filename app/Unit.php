@@ -55,4 +55,12 @@ class Unit extends Model
     {
         return $this->hasMany(Formula::class, 'target_id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function uppers() : HasMany
+    {
+        return $this->hasMany(Upper::class, 'target_id');
+    }
 }

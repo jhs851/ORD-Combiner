@@ -21,7 +21,7 @@
                     <div v-show="formulas.length">
                         <p class="m-0 py-2">조합법</p>
 
-                        <div class="border-top d-flex justify-content-center pt-3 pb-2">
+                        <div class="border-top d-flex justify-content-center flex-wrap pt-3 pb-2">
                             <div class="text-center mx-2" v-for="formula in formulas">
                                 <div style="cursor: pointer;" @click="refresh(formula[0])">
                                     <img class="img-fluid" :src="'/images/units/' + formula[0].image" alt="">
@@ -36,7 +36,7 @@
                     <div v-show="necessaries.length">
                         <p class="m-0 py-2 border-top">부족한 재료</p>
 
-                        <div class="border-top d-flex justify-content-center pt-3 pb-2">
+                        <div class="border-top d-flex justify-content-center flex-wrap pt-3 pb-2">
                             <div class="text-center mx-2" v-for="necessary in necessaries">
                                 <div style="cursor: pointer;" @click="refresh(necessary[0])">
                                     <img class="img-fluid" :src="`/images/units/${necessary[0].image}`" alt="">
@@ -51,7 +51,7 @@
                     <div v-show="lowestNecessaries.length">
                         <p class="m-0 py-2 border-top">부족한 재료 (최하위)</p>
 
-                        <div class="border-top d-flex justify-content-center pt-3 pb-2">
+                        <div class="border-top d-flex justify-content-center flex-wrap pt-3 pb-2">
                             <div class="text-center mx-2" v-for="necessary in lowestNecessaries">
                                 <div style="cursor: pointer;" @click="refresh(necessary[0])">
                                     <img class="img-fluid" :src="`/images/units/${necessary[0].image}`" alt="">
@@ -66,7 +66,7 @@
                     <div v-show="uppers.length">
                         <p class="m-0 py-2 border-top">상위 조합</p>
 
-                        <div class="border-top d-flex justify-content-center pt-3 pb-2">
+                        <div class="border-top d-flex justify-content-center flex-wrap pt-3 pb-2">
                             <div class="text-center mx-2" v-for="upper in uppers">
                                 <div style="cursor: pointer;" @click="refresh(upper)">
                                     <img class="img-fluid" :src="'/images/units/' + upper.image" alt="">

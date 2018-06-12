@@ -16,5 +16,18 @@ require('./bootstrap');
 Vue.component('combiner-view', require('./views/CombinerView.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+
+    mounted() {
+        toastr.options = {
+            useDanedenAnimationInShow: true,
+            useDanedenAnimationInHide: true,
+            showMethod: 'bounceInRight',
+            hideMethod: 'fadeOutRight',
+            positionClass: 'toast-bottom-right',
+            timeOut: 3000,
+            newestOnTop: false,
+            progressBar: true,
+        };
+    }
 });

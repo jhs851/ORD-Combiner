@@ -13,6 +13,8 @@ try {
 
     window.Vue = require('vue');
 
+    window.toastr = require('toastr');
+
     require('bootstrap');
 } catch (e) {}
 

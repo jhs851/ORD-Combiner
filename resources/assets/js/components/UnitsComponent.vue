@@ -4,8 +4,7 @@
                         :data="unit"
                         :key="unit.id"
                         @modify="modified"
-                        class="list-group-item d-flex justify-content-between p-0"
-                        :data-id="unit.id"></unit-component>
+                        class="list-group-item d-flex justify-content-between p-0"></unit-component>
     </div>
 </template>
 

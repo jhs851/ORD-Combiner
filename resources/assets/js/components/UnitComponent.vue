@@ -15,6 +15,8 @@
         </div>
 
         <div class="d-flex align-items-center py-1 pr-1">
+            <button class="btn btn-default btn-sm d-md-none m-0 mr-2 py-1 px-2 z-depth-0" @click.prevent="build">조합</button>
+
             <input class="count form-control py-0 px-1"
                    type="number"
                    min="0"

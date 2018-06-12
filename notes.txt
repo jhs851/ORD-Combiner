@@ -6,3 +6,4 @@
 
 NPM Package 수정사항
 1. mdbootstrap/scss/core/_typography.scss
+2. toastr/{ toastr.scss, toastr.js }

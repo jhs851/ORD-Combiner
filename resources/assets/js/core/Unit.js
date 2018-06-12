@@ -264,7 +264,7 @@ class Unit {
     build(newBuild) {
         if (newBuild) {
             if (this.preventBuild(true, true).score != this.buildScore) {
-                console.log(`Can not make '${this.name}'. Because not passed Prevent Build.`);
+                toastr.error(`재료가 부족해 <b>'${this.name}'</b>을(를) 만들 수 없습니다.`);
 
                 return false;
             }

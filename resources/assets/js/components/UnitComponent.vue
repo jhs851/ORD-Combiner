@@ -1,7 +1,7 @@
 <template>
     <div :class="{ 'burn': burn }" @mouseover="burn = true" @mouseout="burn = false">
         <div class="unit d-flex position-relative align-items-center py-1 px-1 waves-effect waves-dark" @click.prevent="setCountByClick" @contextmenu.prevent="build">
-            <div class="progress position-absolute h-100 py-1" style="left: .25rem; right: .25rem;">
+            <div class="progress position-absolute h-100 py-1">
                 <div class="progress-bar h-100"
                      role="progressbar"
                      :style="progressStyles"
@@ -15,13 +15,12 @@
         </div>
 
         <div class="d-flex align-items-center py-1 pr-1">
-            <input :class="countClasses"
+            <input class="count form-control py-0 px-1"
                    type="number"
                    min="0"
                    v-model="unit.count"
                    @keyup="setCountByKeyUp"
-                   @focus="$event.target.select()"
-                   @contextmenu.prevent="toggleLock">
+                   @focus="$event.target.select()">
 
             <i class="fa fa-question-circle pl-2" aria-hidden="true" @click="showModal"></i>
         </div>
@@ -51,56 +50,20 @@
                     width: this.unit.percent + '%',
                     backgroundColor: this.unit.percent == 100 ? '#76ff03' : '#bbdefb'
                 }
-            },
-
-            countClasses() {
-                return ['count', 'form-control', 'py-0', 'px-1', this.unit.lock ? 'bg-warning' : ''];
             }
         },
 
         methods: {
             setCountByClick(e) {
-                if (e.shiftKey) {
-                    if (this.unit.count > 0) {
-                        this.unit.setCount(parseInt(this.unit.count || 0) - 1);
-                    }
-                } else {
-                    this.unit.setCount(parseInt(this.unit.count || 0) + 1);
-                }
+                this.unit.setCount(parseInt(this.unit.count || 0) + (e.shiftKey && this.unit.count > 0 ?  -1 : 1));
 
                 refreshAll();
             },
 
             setCountByKeyUp() {
-                this.unit.setCount(this.unit.count);
+                this.unit.setCount(parseInt(this.unit.count || 0));
 
                 refreshAll();
-            },
-
-            toggleLock() {
-                // let idx = window.LOCK_UNITS.indexOf(this.unit);
-                //
-                // if (idx != -1) {
-                //     window.LOCK_UNITS[idx] = null;
-                // } else {
-                //     let added = false;
-                //
-                //     for (let i = 0; i < window.LOCK_UNITS.length; i++) {
-                //         if (! window.LOCK_UNITS[i]) {
-                //             window.LOCK_UNITS[i] = this.unit;
-                //             added = true;
-                //             break;
-                //         }
-                //     }
-                //
-                //     if (! added) {
-                //         window.LOCK_UNITS.push(this.unit);
-                //     }
-                // }
-                //
-                // refreshAll();
-
-                // this.unit.lock = ! this.unit.lock;
             },
 
             build() {

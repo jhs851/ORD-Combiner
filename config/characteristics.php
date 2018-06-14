@@ -25,6 +25,5 @@ return [
     ['name' => '공중이동', 'regexp' => '공중이동', 'color' => 'teal'],
     ['name' => '바다이동', 'regexp' => '바다이동', 'color' => 'tomato'],
     ['name' => '순간이동', 'regexp' => '순간이동', 'color' => '#9acd32'],
-    ['name' => '블링크', 'regexp' => '블링크', 'color' => 'black'],
 
 ];

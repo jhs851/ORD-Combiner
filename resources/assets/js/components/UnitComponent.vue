@@ -1,18 +1,15 @@
 <template>
-    <div class="list-group-item p-0" :class="{ 'burn': burn }" @mouseover="burn = true" @mouseout="burn = false" v-show="show">
+    <div class="list-group-item p-0" :class="{ 'burn': burn }" @mouseover="burn = true" @mouseout="burn = false" v-show="unit.show">
         <div class="d-flex justify-content-between">
-            <div class="unit d-flex position-relative align-items-center py-1 px-1 waves-effect waves-dark" @click.prevent="setCountByClick" @contextmenu.prevent="build">
-                <div class="progress position-absolute h-100 py-1">
-                    <div class="progress-bar h-100"
-                         role="progressbar"
-                         :style="progressStyles"
-                         :aria-valuenow="unit.percent"
-                         aria-valuemin="0"
-                         aria-valuemax="100"></div>
-                </div>
+            <div class="unit-wrap position-relative">
+                <filters-component :data="unit"></filters-component>
 
-                <img class="img-fluid position-relative" :src="`/images/units/${unit.image}`" alt="">
-                <div class="output ml-1 position-relative" v-html="unit.output"></div>
+                <progress-component :percent="unit.percent"></progress-component>
+
+                <div class="unit d-flex align-items-center py-1 px-1 waves-effect waves-dark" @click.prevent="setCountByClick" @contextmenu.prevent="build">
+                    <img class="img-fluid position-relative" :src="`/images/units/${unit.image}`" alt="">
+                    <div class="output ml-1 position-relative" v-html="unit.output"></div>
+                </div>
             </div>
 
             <div class="d-flex align-items-center py-1 pr-1">
@@ -33,39 +30,23 @@
 
 <script>
     import Unit from '../core/Unit.js';
+    import ProgressComponent from './ProgressComponent.vue';
+    import FiltersComponent from './FiltersComponent.vue';
 
     export default {
         props: ['data'],
 
+        components: { ProgressComponent, FiltersComponent },
+
         data() {
             return {
                 unit: new Unit(this.data),
-                burn: false,
-                show: true
+                burn: false
             };
         },
 
         created() {
             this.$emit('modify', this.unit);
-        },
-
-        computed: {
-            progressStyles() {
-                return {
-                    width: this.unit.percent + '%',
-                    backgroundColor: this.unit.percent == 100 ? '#76ff03' : '#bbdefb'
-                }
-            }
-        },
-
-        mounted() {
-            this.$root.$on('filter', includes => {
-                if (! includes.length) {
-                    return this.show = true;
-                }
-
-                this.show = this.unit.lowest || this.unit.rate.name == '안흔함' || includes.indexOf(this.unit.id) > -1;
-            });
         },
 
         methods: {

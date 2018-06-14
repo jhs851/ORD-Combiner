@@ -18,6 +18,7 @@ class Unit {
         this.preBuildID = 0;
         this.percent = 0;
         this.output = data.name;
+        this.show = true;
     }
 
     getNameWithRate() {

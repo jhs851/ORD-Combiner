@@ -23,15 +23,13 @@
             on() {
                 this.active = true;
 
-                this.$emit('on', this.data);
+                this.$root.$emit('filter', this.data);
             },
 
-            off(communication = false) {
+            off() {
                 this.active = false;
 
-                if (communication) {
-                    this.$emit('off', this.data);
-                }
+                this.$root.$emit('except', this.data);
             }
         },
 

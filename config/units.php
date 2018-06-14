@@ -86,7 +86,7 @@ return [
             'image' => 'File00000302.jpg',
         ],
         '스모커' => [
-            'description' => '',
+            'description' => '이감',
             'image' => 'File00000382.jpg',
         ],
         '에이스' => [
@@ -132,7 +132,7 @@ return [
             'image' => 'File00000264.jpg',
         ],
         '나미' => [
-            'description' => '',
+            'description' => '이감',
             'image' => 'File00000243.jpg',
         ],
         '로브 루치' => [
@@ -144,7 +144,7 @@ return [
             'image' => 'File00000244.jpg',
         ],
         '로우' => [
-            'description' => '',
+            'description' => '스킬(공속) / 순간이동',
             'image' => 'File00000269.jpg',
         ],
         '루피' => [
@@ -216,7 +216,7 @@ return [
             'image' => 'File00000316.jpg',
         ],
         '쵸파 점프강화' => [
-            'description' => '',
+            'description' => '공속오라',
             'image' => 'File00000318.jpg',
         ],
         '카포네 갱 벳지' => [
@@ -228,11 +228,11 @@ return [
             'image' => 'File00000292.jpg',
         ],
         '크로커다일' => [
-            'description' => '',
+            'description' => '이감',
             'image' => 'File00000268.jpg',
         ],
         '키드' => [
-            'description' => '',
+            'description' => '이감',
             'image' => 'File00000259.jpg',
         ],
         '킬러' => [
@@ -270,7 +270,7 @@ return [
             'image' => 'File00000216.jpg',
         ],
         '로우' => [
-            'description' => '',
+            'description' => '스킬(공속) / 순간이동',
             'image' => 'File00000269.jpg',
         ],
         '루피' => [
@@ -322,7 +322,7 @@ return [
             'image' => 'File00000291.jpg',
         ],
         '브룩' => [
-            'description' => '',
+            'description' => '공속오라',
             'image' => 'File00000302.jpg',
         ],
         '비비' => [
@@ -346,11 +346,11 @@ return [
             'image' => 'File00000292.jpg',
         ],
         '슈가' => [
-            'description' => '',
+            'description' => '마나젠',
             'image' => '312215a1e5450ecb9e4.12149098.png',
         ],
         '스모커' => [
-            'description' => '',
+            'description' => '이감',
             'image' => 'File00000382.jpg',
         ],
         '시류' => [
@@ -358,7 +358,7 @@ return [
             'image' => 'File00000321.jpg',
         ],
         '아오키지' => [
-            'description' => '',
+            'description' => '이감',
             'image' => 'File00000311.jpg',
         ],
         '아카이누' => [
@@ -390,15 +390,15 @@ return [
             'image' => 'File00000280.jpg',
         ],
         '쵸파 가드포인트' => [
-            'description' => '',
+            'description' => '공증',
             'image' => 'File00000314.jpg',
         ],
         '크로커다일' => [
-            'description' => '',
+            'description' => '이감',
             'image' => 'File00000268.jpg',
         ],
         '키드' => [
-            'description' => '',
+            'description' => '이감',
             'image' => 'File00000259.jpg',
         ],
         '키자루' => [
@@ -410,7 +410,7 @@ return [
             'image' => 'File00000480.jpg',
         ],
         '페로나' => [
-            'description' => '',
+            'description' => '이감',
             'image' => 'File00000238.jpg',
         ],
         '프랑키' => [
@@ -424,7 +424,7 @@ return [
             'image' => 'File00000479.jpg',
         ],
         '검은수염' => [
-            'description' => '마뎀 / 끌어당기기 / 단일도킹10% / 스킬(범퍼1%)',
+            'description' => '마뎀 / 끌어당기기 / 단일도킹10% / 마나스킬(범퍼1%)',
             'image' => 'File00000381.jpg',
         ],
         '겟코 모리아' => [
@@ -448,7 +448,7 @@ return [
             'image' => '215675a1e54853a3f26.10813644.png',
         ],
         '레일리' => [
-            'description' => '물뎀 / 보조딜 / 방깎15 / 스킬(스턴3초, 아머브레이크3) / 공속오라20',
+            'description' => '물뎀 / 보조딜 / 방깎15 / 마나스킬(스턴3초, 아머브레이크3) / 공속오라20',
             'image' => 'File00000231.jpg',
         ],
         '로브 루치' => [
@@ -520,7 +520,7 @@ return [
             'image' => 'File00000248.jpg',
         ],
         '징베' => [
-            'description' => '마뎀 / 마나젠3 / 바다이동',
+            'description' => '마뎀 / 마나젠3 / 바다이동 / 마나스킬',
             'image' => 'File00000267.jpg',
         ],
         '쵸파 럼블볼 폭주' => [
@@ -536,7 +536,7 @@ return [
             'image' => 'File00000481.jpg',
         ],
         '쿠마' => [
-            'description' => '물마뎀 / 스턴(1)',
+            'description' => '물마뎀 / 스턴(1) / 마나스킬',
             'image' => 'File00000292.jpg',
         ],
         '후지토라' => [
@@ -578,7 +578,7 @@ return [
             'image' => 'File00000266.jpg',
         ],
         '반 더 데켄' => [
-            'description' => 'Command: 반더데켄조합(decken) / 마뎀 / 보조딜 / 스킬(잃은체력 비례 데미지, 스턴3초) / 바다이동',
+            'description' => 'Command: 반더데켄조합(decken) / 마뎀 / 보조딜 / 마나스킬(잃은체력 비례 데미지, 스턴3초) / 바다이동',
             'image' => 'File00000233.jpg',
         ],
         '발라티에' => [
@@ -586,11 +586,11 @@ return [
             'image' => 'File00000246.jpg',
         ],
         '방주맥심' => [
-            'description' => 'Command: 방주맥심조합(maxim) / 마뎀 / 스킬(범위도킹5%, 스턴3초) / 공중이동',
+            'description' => 'Command: 방주맥심조합(maxim) / 마뎀 / 마나스킬(범위도킹5%, 스턴3초) / 공중이동',
             'image' => 'bangzumaxim.jpg',
         ],
         '베르고' => [
-            'description' => 'Command: 베르고조합(vergo) / 물뎀 / 보조딜 / 스킬(방깎35 + 히든해군업횟수x3, 스턴2.5초)',
+            'description' => 'Command: 베르고조합(vergo) / 물뎀 / 보조딜 / 마나스킬(방깎35 + 히든해군업횟수x3, 스턴2.5초)',
             'image' => 'File00000534.jpg',
         ],
         '봉쿠레' => [
@@ -602,11 +602,11 @@ return [
             'image' => 'File00000561.jpg',
         ],
         '시류' => [
-            'description' => 'Command: 시류조합(shiryu) / 마뎀 / 보조딜 / 끝딜7% / 스킬(깡딜)',
+            'description' => 'Command: 시류조합(shiryu) / 마뎀 / 보조딜 / 끝딜7% / 마나스킬(깡딜)',
             'image' => 'File00000321.jpg',
         ],
         '써니호' => [
-            'description' => 'Command: 써니호조합(sunny) / 마뎀 / 스킬(깡딜, 스턴2.5초) / 공중이동',
+            'description' => 'Command: 써니호조합(sunny) / 마뎀 / 마나스킬(깡딜, 스턴2.5초) / 공중이동',
             'image' => 'File00000372.jpg',
         ],
         '아오키지' => [
@@ -630,15 +630,15 @@ return [
             'image' => 'File00000220.jpg',
         ],
         '코알라' => [
-            'description' => 'Command: 코알라조합(koala) / 물마뎀 / 보조딜 / 마나젠4 / 스킬(스턴3.5초, 아머브레이크10, 깡딜)',
+            'description' => 'Command: 코알라조합(koala) / 물마뎀 / 보조딜 / 마나젠4 / 마나스킬(스턴3.5초, 아머브레이크10, 깡딜)',
             'image' => 'coala.jpg',
         ],
         '키자루' => [
-            'description' => 'Command: 키자루조합(kizaru) / 마뎀 / 보조딜 / 마나젠2.5 / 스킬(깡딜) / 블링크',
+            'description' => 'Command: 키자루조합(kizaru) / 마뎀 / 보조딜 / 마나젠2.5 / 마나스킬(깡딜) / 순간이동',
             'image' => 'File00000278.jpg',
         ],
         '킨에몬' => [
-            'description' => 'Command: 킨에몬조합(kinemon) / 마뎀 / 보조딜',
+            'description' => 'Command: 킨에몬조합(kinemon) / 마뎀 / 보조딜 / 마나스킬',
             'image' => 'File00000480.jpg',
         ],
         '킬러' => [
@@ -650,7 +650,7 @@ return [
             'image' => 'File00000371.jpg',
         ],
         '페로나' => [
-            'description' => 'Command: 페로나조합(perona) / 마뎀 / 보조딜 / 스킬(스턴3초, 깡딜) / 이감35% / 유닛삭제 / 공중이동',
+            'description' => 'Command: 페로나조합(perona) / 마뎀 / 보조딜 / 마나스킬(스턴3초, 깡딜) / 이감35% / 유닛삭제 / 공중이동',
             'image' => 'perona.jpg',
         ],
         '피셔타이거' => [
@@ -660,7 +660,7 @@ return [
     ],
     '초월함' => [
         '검은수염' => [
-            'description' => 'Command: 치밀하고비열한어둠(tichi tr) / 마뎀 / 발동이감35% / 단일도킹20% / 끌어당기기 / 보잡',
+            'description' => 'Command: 치밀하고비열한어둠(tichi tr) / 마뎀 / 발동이감35% / 단일도킹20% / 끌어당기기 / 보잡 / 마나스킬',
             'image' => 'File00000381.jpg',
         ],
         '나미' => [
@@ -668,15 +668,15 @@ return [
             'image' => 'File00000373.jpg',
         ],
         '도플라밍고' => [
-            'description' => 'Command: 어둠의조커(joker tr) / 물마뎀 / 스킬(폭딜, 6초간 방깎60) / 스턴(1) / 발동이감40% / 범퍼1%',
+            'description' => 'Command: 어둠의조커(joker tr) / 물마뎀 / 마나스킬(폭딜, 6초간 방깎60) / 스턴(1) / 발동이감40% / 범퍼1%',
             'image' => 'File00000263.jpg',
         ],
         '로빈' => [
-            'description' => 'Command: 악마의자식(robin tr) / 물뎀 / 보조딜필수 / 스턴(1) / 방깎45 / 특성강화(날개달기)',
+            'description' => 'Command: 악마의자식(robin tr) / 물뎀 / 보조딜필수 / 스턴(1) / 방깎45 / 마나스킬 / 특성강화(날개달기)',
             'image' => 'File00000374.jpg',
         ],
         '로우' => [
-            'description' => 'Command: 백개의심장을바친자(law tr) / 마뎀 / 방무뎀 / 발동이감35%',
+            'description' => 'Command: 백개의심장을바친자(law tr) / 마뎀 / 방무뎀 / 발동이감35% / 마나스킬',
             'image' => 'File00000463.jpg',
         ],
         '루피' => [
@@ -684,23 +684,23 @@ return [
             'image' => 'File00000377.jpg',
         ],
         '브룩' => [
-            'description' => 'Command: 소울 킹(brook tr) / 마뎀 / 단일15% / 스킬(범위도킹3%, 스턴3초, 깡딜) / 이감25% / 공중이동',
+            'description' => 'Command: 소울 킹(brook tr) / 마뎀 / 단일15% / 마나스킬(범위도킹3%, 스턴3초, 깡딜) / 이감25% / 공중이동',
             'image' => 'File00000376.jpg',
         ],
         '사보' => [
-            'description' => 'Command: 혁명군참모총장(sabo tr) / 물뎀 / 방깎(적 방어력의 30%) / 이감40% / 발동이감35% / 버프 수만큼 추가데미지',
+            'description' => 'Command: 혁명군참모총장(sabo tr) / 물뎀 / 방깎(적 방어력의 30%) / 이감40% / 발동이감35% / 마나스킬 / 버프 수만큼 추가데미지',
             'image' => 'File00000561.jpg',
         ],
         '상디' => [
-            'description' => 'Command: 지옥에서돌아온자(sanji tr) / 마뎀 / 보잡 / 발동이감35% / 블링크 / 공중이동',
+            'description' => 'Command: 지옥에서돌아온자(sanji tr) / 마뎀 / 보잡 / 발동이감35% / 순간이동 / 공중이동',
             'image' => 'File00000375.jpg',
         ],
         '샹크스' => [
-            'description' => 'Command: 정상해전종결자(shanks tr) / 마뎀 / 스턴(2) / 공속오라20%',
+            'description' => 'Command: 정상해전종결자(shanks tr) / 마뎀 / 스턴(2) / 공속오라20% / 마나스킬',
             'image' => 'File00000255.jpg',
         ],
         '시라호시' => [
-            'description' => 'Command: 해왕류를다스리는인어공주(shirahoshi tr) / 물마뎀 / 스턴(1) / 스킬(잃은 체력 비례 데미지) / 공중이동',
+            'description' => 'Command: 해왕류를다스리는인어공주(shirahoshi tr) / 물마뎀 / 스턴(1) / 마나스킬(잃은 체력 비례 데미지) / 공중이동',
             'image' => 'File00000224.jpg',
         ],
         '아오키지' => [
@@ -724,19 +724,19 @@ return [
             'image' => 'File00000250.jpg',
         ],
         '키자루' => [
-            'description' => 'Command: 해군대장노란원숭이(kizaru tr) / 마뎀 / 스턴(1) / 순간이동',
+            'description' => 'Command: 해군대장노란원숭이(kizaru tr) / 마뎀 / 스턴(1) / 마나스킬 / 순간이동',
             'image' => 'File00000278.jpg',
         ],
         '타시기' => [
-            'description' => 'Command: 해군의 홍일점(tashigi tr) / 물마뎀 / 성장형 / 아머브레이크 / 보잡',
+            'description' => 'Command: 해군의 홍일점(tashigi tr) / 물마뎀 / 성장형 / 마나스킬 / 아머브레이크 / 보잡',
             'image' => 'File00000279.jpg',
         ],
         '프랑키' => [
-            'description' => 'Command: 무적의아이언파이러츠(franky tr) / 마뎀 / 마나젠유닛필수 / 마나젠5 / 범위도킹 / 목재10개로 써니호 소환(최대 2개)',
+            'description' => 'Command: 무적의아이언파이러츠(franky tr) / 마뎀 / 마나젠유닛필수 / 마나젠5 / 범위도킹 / 마나스킬 / 목재10개로 써니호 소환(최대 2개)',
             'image' => 'File00000253.jpg',
         ],
         '후지토라' => [
-            'description' => 'Command: 분노하는 맹호(fujitora tr) / 물뎀 / 스턴(1) / 이감42% / 아머브레이크',
+            'description' => 'Command: 분노하는 맹호(fujitora tr) / 물뎀 / 스턴(1) / 이감42% / 아머브레이크 / 마나스킬',
             'image' => 'File00000509.jpg',
         ],
         '빅맘' => [
@@ -762,7 +762,7 @@ return [
             'image' => '166525a1e5491732111.23960980.png',
         ],
         '에이스' => [
-            'description' => '마뎀 / 보조딜',
+            'description' => '마뎀 / 보조딜 / 마나스킬',
             'image' => 'File00000285.jpg',
         ],
         '제파' => [
@@ -770,29 +770,29 @@ return [
             'image' => 'File00000237.jpg',
         ],
         '코비' => [
-            'description' => '물마뎀 / 보조딜',
+            'description' => '물마뎀 / 보조딜 / 마나스킬',
             'image' => 'File00000481.jpg',
         ],
     ],
     '불멸의' => [
         '거프' => [
-            'description' => 'Command: 해군영웅거프(garp im) / 물마뎀 / 스턴(1) / 보잡 / 단일5% / 스킬(범퍼4% x 물뎀x3) / 특성강화(딜증가)',
+            'description' => 'Command: 해군영웅거프(garp im) / 물마뎀 / 스턴(1) / 보잡 / 단일5% / 마나스킬(범퍼4% x 물뎀x3) / 특성강화(딜증가)',
             'image' => 'File00000479.jpg',
         ],
         '시키' => [
-            'description' => 'Command: 천신금사자시키(shiki im) / 스턴(1.5) / 범위도킹15% / 공중이동',
+            'description' => 'Command: 천신금사자시키(shiki im) / 스턴(1.5) / 범위도킹15% / 공중이동 / 마나스킬',
             'image' => 'File00000230.jpg',
         ],
         '드래곤' => [
-            'description' => 'Command: 폭풍을몰아오는바람(dragon im) / 마뎀 / 스턴(1) / 끝딜8%',
+            'description' => 'Command: 폭풍을몰아오는바람(dragon im) / 마뎀 / 스턴(1) / 끝딜8% / 마나스킬',
             'image' => 'File00000221.jpg',
         ],
         '레일리' => [
-            'description' => 'Command: 명왕실버즈레일리(rayleigh im) / 물뎀 / 방깎20 / 스킬(아머브레이크5) / 공속오라50% / 공증 / 유닛회유-팔기',
+            'description' => 'Command: 명왕실버즈레일리(rayleigh im) / 물뎀 / 방깎20 / 마나스킬(아머브레이크5) / 공속오라50% / 공증 / 유닛회유-팔기',
             'image' => 'File00000231.jpg',
         ],
         '로져' => [
-            'description' => 'Command: 해적왕골D로져(roger im) / 물뎀 / 방깎60 / 이감30% / 공증',
+            'description' => 'Command: 해적왕골D로져(roger im) / 물뎀 / 방깎60 / 이감30% / 공증 / 마나스',
             'image' => 'File00000229.jpg',
         ],
         '센고쿠' => [
@@ -800,21 +800,21 @@ return [
             'image' => 'File00000273.jpg',
         ],
         '스코퍼가반' => [
-            'description' => 'Command: 대검호스코퍼가반(gaban im) / 물뎀 / 단일방깎60 / 보잡',
+            'description' => 'Command: 대검호스코퍼가반(gaban im) / 물뎀 / 단일방깎60 / 보잡 / 마나스킬',
             'image' => 'File00000456.jpg',
         ],
         '제트' => [
-            'description' => 'Command: 신념의흑완제트(Z im) / 마뎀 / 이감45% / 스킬(잃은체력 비례 데미지) / 특성강화(딜증가) / 블링크',
+            'description' => 'Command: 신념의흑완제트(Z im) / 마뎀 / 이감45% / 마나스킬(잃은체력 비례 데미지) / 특성강화(딜증가) / 순간이동',
             'image' => '297935a1ea71ea469a3.45650945.png',
         ],
         '흰수염' => [
-            'description' => 'Command: 대해적흰수염(whitebeard im) / 물뎀 / 방깎50 / 스턴(0.5) / 발동이감60% / 스킬(스턴3.5초)',
+            'description' => 'Command: 대해적흰수염(whitebeard im) / 물뎀 / 방깎50 / 스턴(0.5) / 발동이감60% / 마나스킬(스턴3.5초)',
             'image' => 'File00000283.jpg',
         ],
     ],
     '영원함' => [
         '미호크' => [
-            'description' => 'Command: 매의 눈(mihawk et) / 세이브35회 + 히든해적3업 / 마뎀 / 방무뎀 / 이감 / 끝딜',
+            'description' => 'Command: 매의 눈(mihawk et) / 세이브35회 + 히든해적3업 / 마뎀 / 방무뎀 / 이감 / 끝딜 / 마나스킬',
             'image' => '240955a1ea69c5157e2.72898257.png',
         ],
         '버기' => [
@@ -826,19 +826,19 @@ return [
             'image' => '158065a1ea693997146.73355157.png',
         ],
         '스모커' => [
-            'description' => 'Command: 하얀사냥꾼(smoker et) / 토큰2개 / 물뎀 / 방깎30 / 이감50% / 공증 / 클리어횟수 비례 데미지',
+            'description' => 'Command: 하얀사냥꾼(smoker et) / 토큰2개 / 물뎀 / 방깎30 / 이감50% / 마나스킬 / 공증 / 클리어횟수 비례 데미지',
             'image' => 'File00000382.jpg',
         ],
         '에이스' => [
-            'description' => 'Command: 화권의에이스(ace et) / 세이브5회 / 마뎀 / 이감45% / 발동이감40% / 보잡',
+            'description' => 'Command: 화권의에이스(ace et) / 세이브5회 / 마뎀 / 이감45% / 발동이감40% / 보잡 / 마나스킬',
             'image' => 'File00000285.jpg',
         ],
         '카벤딧슈' => [
-            'description' => 'Command: 해적왕자(cavendish et) / 세이브20회 / 물뎀 / 스턴(1) / 방깎25',
+            'description' => 'Command: 해적왕자(cavendish et) / 세이브20회 / 물뎀 / 스턴(1) / 방깎25 / 마나스킬',
             'image' => '277695a1ea689726c38.50157330.png',
         ],
         '핸콕' => [
-            'description' => 'Command: 아마존릴리의여제(hancock et) / 세이브15회 / 물마뎀 / 스턴(0.7) / 방깎40 / 범퍼 / 발동이감40% / 보잡',
+            'description' => 'Command: 아마존릴리의여제(hancock et) / 세이브15회 / 물마뎀 / 스턴(0.7) / 방깎40 / 범퍼 / 발동이감40% / 보잡 / 마나스킬',
             'image' => 'File00000291.jpg',
         ],
     ],
@@ -852,7 +852,7 @@ return [
             'image' => '288655a1e542e66e132.24115907.png',
         ],
         '에넬' => [
-            'description' => '마뎀 / 범위도킹15% / 순간이동',
+            'description' => '마뎀 / 범위도킹15% / 순간이동 / 마나스킬',
             'image' => 'File00000225.jpg',
         ],
         '크로커다일' => [

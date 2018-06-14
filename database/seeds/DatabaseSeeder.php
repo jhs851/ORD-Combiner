@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FormulasTableSeeder::class);
 
         $this->call(UppersTableSeeder::class);
+
+        $this->call(CharacteristicsTableSeeder::class);
     }
 }

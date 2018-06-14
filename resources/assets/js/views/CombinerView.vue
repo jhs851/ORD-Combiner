@@ -1,11 +1,12 @@
 <script>
     import RatesComponent from '../components/RatesComponent.vue';
+    import CharacteristicsComponent from '../components/CharacteristicsComponent.vue';
     import ModalComponent from '../components/ModalComponent.vue';
 
     export default {
         props: ['unitsCount'],
 
-        components: { RatesComponent, ModalComponent },
+        components: { RatesComponent, CharacteristicsComponent, ModalComponent },
 
         data() {
             return {

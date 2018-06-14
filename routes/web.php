@@ -1,18 +1,23 @@
 <?php
 
 use App\{
-    Column, Unit
+    Characteristic, Column, Unit
 };
 
 Route::get('/', function () {
     $columns = cache()->rememberForever('8.4-columns', function() {
         return Column::orderBy('id', 'asc')->with('rates')->get();
     });
+
     $unitsCount = cache()->rememberForever('8.4-units-count', function() {
         return Unit::count();
     });
 
-    return view('combiner', compact('columns', 'unitsCount'));
+    $characteristics = cache()->rememberForever('8.4-characteristics', function() {
+        return Characteristic::orderBy('id', 'asc')->get();
+    });
+
+    return view('combiner', compact('columns', 'unitsCount', 'characteristics'));
 });
 
 /*Route::get('info', function() {

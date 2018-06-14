@@ -3,6 +3,14 @@
 @section('content')
     <combiner-view inline-template :units-count="{{ $unitsCount }}">
         <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <characteristics-component :data="{{ $characteristics }}"></characteristics-component>
+                    </div>
+                </div>
+            </div>
+
             <div class="container-fluid p-0">
                 <div class="row no-gutters">
                     @forelse ($columns as $column)

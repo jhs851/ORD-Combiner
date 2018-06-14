@@ -3,8 +3,7 @@
         <unit-component v-for="unit in data"
                         :data="unit"
                         :key="unit.id"
-                        @modify="modified"
-                        class="list-group-item d-flex justify-content-between p-0"></unit-component>
+                        @modify="modified"></unit-component>
     </div>
 </template>
 

@@ -41,6 +41,8 @@ class Characteristic extends Model
 
     public function getIncludedAttribute()
     {
-        return $this->units->pluck('id');
+        return cache()->rememberForever("8.4-{$this->id}-included", function() {
+            return $this->units->pluck('id');
+        });
     }
 }

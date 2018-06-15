@@ -13,6 +13,8 @@
             </div>
 
             <div class="d-flex align-items-center py-1 pr-1">
+                <button class="btn btn-default btn-sm d-md-none m-0 mr-2 py-1 px-2 z-depth-0" @click.prevent="decrement">-</button>
+
                 <button class="btn btn-default btn-sm d-md-none m-0 mr-2 py-1 px-2 z-depth-0" @click.prevent="build">조합</button>
 
                 <input class="count form-control py-0 px-1"
@@ -51,13 +53,13 @@
 
         methods: {
             setCountByClick(e) {
-                this.unit.setCount(parseInt(this.unit.count || 0) + (e.shiftKey && this.unit.count > 0 ?  -1 : 1));
+                this.unit.setCount(this.getCount() + (e.shiftKey && this.getCount() > 0 ?  -1 : 1));
 
                 refreshAll();
             },
 
             setCountByKeyUp() {
-                this.unit.setCount(parseInt(this.unit.count || 0));
+                this.unit.setCount(this.getCount());
 
                 refreshAll();
             },
@@ -68,6 +70,16 @@
 
             showModal() {
                 this.$root.$emit('viewModal', this.unit);
+            },
+
+            decrement() {
+                this.unit.setCount(this.getCount() - 1);
+
+                refreshAll();
+            },
+
+            getCount() {
+                return parseInt(this.unit.count || 0);
             }
         }
     }

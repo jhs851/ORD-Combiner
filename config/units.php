@@ -102,7 +102,7 @@ return [
             'image' => 'File00000247.jpg',
         ],
         '쵸파' => [
-            'description' => '',
+            'description' => '공증',
             'image' => 'File00000320.jpg',
         ],
         '페로나' => [
@@ -370,7 +370,7 @@ return [
             'image' => 'File00000222.jpg',
         ],
         '우솝' => [
-            'description' => '',
+            'description' => '순간이동',
             'image' => 'File00000287.jpg',
         ],
         '이완코브' => [
@@ -448,7 +448,7 @@ return [
             'image' => '215675a1e54853a3f26.10813644.png',
         ],
         '레일리' => [
-            'description' => '물뎀 / 보조딜 / 방깎15 / 마나스킬(스턴3초, 아머브레이크3) / 공속오라20',
+            'description' => '물뎀 / 보조딜 / 방깎15 / 마나스킬(아머브레이크3) / 공속오라20',
             'image' => 'File00000231.jpg',
         ],
         '로브 루치' => [
@@ -602,11 +602,11 @@ return [
             'image' => 'File00000561.jpg',
         ],
         '시류' => [
-            'description' => 'Command: 시류조합(shiryu) / 마뎀 / 보조딜 / 끝딜7% / 마나스킬(깡딜)',
+            'description' => 'Command: 시류조합(shiryu) / 마뎀 / 보조딜 / 끝딜7% / 마나스킬',
             'image' => 'File00000321.jpg',
         ],
         '써니호' => [
-            'description' => 'Command: 써니호조합(sunny) / 마뎀 / 마나스킬(깡딜, 스턴2.5초) / 공중이동',
+            'description' => 'Command: 써니호조합(sunny) / 마뎀 / 마나스킬(스턴2.5초) / 공중이동',
             'image' => 'File00000372.jpg',
         ],
         '아오키지' => [
@@ -630,11 +630,11 @@ return [
             'image' => 'File00000220.jpg',
         ],
         '코알라' => [
-            'description' => 'Command: 코알라조합(koala) / 물마뎀 / 보조딜 / 마나젠4 / 마나스킬(스턴3.5초, 아머브레이크10, 깡딜)',
+            'description' => 'Command: 코알라조합(koala) / 물마뎀 / 보조딜 / 마나젠4 / 마나스킬(스턴3.5초, 아머브레이크10)',
             'image' => 'coala.jpg',
         ],
         '키자루' => [
-            'description' => 'Command: 키자루조합(kizaru) / 마뎀 / 보조딜 / 마나젠2.5 / 마나스킬(깡딜) / 순간이동',
+            'description' => 'Command: 키자루조합(kizaru) / 마뎀 / 보조딜 / 마나젠2.5 / 마나스킬 / 순간이동',
             'image' => 'File00000278.jpg',
         ],
         '킨에몬' => [
@@ -650,7 +650,7 @@ return [
             'image' => 'File00000371.jpg',
         ],
         '페로나' => [
-            'description' => 'Command: 페로나조합(perona) / 마뎀 / 보조딜 / 마나스킬(스턴3초, 깡딜) / 이감35% / 유닛삭제 / 공중이동',
+            'description' => 'Command: 페로나조합(perona) / 마뎀 / 보조딜 / 마나스킬(스턴3초) / 이감35% / 유닛삭제 / 공중이동',
             'image' => 'perona.jpg',
         ],
         '피셔타이거' => [
@@ -684,7 +684,7 @@ return [
             'image' => 'File00000377.jpg',
         ],
         '브룩' => [
-            'description' => 'Command: 소울 킹(brook tr) / 마뎀 / 단일15% / 마나스킬(범위도킹3%, 스턴3초, 깡딜) / 이감25% / 공중이동',
+            'description' => 'Command: 소울 킹(brook tr) / 마뎀 / 단일15% / 마나스킬(범위도킹3%, 스턴3초) / 이감25% / 공중이동',
             'image' => 'File00000376.jpg',
         ],
         '사보' => [
@@ -716,7 +716,7 @@ return [
             'image' => 'File00000379.jpg',
         ],
         '조로' => [
-            'description' => 'Command: 최강의검사(zoro tr) / 물뎀 / 방깎35 / 스턴(0.5) / 이감35% / 류마히든강화(방깎50, 이감50%, 마나스킬 업그레이드)',
+            'description' => 'Command: 최강의검사(zoro tr) / 물뎀 / 방깎35 / 스턴(0.5) / 보잡 / 이감35% / 류마히든강화(방깎50, 이감50%, 마나스킬 업그레이드)',
             'image' => 'File00000378.jpg',
         ],
         '쵸파' => [
@@ -883,6 +883,11 @@ return [
         ],
         '좀비' => [
             'description' => '모리아-특별함의 스킬로 얻을 수 있습니다',
+            'image' => 'zombie.jpg',
+            'etc' => true,
+        ],
+        '장군좀비' => [
+            'description' => '모리아-전설의 스킬로 얻을 수 있습니다.',
             'image' => 'zombie.jpg',
             'etc' => true,
         ],

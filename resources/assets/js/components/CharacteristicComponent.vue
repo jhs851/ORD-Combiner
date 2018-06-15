@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-sm px-2 py-1"
+    <button class="btn px-2 py-1"
        @click.prevent="toggle"
        v-text="data.name"
        :style="styles"></button>
@@ -37,7 +37,8 @@
             styles() {
                 return {
                     backgroundColor: this.active ? this.data.color : 'transparent',
-                    color: this.active ? 'white' : 'black'
+                    color: this.active ? 'white' : 'black',
+                    fontSize: '.8rem'
                 };
             }
         }

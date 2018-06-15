@@ -263,12 +263,10 @@ class Unit {
     }
 
     build(newBuild) {
-        if (newBuild) {
-            if (this.preventBuild(true, true).score != this.buildScore) {
-                toastr.error(`재료가 부족해 <b>'${this.name}'</b>을(를) 만들 수 없습니다.`);
+        if (newBuild && this.preventBuild(true, true).score != this.buildScore) {
+            toastr.error(`재료가 부족해 <b>'${this.name}'</b>을(를) 만들 수 없습니다.`);
 
-                return false;
-            }
+            return false;
         }
 
         if (! newBuild && this.count > 0) {

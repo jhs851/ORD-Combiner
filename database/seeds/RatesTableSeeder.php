@@ -14,9 +14,7 @@ class RatesTableSeeder extends Seeder
      */
     public function run() : void
     {
-        $columns = config('rates');
-
-        foreach ($columns as $columnId => $rates) {
+        foreach (config('rates') as $columnId => $rates) {
             collect($rates)
                 ->filter(function($rate) {
                     return ! Rate::where('name', $rate['name'])->exists();

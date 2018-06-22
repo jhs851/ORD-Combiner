@@ -14,9 +14,7 @@ class UnitsTableSeeder extends Seeder
      */
     public function run() : void
     {
-        $units = config('units');
-
-        foreach ($units as $rateName => $unit) {
+        foreach (config('units') as $rateName => $unit) {
             if (! $rate = Rate::where('name', $rateName)->first()) {
                 throw new Exception("rates 테이블에 '{$rateName}' 이름을 가진 칼럼이 존재하지 않습니다.");
             }
@@ -32,6 +30,7 @@ class UnitsTableSeeder extends Seeder
                         'warn' => $item['warn'] ?? false,
                         'etc' => $item['etc'] ?? false,
                         'lowest' => $item['lowest'] ?? false,
+                        'count' => $item['count'] ?? 0,
                     ]);
                 });
         }

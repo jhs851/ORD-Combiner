@@ -17,7 +17,7 @@
 
         methods: {
             toggle() {
-                this.active ? this.off(true) : this.on();
+                this.active ? this.off() : this.on();
             },
 
             on() {
@@ -26,10 +26,12 @@
                 this.$root.$emit('filter', this.data);
             },
 
-            off() {
+            off(communication = true) {
                 this.active = false;
 
-                this.$root.$emit('except', this.data);
+                if (communication) {
+                    this.$root.$emit('except', this.data);
+                }
             }
         },
 
@@ -37,8 +39,7 @@
             styles() {
                 return {
                     backgroundColor: this.active ? this.data.color : 'transparent',
-                    color: this.active ? 'white' : 'black',
-                    fontSize: '.8rem'
+                    color: this.active ? 'white' : 'black'
                 };
             }
         }

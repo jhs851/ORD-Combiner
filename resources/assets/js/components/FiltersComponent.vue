@@ -19,10 +19,10 @@
 
         mounted() {
             this.$root.$on('filter', characteristic => {
-                if ($.isEmptyObject(characteristic)) {
-                    this.characteristics = [];
-                } else {
+                if (characteristic) {
                     this.characteristics.push(characteristic);
+                } else {
+                    this.characteristics = [];
                 }
 
                 this.filtering();
@@ -52,7 +52,7 @@
                     }
                 });
 
-                this.unit.show =  this.unit.lowest || this.unit.etc || this.unit.rate.name == '안흔함' || this.included.indexOf(this.unit.id) > -1;
+                this.unit.show = this.unit.lowest || this.unit.etc || this.unit.rate.name == '안흔함' || this.included.indexOf(this.unit.id) > -1
             }
         }
     }

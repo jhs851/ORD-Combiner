@@ -10,7 +10,7 @@ class Unit {
         this.lowest = data.lowest;
         this.formulas = data.formulas || [];
         this.uppers = data.uppers || [];
-        this.count = 0;
+        this.count = data.count || 0;
         this.buildScore = 0;
         this.etcBuildScore = 0;
         this.preCount = 0;

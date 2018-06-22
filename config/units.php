@@ -66,7 +66,7 @@ return [
 
     '안흔함' => [
         '블루노' => [
-            'description' => '',
+            'description' => '순간이동',
             'image' => 'File00000219.jpg',
         ],
         '후쿠로' => [
@@ -654,7 +654,7 @@ return [
             'image' => 'perona.jpg',
         ],
         '피셔타이거' => [
-            'description' => 'Command: 피셔타이거조합(tiger) / 물마뎀 / 스턴(1) / 바다이동',
+            'description' => 'Command: 피셔타이거조합(tiger) / 물마뎀 / 스턴(1) / 공증30% / 바다이동',
             'image' => 'File00000239.jpg',
         ],
     ],
@@ -792,7 +792,7 @@ return [
             'image' => 'File00000231.jpg',
         ],
         '로져' => [
-            'description' => 'Command: 해적왕골D로져(roger im) / 물뎀 / 방깎60 / 이감30% / 공증 / 마나스',
+            'description' => 'Command: 해적왕골D로져(roger im) / 물뎀 / 방깎60 / 이감30% / 공증 / 마나스킬',
             'image' => 'File00000229.jpg',
         ],
         '센고쿠' => [
@@ -865,21 +865,25 @@ return [
             'description' => '',
             'image' => 'etc-wood.jpg',
             'etc' => true,
+            'count' => 5000,
         ],
         '토큰' => [
             'description' => '',
             'image' => 'token.jpg',
             'etc' => true,
+            'count' => 5000,
         ],
         '세이브' => [
             'description' => '',
             'image' => 'idontknow.jpg',
             'etc' => true,
+            'count' => 5000,
         ],
         '확장팩' => [
             'description' => '',
             'image' => 'idontknow.jpg',
             'etc' => true,
+            'count' => 5000,
         ],
         '좀비' => [
             'description' => '모리아-특별함의 스킬로 얻을 수 있습니다',
@@ -890,11 +894,13 @@ return [
             'description' => '모리아-전설의 스킬로 얻을 수 있습니다.',
             'image' => 'zombie.jpg',
             'etc' => true,
+            'count' => 5000,
         ],
         '레일리' => [
             'description' => '',
             'image' => 'File00000231.jpg',
             'etc' => true,
+            'count' => 1,
         ],
         '해적선' => [
             'description' => '',
@@ -905,11 +911,13 @@ return [
             'description' => '',
             'image' => 'File00000292.jpg',
             'etc' => true,
+            'count' => 1,
         ],
         '거인족' => [
             'description' => '',
             'image' => 'littleoz.jpg',
             'etc' => true,
+            'count' => 1,
         ],
     ],
 ];

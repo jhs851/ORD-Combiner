@@ -20,6 +20,7 @@ class Unit extends Model
         'warn',
         'etc',
         'lowest',
+        'count',
     ];
 
     /**

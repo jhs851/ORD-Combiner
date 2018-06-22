@@ -1,6 +1,6 @@
 <template>
-    <div class="d-flex flex-wrap justify-content-center">
-        <button class="btn btn-default px-2 py-1" @click.prevent="all" style="font-size: .8rem;">전체</button>
+    <div class="characteristics d-flex flex-wrap justify-content-center">
+        <button class="btn btn-default px-2 py-1" @click.prevent="all">전체</button>
 
         <characteristic-component v-for="characteristic in data" :key="characteristic.id" :data="characteristic" ref="children"></characteristic-component>
     </div>
@@ -16,9 +16,9 @@
 
         methods: {
             all() {
-                this.$refs.children.forEach(child => child.off());
+                this.$refs.children.forEach(child => child.off(false));
 
-                this.$root.$emit('filter', {});
+                this.$root.$emit('filter');
             }
         }
     }

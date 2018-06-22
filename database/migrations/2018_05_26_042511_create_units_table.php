@@ -22,6 +22,7 @@ class CreateUnitsTable extends Migration
             $table->boolean('warn')->default(false);
             $table->boolean('etc')->default(false);
             $table->boolean('lowest')->default(false);
+            $table->unsignedInteger('count')->default(0);
 
             $table->unique(['rate_id', 'name']);
         });

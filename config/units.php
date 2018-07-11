@@ -182,6 +182,7 @@ return [
         '압살롬' => [
             'description' => '',
             'image' => 'File00000236.jpg',
+            'count' => 2,
         ],
         '에이스' => [
             'description' => '',

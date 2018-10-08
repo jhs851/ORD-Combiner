@@ -1,8 +1,6 @@
 <?php
 
-use App\{
-    Characteristic, Column, Unit
-};
+use App\Models\{Characteristic, Column, Unit};
 
 Route::get('/', function () {
     $columns = cache()->rememberForever('8.4-columns', function() {

@@ -1,7 +1,7 @@
 1. 추천
 2. 스크린 리더
 
-45.76.220.36
+45.76.104.106
 
 NPM Package 수정사항
 1. mdbootstrap/scss/core/_typography.scss

@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsToMany
-};
+use Illuminate\Database\Eloquent\{Model, Relations\BelongsToMany};
 
 class Characteristic extends Model
 {

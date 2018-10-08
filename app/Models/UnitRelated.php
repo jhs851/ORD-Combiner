@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsTo
-};
+use Illuminate\Database\Eloquent\{Model, Relations\BelongsTo};
 
 class UnitRelated extends Model
 {

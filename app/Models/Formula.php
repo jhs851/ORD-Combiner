@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-class Upper extends UnitRelated
+class Formula extends UnitRelated
 {
     /**
      * The attributes that are mass assignable.
@@ -11,5 +11,6 @@ class Upper extends UnitRelated
      */
     protected $fillable = [
         'unit_id',
+        'count',
     ];
 }

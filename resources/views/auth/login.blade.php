@@ -3,18 +3,18 @@
 @section('intro-content')
     <div class="container">
         <div class="row">
-            <div class="col-md-7 offset-md-1 text-center text-md-left d-flex flex-column justify-content-center">
-                <h1 class="h1-responsive wow fadeInLeft animated mb-0" data-wow-delay="0.3s">
+            <div class="col-md-7 offset-md-1 text-center text-md-left d-flex flex-column justify-content-center wow fadeInLeft animated" data-wow-delay="0.3s">
+                <h1 class="h1-responsive mb-0">
                     @appName
                 </h1>
-                <hr class="hr-light w-100 wow fadeInLeft animated mt-1" data-wow-delay="0.3s">
-                <h6 class="wow fadeInLeft animated" data-wow-delay="0.3s">
+                <hr class="hr-light w-100 mt-1">
+                <h6>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam animi deserunt dignissimos ea excepturi exercitationem, expedita magnam magni nam, nostrum nulla perspiciatis provident quasi quia ratione, tempora vel vero? Ipsam!
                 </h6>
             </div>
 
-            <div class="col-md-5">
-                <div class="card wow fadeInRight animated" data-wow-delay="0.3s">
+            <div class="col-md-5 wow fadeInRight animated" data-wow-delay="0.3s">
+                <div class="card">
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf

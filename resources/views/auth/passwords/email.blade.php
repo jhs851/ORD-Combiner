@@ -3,8 +3,8 @@
 @section('intro-content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card wow fadeInRight animated" data-wow-delay="0.3s">
+            <div class="col-md-5 wow fadeInRight animated" data-wow-delay="0.3s">
+                <div class="card">
                     <div class="card-header">비밀번호 초기화</div>
 
                     <div class="card-body">

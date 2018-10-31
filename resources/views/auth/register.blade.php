@@ -3,7 +3,7 @@
 @section('intro-content')
     <div class="container">
         <div class="row">
-            <div class="col-md-5 offset-md-2 text-center text-md-left d-flex flex-column justify-content-center">
+            <div class="col-md-5 offset-md-2 text-center text-md-left d-flex flex-column justify-content-center wow fadeInLeft animated" data-wow-delay="0.3s">
                 <a href="{{ route('social.login', 'naver') }}" class="btn btn-na btn-block position-relative mx-0 my-2">
                     <string class="d-flex align-items-center justify-content-center">
                         <span class="Archivo-font position-absolute" style="left: 1rem;">N</span>
@@ -19,8 +19,8 @@
                 </a>
             </div>
 
-            <div class="col-md-5">
-                <div class="card wow fadeInRight animated" data-wow-delay="0.3s">
+            <div class="col-md-5 wow fadeInRight animated" data-wow-delay="0.3s">
+                <div class="card">
                     <div class="card-header">회원가입</div>
 
                     <div class="card-body py-0">

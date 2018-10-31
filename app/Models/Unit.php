@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Core\Cacheable;
 use Illuminate\Database\Eloquent\{Model, Relations\BelongsTo, Relations\HasMany};
 
 class Unit extends Model
 {
+    use Cacheable;
+
     /**
      * The attributes that are mass assignable.
      *

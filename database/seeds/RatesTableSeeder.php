@@ -1,8 +1,6 @@
 <?php
 
-use App\{
-    Column, Rate
-};
+use App\Models\{Column, Rate};
 use Illuminate\Database\Seeder;
 
 class RatesTableSeeder extends Seeder

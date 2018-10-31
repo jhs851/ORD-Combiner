@@ -1,0 +1,76 @@
+@mixin font-family($name, $important: false) {
+    font-family: quote($name), -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", 'Nanum Gothic', "Helvetica Neue", Arial, sans-serif if($important, !important, null);
+}
+
+// User select
+@mixin user-select($select) {
+    -khtml-user-select: $select;
+    -webkit-user-select: $select;
+    -moz-user-select: $select;
+    -ms-user-select: $select;
+    user-select: $select;
+}
+
+// transform
+@mixin rotate($degrees) {
+    -webkit-transform: rotate($degrees);
+    -ms-transform: rotate($degrees);
+    -o-transform: rotate($degrees);
+    transform: rotate($degrees);
+}
+
+@mixin transform-origin($origin) {
+    -webkit-transform-origin: $origin;
+    -moz-transform-origin: $origin;
+    -ms-transform-origin: $origin;
+    transform-origin: $origin;
+}
+
+@mixin scale($ratio...) {
+    -webkit-transform: scale($ratio);
+    -ms-transform: scale($ratio);
+    -o-transform: scale($ratio);
+    transform: scale($ratio);
+}
+
+@mixin gradient-directional($start-color: $gray-700, $end-color: $gray-800, $deg: 45deg) {
+    background: -moz-linear-gradient($deg, $start-color, $end-color 100%);
+    background: -webkit-linear-gradient($deg, $start-color, $end-color 100%);
+    background-attachment: scroll;
+    background: -webkit-gradient(linear, $deg, from($start-color), to($end-color));
+    background: -o-linear-gradient($deg, $start-color, $end-color 100%);
+    background: linear-gradient(to $deg, $start-color, $end-color 100%);
+}
+
+// Flexbox
+@mixin flexbox() {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+@mixin flex($values) {
+    -webkit-box-flex: $values;
+    -moz-box-flex:  $values;
+    -webkit-flex:  $values;
+    -ms-flex:  $values;
+    flex:  $values;
+}
+@mixin order($val) {
+    -webkit-box-ordinal-group: $val;
+    -moz-box-ordinal-group: $val;
+    -ms-flex-order: $val;
+    -webkit-order: $val;
+    order: $val;
+}
+@mixin align($align) {
+    -webkit-flex-align: $align;
+    -ms-flex-align: $align;
+    -webkit-align-items: $align;
+    align-items: $align;
+}
+@mixin justify-content($val) {
+    -webkit-justify-content: $val;
+    justify-content: $val;
+}

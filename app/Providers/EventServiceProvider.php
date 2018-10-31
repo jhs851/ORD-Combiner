@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Events\{Login, Registered};
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -13,8 +14,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            'SocialiteProviders\Kakao\KakaoExtendSocialite@handle',
+            'SocialiteProviders\Naver\NaverExtendSocialite@handle',
+        ],
+        Login::class => [
+            \App\Listeners\SessionsEventListener::class
         ],
     ];
 

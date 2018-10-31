@@ -35,4 +35,21 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | 소셜 로그인 서비스 설정
+    |--------------------------------------------------------------------------
+    */
+
+    'naver' => [
+        'client_id'     => env('NAVER_ID'),
+        'client_secret' => env('NAVER_SECRET'),
+        'redirect'      => env('APP_URL') . env('NAVER_CALLBACK'),
+    ],
+
+    'kakao' => [
+        'client_id'     => env('KAKAO_ID'),
+        'client_secret' => env('KAKAO_SECRET'),
+        'redirect'      => env('APP_URL') . env('NAVER_CALLBACK'),
+    ],
 ];

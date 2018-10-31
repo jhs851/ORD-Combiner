@@ -2,6 +2,9 @@
 // Body
 $body-bg: #f5f8fa;
 
+// Colors
+$radio-empty-color: #bdbdbd;
+
 // Typography
 $font-family-sans-serif: 'Noto Sans', sans-serif;
 $font-size-base: 0.9rem;
@@ -9,3 +12,12 @@ $line-height-base: 1.6;
 
 // Grid
 $grid-columns: 14;
+
+// Social colors
+$na-color: #1ec800 !default;
+$ka-color: #3b2f39 !default;
+
+$social-colors: (
+    "na": $na-color,
+    "ka": $ka-color,
+);

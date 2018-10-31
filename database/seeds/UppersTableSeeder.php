@@ -1,8 +1,6 @@
 <?php
 
-use App\{
-    Unit, Upper
-};
+use App\Models\{Unit, Upper};
 use Illuminate\Database\Seeder;
 
 class UppersTableSeeder extends Seeder

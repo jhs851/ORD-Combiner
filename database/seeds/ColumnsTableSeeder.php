@@ -1,6 +1,6 @@
 <?php
 
-use App\Column;
+use App\Models\Column;
 use Illuminate\Database\Seeder;
 
 class ColumnsTableSeeder extends Seeder

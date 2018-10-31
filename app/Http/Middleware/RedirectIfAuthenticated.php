@@ -18,7 +18,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            flash('이미 로그인 하셨습니다.', 'warning');
+
+            return redirect(route('home'));
         }
 
         return $next($request);

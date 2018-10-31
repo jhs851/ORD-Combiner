@@ -1,0 +1,41 @@
+.btn {
+    text-transform: none;
+}
+
+@each $btn_name, $color_value in $social-colors {
+    @include make-button($btn_name, $color_value);
+    @include make-outline-button($btn_name, $color_value);
+}
+
+.btn-floating {
+    width: 47px;
+    height: 47px;
+    position: relative;
+    z-index: 1;
+    vertical-align: middle;
+    display: inline-block;
+    overflow: hidden;
+    margin: 10px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    @extend .z-depth-1-half;
+    @include transition(all .2s ease-in-out);
+
+    &.btn-sm {
+        width: 36.15385px;
+        height: 36.15385px;
+
+        i {
+            font-size: .96154rem;
+            line-height: 36.15385px;
+        }
+    }
+
+    i {
+        text-align: center;
+        font-style: normal;
+    }
+}

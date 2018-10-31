@@ -1,7 +1,6 @@
 <?php
 
-use App\Rate;
-use App\Unit;
+use App\Models\{Rate, Unit};
 use Illuminate\Database\Seeder;
 
 class UnitsTableSeeder extends Seeder

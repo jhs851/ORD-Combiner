@@ -1,8 +1,6 @@
 <?php
 
-use App\{
-    Characteristic, Unit
-};
+use App\Models\{Characteristic, Unit};
 use Illuminate\Database\Seeder;
 
 class CharacteristicsTableSeeder extends Seeder

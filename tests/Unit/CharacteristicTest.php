@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Characteristic;
+use App\Models\Characteristic;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 

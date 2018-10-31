@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Core\Cacheable;
 use Illuminate\Database\Eloquent\{Model, Relations\BelongsToMany};
+use Illuminate\Support\Collection;
 
 class Characteristic extends Model
 {
+    use Cacheable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,12 +36,19 @@ class Characteristic extends Model
      */
     public $timestamps = false;
 
+    /**
+     * @return BelongsToMany
+     */
     public function units() : BelongsToMany
     {
         return $this->belongsToMany(Unit::class);
     }
 
-    public function getIncludedAttribute()
+    /**
+     * @return Collection
+     * @throws \Exception
+     */
+    public function getIncludedAttribute() : Collection
     {
         return cache()->rememberForever("8.4-{$this->id}-included", function() {
             return $this->units->pluck('id');

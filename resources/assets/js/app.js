@@ -18,16 +18,27 @@ Vue.component('combiner-view', require('./views/CombinerView.vue'));
 const app = new Vue({
     el: '#app',
 
+    methods: {
+        setToastrOptions() {
+            toastr.options = {
+                useDanedenAnimationInShow: true,
+                useDanedenAnimationInHide: true,
+                showMethod: 'bounceInRight',
+                hideMethod: 'fadeOutRight',
+                positionClass: 'toast-bottom-right',
+                timeOut: 3000,
+                newestOnTop: false,
+                progressBar: true,
+            };
+        },
+
+        enableBootstrapToolTips() {
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    },
+
     mounted() {
-        toastr.options = {
-            useDanedenAnimationInShow: true,
-            useDanedenAnimationInHide: true,
-            showMethod: 'bounceInRight',
-            hideMethod: 'fadeOutRight',
-            positionClass: 'toast-bottom-right',
-            timeOut: 3000,
-            newestOnTop: false,
-            progressBar: true,
-        };
+        this.setToastrOptions();
+        this.enableBootstrapToolTips();
     }
 });

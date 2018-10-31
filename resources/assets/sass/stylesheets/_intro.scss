@@ -1,0 +1,31 @@
+.intro,
+.intro body,
+.intro body .wrap,
+.intro body .wrap .view {
+    height: 100%;
+
+    @include media-breakpoint-down('md') {
+        height: 1000px;
+    }
+}
+
+.intro body .wrap .view {
+    color: white;
+    background: url('/images/sessions/background.jpg') center center / cover no-repeat;
+
+    .md-form {
+        label,
+        input {
+            color: white;
+        }
+    }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+    .intro,
+    .intro body,
+    .intro body .wrap,
+    .intro body .wrap .view {
+        height: 650px;
+    }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" {!! isIntro() ? 'class="intro"' : '' !!}>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,23 +17,23 @@
     <meta name="description" content="{{ config('app.description') }}">
 
     {{-- Facebook Meta --}}
-    <meta property="og:title" content="{{ config('app.name') }}">
+    <meta property="og:title" content="@appName">
     <meta property="og:image" content="{{ asset('images/etc/og.jpg') }}">
     <meta property="og:type" content="Website">
-    <meta property="og:author" content="{{ config('app.name') }}">
+    <meta property="og:author" content="@appName">
     <meta property="og:url" content="{{ config('app.url') }}">
     <meta property="og:description" content="{{ config('app.description') }}">
 
     {{-- Google Meta --}}
-    <meta itemprop="name" content="{{ config('app.name') }}">
+    <meta itemprop="name" content="@appName">
     <meta itemprop="description" content="{{ config('app.description') }}">
     <meta itemprop="image" content="{{ asset('images/etc/og.jpg') }}">
-    <meta itemprop="author" content="{{ config('app.name') }}">
+    <meta itemprop="author" content="@appName">
 
     {{--  Twitter Meta --}}
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
-    <meta name="twitter:title" content="{{ config('app.name') }}">
+    <meta name="twitter:title" content="@appName">
     <meta name="twitter:description" content="{{ config('app.description') }}">
     <meta name="twitter:image" content="{{ asset('images/etc/og.jpg') }}">
     <meta name="twitter:domain" content="{{ config('app.url') }}">
@@ -44,7 +44,7 @@
     {{-- Favicon --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>@appName</title>
 
     {{-- Styles --}}
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -53,7 +53,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="wrap">
         @yield('content')
 
         @include('layouts.partial.footer')
@@ -61,6 +61,8 @@
 
     {{-- Scripts --}}
     <script src="{{ mix('js/app.js') }}"></script>
+    {{-- Flash messages --}}
+    @include('flash::message')
 
     @yield('script')
 </body>

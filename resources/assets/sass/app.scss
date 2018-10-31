@@ -1,9 +1,13 @@
 
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,700,900&subset=korean');
+@import url('https://fonts.googleapis.com/css?family=Archivo+Black');
 
 // Variables
 @import "variables";
+
+// Mixins
+@import "mixins";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -17,14 +21,24 @@
 // Toastr
 @import '~toastr/toastr';
 
-input[type='number'] {
-    -moz-appearance: textfield;
+// Style sheets
+@import './stylesheets/forms';
+@import './stylesheets/intro';
+@import './stylesheets/buttons';
+
+
+.Archivo-font {
+    @include font-family('Archivo Black');
 }
 
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h5,
+.h1-responsive, .h2-responsive, .h3-responsive, .h4-responsive, .h5-responsive, .h6-responsive {
+    font-weight: 700;
+}
+
+.font-weight-extra-bold {
+    font-weight: 900 !important;
 }
 
 .burn {
@@ -62,12 +76,6 @@ input[type='number']::-webkit-inner-spin-button {
             white-space: nowrap;
         }
     }
-}
-
-input.count {
-    width: 36px;
-    font-size: .8rem;
-
 }
 
 .detail {

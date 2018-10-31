@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\{Blade, Route};
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -23,9 +23,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        $this->bladeDirectives();
     }
 
     /**
@@ -53,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
              ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+             ->group($this->getWebRoutes());
     }
 
     /**
@@ -69,5 +69,24 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * @return \Closure
+     */
+    protected function getWebRoutes() : \Closure
+    {
+        return function($router) {
+            array_map(function($route) {
+                require $route;
+            }, glob(base_path('routes/web/*.php')));
+        };
+    }
+
+    protected function bladeDirectives() : void
+    {
+        Blade::directive('appName', function() {
+            return "<?php echo config('app.name'); ?>";
+        });
     }
 }

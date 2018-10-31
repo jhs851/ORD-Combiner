@@ -1,8 +1,6 @@
 <?php
 
-use App\{
-    Formula, Rate, Unit
-};
+use App\Models\{Rate, Unit};
 use Illuminate\Database\Seeder;
 
 class FormulasTableSeeder extends Seeder

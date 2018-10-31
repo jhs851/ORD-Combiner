@@ -1,0 +1,195 @@
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input.count {
+    width: 36px;
+    font-size: .8rem;
+
+}
+
+.md-form.is-invalid,
+.input-group.is-invalid,
+.form-group.is-invalid {
+    input:not([readonly]) + label {
+        color: $danger-color !important;
+    }
+
+    .form-control,
+    .custom-select,
+    .note-editor.note-frame {
+        border-color: $danger-color !important;
+    }
+
+    .form-control {
+        -webkit-box-shadow: 0 1px 0 0 $danger-color !important;
+        -moz-box-shadow: 0 1px 0 0 $danger-color !important;
+        box-shadow: 0 1px 0 0 $danger-color !important;
+    }
+
+    .form-text.text-danger {
+        font-style: italic;
+        margin-bottom: .75rem;
+    }
+}
+
+// Checkbox, Radio
+.checkbox-field {
+    [type="checkbox"],
+    [type="radio"] {
+        position: absolute;
+        left: -9999px;
+        visibility: hidden;
+    }
+
+    [type="checkbox"] + label,
+    [type="radio"]:checked + label,
+    [type="radio"]:not(:checked) + label {
+        display: inline-block;
+        cursor: pointer;
+        padding-left: 31px;
+        @include user-select(none);
+    }
+
+    [type="checkbox"] + label {
+        position: relative;
+        height: 25px;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 18px;
+            height: 18px;
+            z-index: 0;
+            border: 2px solid $radio-empty-color;
+            border-radius: 1px;
+            margin-top: 2px;
+            @include transition(.2s);
+        }
+    }
+
+    [type="checkbox"]:checked + label::before {
+        top: -4px;
+        left: -3px;
+        width: 12px;
+        height: 22px;
+        border-top: 2px solid transparent;
+        border-left: 2px solid transparent;
+        border-right: 2px solid $primary-color;
+        border-bottom: 2px solid $primary-color;
+        -webkit-backface-visibility: hidden;
+        @include rotate(40deg);
+        @include transform-origin(100% 100%);
+    }
+
+    [type="radio"]:checked + label,
+    [type="radio"]:not(:checked) + label {
+        position: relative;
+        height: 25px;
+        @include transition(.28s ease);
+    }
+
+    [type="radio"] + label::after,
+    [type="radio"] + label::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 4px;
+        width: 16px;
+        height: 16px;
+        z-index: 0;
+        @include transition(.28s ease);
+    }
+
+    [type="radio"]:not(:checked) + label::before {
+        border: 2px solid $radio-empty-color;
+        @include border-radius(50%);
+    }
+
+    [type="radio"]:not(:checked) + label::after {
+        border: 2px solid $radio-empty-color;
+        z-index: -1;
+        @include scale(0);
+        @include border-radius(50%);
+    }
+
+    [type="radio"]:checked + label::before {
+        border: 2px solid transparent;
+        @include border-radius(50%);
+    }
+
+    [type="radio"]:checked + label::after {
+        border: 2px solid $primary-color;
+        background-color: $primary-color;
+        z-index: 0;
+        @include scale(1.02);
+        @include border-radius(50%);
+    }
+}
+
+// Switch
+.switch, .switch * {
+    @include user-select(none);
+}
+
+.switch {
+    label {
+        cursor: pointer;
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: -9999px;
+            visibility: hidden;
+
+            &:checked + .lever {
+                background-color: lighten($primary-color, 19%);
+
+                &::after {
+                    background-color: $primary-color;
+                    left: 24px;
+                }
+            }
+        }
+
+        .lever {
+            content: "";
+            display: inline-block;
+            position: relative;
+            width: 40px;
+            height: 15px;
+            background-color: #818181;
+            border-radius: 15px;
+            margin: 2px 12px 0;
+            vertical-align: top;
+            @include transition(background .3s ease);
+
+            &::after {
+                content: "";
+                position: absolute;
+                display: inline-block;
+                width: 21px;
+                height: 21px;
+                background-color: #F1F1F1;
+                left: -5px;
+                top: -3px;
+                -webkit-box-shadow: 0 1px 3px 1px rgba(0,0,0,.4);
+                box-shadow: 0 1px 3px 1px rgba(0,0,0,.4);
+                @include transition(.3s ease);
+                @include border-radius(21px);
+            }
+        }
+    }
+}

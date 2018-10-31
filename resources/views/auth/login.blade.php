@@ -9,7 +9,7 @@
                 </h1>
                 <hr class="hr-light w-100 mt-1">
                 <h6>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam animi deserunt dignissimos ea excepturi exercitationem, expedita magnam magni nam, nostrum nulla perspiciatis provident quasi quia ratione, tempora vel vero? Ipsam!
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores blanditiis dolor dolores eaque et fugit in iste labore minus nam neque nihil possimus vero vitae, voluptatem! Consequuntur dignissimos recusandae suscipit?
                 </h6>
             </div>
 
@@ -50,7 +50,7 @@
                             </div>
 
                             <div class="text-center">
-                                <button class="btn btn-indigo">Login</button>
+                                <button type="submit" class="btn btn-indigo">Login</button>
 
                                 <p class="mt-2 mb-1">
                                     회원이 아니라면? <a href="{{ route('register') }}">가입하세요.</a>

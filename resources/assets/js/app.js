@@ -34,11 +34,31 @@ const app = new Vue({
 
         enableBootstrapToolTips() {
             $('[data-toggle="tooltip"]').tooltip();
-        }
+        },
+
+        disableButtonOnSubmit() {
+            $('form:not(".except-disable")').on('submit', function() {
+                let $btn = $(this).find('button[type="submit"]');
+                const loadingHtml = `<i class="fa fa-spinner fa-pulse fa-fw"></i>`;
+
+                if ($btn.html !== loadingHtml) {
+                    $btn.data('original-html', $btn.html())
+                        .addClass('disabled')
+                        .html(loadingHtml);
+
+                    setTimeout(() =>
+                        $btn.html($btn.data('original-html'))
+                            .removeClass('disabled')
+                            .removeData('original-html')
+                    , 3000);
+                }
+            });
+        },
     },
 
     mounted() {
         this.setToastrOptions();
         this.enableBootstrapToolTips();
+        this.disableButtonOnSubmit();
     }
 });

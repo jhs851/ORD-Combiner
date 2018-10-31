@@ -14018,12 +14018,27 @@ var app = new Vue({
         },
         enableBootstrapToolTips: function enableBootstrapToolTips() {
             $('[data-toggle="tooltip"]').tooltip();
+        },
+        disableButtonOnSubmit: function disableButtonOnSubmit() {
+            $('form').on('submit', function () {
+                var $btn = $(this).find('button[type="submit"]:not(".btn-except")');
+                var loadingHtml = '<i class="fa fa-spinner fa-pulse fa-fw"></i>';
+
+                if ($btn.html !== loadingHtml) {
+                    $btn.data('original-html', $btn.html()).addClass('disabled').html(loadingHtml);
+
+                    setTimeout(function () {
+                        return $btn.html($btn.data('original-html')).removeClass('disabled').removeAttribute('data-original-html');
+                    }, 3000);
+                }
+            });
         }
     },
 
     mounted: function mounted() {
         this.setToastrOptions();
         this.enableBootstrapToolTips();
+        this.disableButtonOnSubmit();
     }
 });
 

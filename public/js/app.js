@@ -14020,15 +14020,15 @@ var app = new Vue({
             $('[data-toggle="tooltip"]').tooltip();
         },
         disableButtonOnSubmit: function disableButtonOnSubmit() {
-            $('form').on('submit', function () {
-                var $btn = $(this).find('button[type="submit"]:not(".btn-except")');
+            $('form:not(".except-disable")').on('submit', function () {
+                var $btn = $(this).find('button[type="submit"]');
                 var loadingHtml = '<i class="fa fa-spinner fa-pulse fa-fw"></i>';
 
                 if ($btn.html !== loadingHtml) {
                     $btn.data('original-html', $btn.html()).addClass('disabled').html(loadingHtml);
 
                     setTimeout(function () {
-                        return $btn.html($btn.data('original-html')).removeClass('disabled').removeAttribute('data-original-html');
+                        return $btn.html($btn.data('original-html')).removeClass('disabled').removeData('original-html');
                     }, 3000);
                 }
             });
@@ -48723,11 +48723,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['percent'],
 
     computed: {
-        styles: function styles() {
-            return {
-                width: this.percent + '%',
-                backgroundColor: this.percent == 100 ? '#76ff03' : '#bbdefb'
-            };
+        classes: function classes() {
+            return ['progress-bar', 'h-100', this.percent == 100 ? 'ready' : 'ongoing'];
         }
     }
 });
@@ -48742,8 +48739,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "progress position-absolute h-100 py-1" }, [
     _c("div", {
-      staticClass: "progress-bar h-100",
-      style: _vm.styles,
+      class: _vm.classes,
+      style: "width: " + _vm.percent + "%",
       attrs: {
         role: "progressbar",
         "aria-valuenow": _vm.percent,

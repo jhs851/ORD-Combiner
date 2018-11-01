@@ -24494,16 +24494,6 @@ input.count {
   }
 }
 
-.intro body .wrap .view {
-  color: white;
-  background: url("/images/sessions/background.jpg") center center/cover no-repeat;
-}
-
-.intro body .wrap .view .md-form label,
-.intro body .wrap .view .md-form input {
-  color: white;
-}
-
 @media (min-width: 800px) and (max-width: 850px) {
   .intro,
   .intro body,
@@ -26104,5 +26094,13 @@ h6,
 
 .characteristic > button {
   font-size: .8rem;
+}
+
+.view img {
+  display: inline-block;
+}
+
+.close {
+  opacity: .7;
 }
 

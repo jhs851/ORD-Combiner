@@ -1,6 +1,6 @@
-@extends('layouts.intro')
+@extends('layouts.app')
 
-@section('intro-content')
+@section('into-mask-content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-5 wow fadeInRight animated" data-wow-delay="0.3s">

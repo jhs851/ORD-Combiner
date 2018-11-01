@@ -9,18 +9,6 @@
     }
 }
 
-.intro body .wrap .view {
-    color: white;
-    background: url('/images/sessions/background.jpg') center center / cover no-repeat;
-
-    .md-form {
-        label,
-        input {
-            color: white;
-        }
-    }
-}
-
 @media (min-width: 800px) and (max-width: 850px) {
     .intro,
     .intro body,

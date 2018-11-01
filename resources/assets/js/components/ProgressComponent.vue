@@ -1,8 +1,8 @@
 <template>
     <div class="progress position-absolute h-100 py-1">
-        <div class="progress-bar h-100"
+        <div :class="classes"
              role="progressbar"
-             :style="styles"
+             :style="`width: ${percent}%`"
              :aria-valuenow="percent"
              aria-valuemin="0"
              aria-valuemax="100"></div>
@@ -14,11 +14,8 @@
         props: ['percent'],
 
         computed: {
-            styles() {
-                return {
-                    width: this.percent + '%',
-                    backgroundColor: this.percent == 100 ? '#76ff03' : '#bbdefb'
-                }
+            classes() {
+                return ['progress-bar', 'h-100', this.percent == 100 ? 'ready' : 'ongoing'];
             }
         }
     }

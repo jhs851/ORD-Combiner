@@ -18,10 +18,7 @@ class RatesTableSeeder extends Seeder
                     return ! Rate::where('name', $rate['name'])->exists();
                 })
                 ->each(function($rate) use ($columnId) {
-                    Column::find($columnId)->rates()->create([
-                        'name' => $rate['name'],
-                        'color' => $rate['color'],
-                    ]);
+                    Column::find($columnId)->rates()->create($rate);
                 });
         }
 

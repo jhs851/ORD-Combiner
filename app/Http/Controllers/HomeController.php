@@ -23,10 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $columns = Column::cache(function($column) {
-            return $column->orderBy('id', 'asc')->with('rates')->get();
-        });
-
         $unitsCount = Unit::cache(function($unit) {
             return $unit->count();
         });

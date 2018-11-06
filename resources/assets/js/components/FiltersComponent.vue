@@ -1,3 +1,4 @@
+
 <template>
     <div class="filters position-absolute">
         <i class="fa fa-check animated rotateIn" aria-hidden="true" v-for="characteristic in includeCharacteristics" :style="`color: ${characteristic.color};`"></i>

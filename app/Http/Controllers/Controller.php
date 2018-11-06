@@ -46,4 +46,18 @@ class Controller extends BaseController
 
         return back()->onlyInput($input);
     }
+
+    /**
+     * @param string $message
+     * @param array  $params
+     * @param string $level
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondForJson(string $message, array $params = [], string $level = 'success')
+    {
+        return response()->json(array_merge([
+            'message' => $message,
+            'level'   => $level,
+        ], $params));
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Column;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer(['combiner', 'admin.rates.index'], function($view) {
+            $view->with([
+                'columns' => Column::cache(function($column) {
+                    return $column->orderBy('id', 'asc')->with('rates')->get();
+                })]
+            );
+        });
     }
 
     /**

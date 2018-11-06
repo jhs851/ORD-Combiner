@@ -1,0 +1,59 @@
+.side-navbar.navbar {
+    background-color: $brand-brown;
+    z-index: $zindex-fixed;
+
+    @include media-breakpoint-up(md) {
+        width: 110px;
+        height: 100%;
+        box-shadow: none;
+        background: transparent linear-gradient(80deg, darken($brand-brown, 26%) 1%, $brand-brown 99%) repeat scroll 0% 0%;
+        padding: 0 !important;
+        overflow-y: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        &.navbar-dark .navbar-nav .nav-item {
+            > .nav-link {
+                white-space: nowrap;
+                color: lighten($brand-brown, 33.5%);
+                font-size: 90%;
+
+                @include hover-focus {
+                    background-color: transparent;
+                    color: white;
+                    @include font-family(YGO130);
+                }
+
+                .fa {
+                    margin-bottom: .7rem;
+                    font-size: 1.7rem;
+                }
+            }
+
+            &.active > .nav-link {
+                background-color: transparent;
+                color: white;
+                @include font-family(YGO130);
+
+                &::after {
+                    position: absolute;
+                    right: 0;
+                    top: 15px;
+                    display: block;
+                    height: 26px;
+                    width: 13px;
+                    content: "\f0d9";
+                    color: white;
+                    font: normal normal normal 49px/1 FontAwesome;
+                }
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .sidenav-body {
+        padding-left: 110px;
+    }
+}

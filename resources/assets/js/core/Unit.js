@@ -233,7 +233,7 @@ class Unit {
                     };
                 }
             } else {
-                if(window.IS_RECORD && ! newBuild) {
+                if (window.IS_RECORD && ! newBuild) {
                     addRecord = true;
                 } else {
                     result = {

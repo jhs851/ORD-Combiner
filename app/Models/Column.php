@@ -21,6 +21,6 @@ class Column extends Model
      */
     public function rates() : HasMany
     {
-        return $this->hasMany(Rate::class)->with('units');
+        return $this->hasMany(Rate::class)->orderBy('order', 'asc')->with('units');
     }
 }

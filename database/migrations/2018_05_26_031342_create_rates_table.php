@@ -18,11 +18,7 @@ class CreateRatesTable extends Migration
             $table->unsignedInteger('column_id');
             $table->string('name', 50)->nullable();
             $table->string('color', 50)->default('#007bff');
-
-            $table->foreign('column_id')
-                ->references('id')
-                ->on('columns')
-                ->onDelete('cascade');
+            $table->unsignedInteger('order')->index()->nullable();
         });
     }
 

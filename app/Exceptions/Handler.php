@@ -48,22 +48,51 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof AdministrationException)
+            return $this->unadministrated($request, $exception);
+
         return parent::render($request, $exception);
+    }
+
+    /**
+     * Convert an administration exception into a response.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  AdministrationException  $exception
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    protected function unadministrated($request, AdministrationException $exception)
+    {
+        return $this->respondException($request, $exception, 403, route('home'));
     }
 
     /**
      * Convert an authentication exception into a response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Auth\AuthenticationException  $exception
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request                 $request
+     * @param  \Illuminate\Auth\AuthenticationException $exception
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson()) return response()->json(['message' => $exception->getMessage()], 401);
+        return $this->respondException($request, $exception, 401, route('login'), '로그인 후에 이용가능합니다.', 'warning');
+    }
 
-        flash('로그인 후에 이용 가능합니다.', 'warning');
+    /**
+     * @param             $request
+     * @param Exception   $exception
+     * @param int         $status
+     * @param string|null $message
+     * @param string      $level
+     * @param string|null $redirect
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    protected function respondException($request, Exception $exception, int $status = 500, string $redirect = null, string $message = '', string $level = 'error')
+    {
+        if ($request->expectsJson()) return response()->json(['message' => $exception->getMessage()], $status);
 
-        return redirect()->guest($exception->redirectTo() ?? route('login'));
+        flash($message ?: $exception->getMessage(), $level);
+
+        return redirect()->guest($exception->redirectTo() ?? $redirect ?: route('home'));
     }
 }

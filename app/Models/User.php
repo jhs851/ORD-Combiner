@@ -59,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return void
      */
-    public function sendEmailVerificationNotification()
+    public function sendEmailVerificationNotification() : void
     {
         $this->notify(new VerifyEmail);
     }
@@ -70,7 +70,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param  string  $token
      * @return void
      */
-    public function sendPasswordResetNotification($token)
+    public function sendPasswordResetNotification($token) : void
     {
         $this->notify(new ResetPasswordNotification($token));
     }
@@ -87,5 +87,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this instanceof MustVerifyEmail
             ? $builder->whereNotNull('email_verified_at')
             : $builder;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin() : bool
+    {
+        foreach (config('auth.admin') as $column => $admin) if (in_array($this->$column, $admin)) return true;
+
+        return false;
     }
 }

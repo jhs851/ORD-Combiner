@@ -99,4 +99,15 @@ return [
         ],
     ],
 
+    'admin' => [
+        'email' => [
+            'jhs851@naver.com',
+            'jhs851767@gmail.com',
+        ],
+
+        'name' => [
+            '정형석',
+            'Hyungseok Jeong',
+        ],
+    ],
 ];

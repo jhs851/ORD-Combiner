@@ -20,9 +20,20 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             flash('이미 로그인 하셨습니다.', 'warning');
 
-            return redirect(route('home'));
+            return redirect($this->redirectTo($request));
         }
 
         return $next($request);
+    }
+
+    /**
+     * @param $request
+     * @return string
+     */
+    protected function redirectTo($request) : string
+    {
+        return str_contains($request->path(), 'admin')
+            ? route('admin.rates.index')
+            : route('home');
     }
 }

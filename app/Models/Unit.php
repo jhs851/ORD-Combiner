@@ -10,6 +10,21 @@ class Unit extends Model
     use Cacheable;
 
     /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($unit) {
+            $unit->formulas->each->delete();
+            $unit->uppers->each->delete();
+        });
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

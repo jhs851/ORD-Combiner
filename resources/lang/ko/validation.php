@@ -112,9 +112,10 @@ return [
     |
     */
     'attributes' => [
-        'email'    => '이메일',
-        'password' => '비밀번호',
-        'name'     => '이름',
-        'tel'      => '연락처',
+        'email'     => '이메일',
+        'password'  => '비밀번호',
+        'name'      => '이름',
+        'tel'       => '연락처',
+        'column_id' => '컬럼 ID',
     ],
 ];

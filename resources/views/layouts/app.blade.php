@@ -100,6 +100,11 @@
         .close {
             color: white;
         }
+
+        .burn {
+            border: 1px solid #007bff;
+            background-color: #bbdefb;
+        }
     </style>
 </head>
 

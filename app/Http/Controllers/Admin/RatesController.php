@@ -65,7 +65,7 @@ class RatesController extends Controller
      */
     public function order(Request $request, Rate $rate)
     {
-        $rate->setOrder($request->only(['column_id', 'order']));
+        $rate->updateOrder($request->only(['column_id', 'order']));
 
         return $this->respondForJson('순서가 변경되었습니다.');
     }

@@ -50670,7 +50670,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).indexOf(id));
         },
         onEnd: function onEnd(event) {
-            axios.put('/admin/rates/' + $(event.item).data('id') + '/order', { column_id: $(event.to).data('column-id'), order: event.newIndex });
+            var newIndex = event.newIndex;
+            var newColumnId = $(event.to).data('column-id');
+
+            if (event.oldIndex != newIndex || this.columnId != newColumnId) axios.put('/admin/rates/' + $(event.item).data('id') + '/order', { column_id: newColumnId, order: newIndex });
         }
     }
 });

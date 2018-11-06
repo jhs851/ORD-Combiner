@@ -19,7 +19,7 @@ class Rate extends Model
         parent::boot();
 
         static::created(function($rate) {
-            $rate->setOrder(request()->only('column_id'));
+            $rate->setOrder();
         });
 
         static::deleting(function($rate) {
@@ -64,38 +64,96 @@ class Rate extends Model
     }
 
     /**
+     * 컬럼안에서 1이 0으로 가면 0은 1로 증가,
+     * 컬럼안에서 2가 0으로 가면 0과 1은 1과 2로
+     * 컬럼안에서 0이 2로 가면 1과 2는 0과 1로
+     * 컬럼안에서 0이 다른 컬럼으로 이동하면 1과 2는 0과 1로
+     *
+     * @param array $data
+     */
+    public function updateOrder(array $data) : void
+    {
+        if ($data['order'] == $this->order && $data['column_id'] == $this->column_id) return;
+
+        if ($this->column_id === $data['column_id']) {
+            if ($belowOrders = static::belowOrders($data, $this->order)->get()) $belowOrders->each->decrement('order');
+
+            if ($underOrders = static::underOrders($data, $this->order)->get()) $underOrders->each->increment('order');
+        } else {
+            if ($beforeOrders = static::beforeOrders($this->column_id, $this->order)->get()) $beforeOrders->each->decrement('order');
+
+            if ($afterOrders = static::afterOrders($data)->get()) $afterOrders->each->increment('order');
+        }
+
+        $this->update($data);
+    }
+
+    /**
      * @param Builder $builder
      * @param array   $data
+     * @param int     $oldOrder
      * @return Builder
      */
-    public function scopeOverlapping(Builder $builder, array $data) : Builder
+    public function scopeBelowOrders(Builder $builder, array $data, int $oldOrder) : Builder
+    {
+        return $builder->where('column_id', $data['column_id'])
+            ->whereBetween('order', [$oldOrder + 1, $data['order']]);
+    }
+
+    /**
+     * @param Builder $builder
+     * @param array   $data
+     * @param int     $oldOrder
+     * @return Builder
+     */
+    public function scopeUnderOrders(Builder $builder, array $data, int $oldOrder) : Builder
+    {
+        return $builder->where('column_id', $data['column_id'])
+            ->whereBetween('order', [$data['order'], $oldOrder]);
+    }
+
+    /**
+     * @param Builder $builder
+     * @param int     $oldColumnId
+     * @param int     $oldOrder
+     * @return Builder
+     */
+    public function scopeBeforeOrders(Builder $builder, int $oldColumnId, int $oldOrder) : Builder
     {
         return $builder->where([
-            ['column_id', $data['column_id']],
-            ['order', $data['order']],
+            ['column_id', $oldColumnId],
+            ['order', '>', $oldOrder],
         ]);
     }
 
     /**
-     * @return int
+     * @param Builder $builder
+     * @param array   $data
+     * @return Builder
      */
-    public function getLastOrder() : int
+    public function scopeAfterOrders(Builder $builder, array $data) : Builder
     {
-        return static::where('column_id', request()->get('column_id'))->orderBy('order', 'desc')->value('order');
+        return $builder->where([
+            ['column_id', $data['column_id']],
+            ['order', '>=', $data['order']],
+        ]);
+    }
+
+    public function setOrder() : void
+    {
+        $this->order = ($lastOrderRate = static::lastOrder($this->column_id)->first()) ? $lastOrderRate->order + 1 : 0;
+        $this->save();
     }
 
     /**
-     * @param array $data
+     * @param Builder $builder
+     * @param int     $columnId
+     * @return Builder
      */
-    public function setOrder(array $data) : void
+    public function scopeLastOrder(Builder $builder, int $columnId) : Builder
     {
-        if (! array_key_exists('order', $data)) $data['order'] = $this->getLastOrder() + 1;
-
-        if ($exist = static::overlapping($data)->first()) {
-            $exist->order = $data['order'] + 1;
-            $exist->save();
-        }
-
-        $this->update($data);
+        return $builder->where('column_id', $columnId)
+            ->whereNotNull('order')
+            ->orderBy('order', 'desc');
     }
 }

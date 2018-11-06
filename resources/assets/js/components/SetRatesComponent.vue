@@ -40,7 +40,11 @@
             },
 
             onEnd(event) {
-                axios.put(`/admin/rates/${$(event.item).data('id')}/order`, { column_id: $(event.to).data('column-id'), order: event.newIndex });
+                let newIndex = event.newIndex;
+                let newColumnId = $(event.to).data('column-id');
+
+                if (event.oldIndex != newIndex || this.columnId != newColumnId)
+                    axios.put(`/admin/rates/${$(event.item).data('id')}/order`, { column_id: newColumnId, order: newIndex });
             }
         }
     }

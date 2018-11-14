@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\RateRequest;
+use App\Http\Requests\RatesRequest;
 use App\Models\Rate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,10 +22,10 @@ class RatesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param RateRequest $request
+     * @param RatesRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(RateRequest $request)
+    public function store(RatesRequest $request)
     {
         return $this->respondForJson('생성되었습니다.', ['rate' => Rate::create($request->all())]);
     }
@@ -33,11 +33,11 @@ class RatesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param RateRequest $request
-     * @param Rate        $rate
+     * @param RatesRequest $request
+     * @param Rate         $rate
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(RateRequest $request, Rate $rate)
+    public function update(RatesRequest $request, Rate $rate)
     {
         $rate->update($request->all());
 

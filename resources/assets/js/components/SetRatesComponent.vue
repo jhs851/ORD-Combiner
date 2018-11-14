@@ -1,26 +1,29 @@
 <template>
     <draggable :data-column-id="columnId" style="min-height: 40px;" :options="draggableOptions" @end="onEnd">
-        <set-rate-component v-for="rate in rates" :rate="rate" :key="rate.id" @destroy="deletes" />
+        <set-rate-component v-for="item in items" :rate="item" :key="item.id" @destroy="deletes" />
     </draggable>
 </template>
 
 <script>
     import SetRateComponent from './SetRateComponent.vue';
+    import collection from '../mixins/collection.vue';
 
     export default {
         props: ['data', 'columnId'],
 
         components: { SetRateComponent },
 
+        mixins: [ collection ],
+
         data() {
             return {
-                rates: this.data
+                items: this.data
             };
         },
 
         mounted() {
             this.$root.$on('maked', ({rate}) => {
-                if (rate.column_id == this.columnId) this.rates.push(rate);
+                if (rate.column_id == this.columnId) this.items.push(rate);
             });
         },
 
@@ -35,10 +38,6 @@
         },
 
         methods: {
-            deletes(id) {
-                this.$delete(this.rates, this.rates.map(rate => rate.id).indexOf(id));
-            },
-
             onEnd(event) {
                 let newIndex = event.newIndex;
                 let newColumnId = $(event.to).data('column-id');

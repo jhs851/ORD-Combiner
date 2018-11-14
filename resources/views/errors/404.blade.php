@@ -8,4 +8,4 @@
 </div>
 @endsection
 
-@section('message', __('죄송합니다. 찾고있는 페이지를 찾을 수 없습니다.'))
+@section('message', __('죄송합니다. 찾고 계신 페이지를 찾을 수 없습니다.'))

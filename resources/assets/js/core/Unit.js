@@ -5,6 +5,7 @@ class Unit {
         this.name = data.name;
         this.description = data.description;
         this.image = data.image;
+        this.imageUrl = data.imageUrl;
         this.warn = data.warn;
         this.etc = data.etc;
         this.lowest = data.lowest;

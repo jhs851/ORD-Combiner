@@ -18,11 +18,13 @@ class CreateUnitsTable extends Migration
             $table->unsignedInteger('rate_id')->index();
             $table->string('name', 50);
             $table->text('description')->nullable();
-            $table->string('image');
+            $table->unsignedInteger('order')->index()->nullable();
+            $table->string('image')->nullable();
             $table->boolean('warn')->default(false);
             $table->boolean('etc')->default(false);
             $table->boolean('lowest')->default(false);
             $table->unsignedInteger('count')->default(0);
+            $table->timestamps();
 
             $table->unique(['rate_id', 'name']);
         });

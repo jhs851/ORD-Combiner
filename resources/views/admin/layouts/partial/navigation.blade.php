@@ -20,7 +20,7 @@
             </li>
 
             <li class="nav-item mt-md-4 {{ str_contains(request()->path(), 'units') ? 'active' : '' }}">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('admin.units.index') }}">
                     <i class="fa fa-universal-access d-none d-md-block" aria-hidden="true"></i>
                     유닛
                 </a>

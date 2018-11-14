@@ -7,7 +7,7 @@
                 <progress-component :percent="unit.percent"></progress-component>
 
                 <div class="unit d-flex align-items-center py-1 px-1 waves-effect waves-dark" @click.prevent="setCountByClick" @contextmenu.prevent="build">
-                    <img class="img-fluid position-relative" :src="`/images/units/${unit.image}`" alt="">
+                    <img class="img-fluid position-relative" :src="unit.imageUrl" alt="">
                     <div class="output ml-1 position-relative" v-html="unit.output"></div>
                 </div>
             </div>

@@ -6,7 +6,7 @@
            data-placement="left"
            :title="title"
            style="right: 1rem; top: 0; cursor: pointer;"
-            @click="launch"></i>
+           @click="launch"></i>
 
         <div id="create-modal" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -35,6 +35,7 @@
 
 <script>
     import CreateRateComponent from './CreateRateComponent.vue';
+    import CreateUnitComponent from './CreateUnitComponent.vue';
 
     export default {
         props: {
@@ -48,7 +49,7 @@
             }
         },
 
-        components: { CreateRateComponent },
+        components: { CreateRateComponent, CreateUnitComponent },
 
         methods: {
             launch() {

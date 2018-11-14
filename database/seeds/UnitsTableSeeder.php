@@ -13,23 +13,26 @@ class UnitsTableSeeder extends Seeder
      */
     public function run() : void
     {
-        foreach (config('units') as $rateName => $unit) {
+        foreach (config('units') as $rateName => $units) {
             if (! $rate = Rate::where('name', $rateName)->first()) {
                 throw new Exception("rates 테이블에 '{$rateName}' 이름을 가진 칼럼이 존재하지 않습니다.");
             }
 
-            collect($unit)->filter(function($item, $unitName) use ($rate) {
+            $order = 0;
+
+            collect($units)->filter(function($item, $unitName) use ($rate) {
                     return $this->has($rate, $unitName);
                 })
-                ->each(function($item, $unitName) use ($rate) {
+                ->each(function($item, $unitName) use ($rate, &$order) {
                     $rate->units()->create([
-                        'name' => $unitName,
+                        'name'        => $unitName,
                         'description' => $item['description'],
-                        'image' => $item['image'],
-                        'warn' => $item['warn'] ?? false,
-                        'etc' => $item['etc'] ?? false,
-                        'lowest' => $item['lowest'] ?? false,
-                        'count' => $item['count'] ?? 0,
+                        'order'       => $order++,
+                        'image'       => $item['image'],
+                        'warn'        => $item['warn'] ?? false,
+                        'etc'         => $item['etc'] ?? false,
+                        'lowest'      => $item['lowest'] ?? false,
+                        'count'       => $item['count'] ?? 0,
                     ]);
                 });
         }

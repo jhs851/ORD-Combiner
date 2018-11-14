@@ -117,5 +117,8 @@ return [
         'name'      => '이름',
         'tel'       => '연락처',
         'column_id' => '컬럼 ID',
+        'rate_id'   => '등급 ID',
+        'count'     => '갯수',
+        'image'     => '이미지',
     ],
 ];

@@ -24227,6 +24227,10 @@ button.toast-close-button {
   }
 }
 
+.custom-file-label::after {
+  content: '\D30C\C77C';
+}
+
 input[type='number'] {
   -moz-appearance: textfield;
 }

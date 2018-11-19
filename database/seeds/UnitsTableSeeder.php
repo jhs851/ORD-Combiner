@@ -29,7 +29,6 @@ class UnitsTableSeeder extends Seeder
                         'description' => $item['description'],
                         'order'       => $order++,
                         'image'       => $item['image'],
-                        'warn'        => $item['warn'] ?? false,
                         'etc'         => $item['etc'] ?? false,
                         'lowest'      => $item['lowest'] ?? false,
                         'count'       => $item['count'] ?? 0,

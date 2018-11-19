@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UnitsRequest;
-use App\Models\{Rate, Unit};
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -27,7 +27,7 @@ class UnitsController extends Controller
      */
     public function store(UnitsRequest $request)
     {
-        $unit = Unit::create($request->merge($this->getAppendData($request))->all());
+        $unit = Unit::create($request->all());
 
         return $this->respondForJson('생성되었습니다.', compact('unit'));
     }
@@ -72,39 +72,5 @@ class UnitsController extends Controller
         $unit->updateOrder($request->only(['rate_id', 'order']));
 
         return $this->respondForJson('순서가 변경되었습니다.');
-    }
-
-    /**
-     * 만약 흔함 등급에 생성되면 warn 하고 lowest true로
-     * 만약 기타 등급에 생성되면 etc true로
-     *
-     * @param UnitsRequest $request
-     * @return array
-     */
-    protected function getAppendData(UnitsRequest $request) : array
-    {
-        return [
-            'lowest' => $this->isLowest($request),
-            'warn'   => $this->isLowest($request),
-            'etc'    => $this->isEtc($request),
-        ];
-    }
-
-    /**
-     * @param UnitsRequest $request
-     * @return bool
-     */
-    protected function isLowest(UnitsRequest $request) : bool
-    {
-        return $request->input('rate_id') == Rate::lowest()->value('id');
-    }
-
-    /**
-     * @param UnitsRequest $request
-     * @return bool
-     */
-    protected function isEtc(UnitsRequest $request) : bool
-    {
-        return $request->input('rate_id') == Rate::etc()->value('id');
     }
 }

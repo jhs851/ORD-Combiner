@@ -120,5 +120,7 @@ return [
         'rate_id'   => '등급 ID',
         'count'     => '갯수',
         'image'     => '이미지',
+        'target_id' => '유닛 ID',
+        'unit_id'   => '유닛 ID',
     ],
 ];

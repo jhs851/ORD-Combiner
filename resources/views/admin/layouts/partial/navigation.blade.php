@@ -27,7 +27,7 @@
             </li>
 
             <li class="nav-item mt-md-4 {{ str_contains(request()->path(), 'formulas') ? 'active' : '' }}">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('admin.formulas.index') }}">
                     <i class="fa fa-recycle d-none d-md-block" aria-hidden="true"></i>
                     조합
                 </a>

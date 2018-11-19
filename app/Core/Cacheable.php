@@ -14,7 +14,7 @@ trait Cacheable
      */
     protected static function bootCacheable()
     {
-        foreach ((new static)->methodsToFlush() as $method) {
+        foreach (static::methodsToFlush() as $method) {
             static::$method(function($model) {
                 $model->flush();
             });
@@ -24,16 +24,17 @@ trait Cacheable
     /**
      * @return array
      */
-    private function methodsToFlush() : array
+    public static function methodsToFlush() : array
     {
         return ['created', 'updated', 'deleted'];
     }
 
     /**
-     * @param Closure $callback
+     * @param Closure     $callback
+     * @param string|null $addKeyName
      * @return mixed
      */
-    public static function cache(Closure $callback)
+    public static function cache(Closure $callback, string $addKeyName = null)
     {
         if (! config('cache.enable')) return $callback(new static);
 
@@ -41,7 +42,7 @@ trait Cacheable
             ? app('cache')->tags(static::getTags())
             : app('cache');
 
-        return $cache->rememberForever(static::getCacheKey(), function() use ($callback) {
+        return $cache->rememberForever(static::getCacheKey($addKeyName), function() use ($callback) {
             return $callback(new static);
         });
     }
@@ -49,7 +50,7 @@ trait Cacheable
     /**
      * @return bool|void
      */
-    protected function flush()
+    public static function flush()
     {
         if (! static::taggable()) {
             return Cache::flush();
@@ -67,16 +68,17 @@ trait Cacheable
     }
 
     /**
+     * @param string|null $addKeyName
      * @return string
      */
-    protected static function getCacheKey() : string
+    protected static function getCacheKey(string $addKeyName = null) : string
     {
         $routeName = app('router')->getRoutes()->match(request())->getName() . '.' . static::getTags();
         $key = ($queryString = request()->getQueryString())
             ? $routeName . '.' . urlencode($queryString)
             : $routeName;
 
-        return md5($key);
+        return md5($key . $addKeyName);
     }
 
     /**

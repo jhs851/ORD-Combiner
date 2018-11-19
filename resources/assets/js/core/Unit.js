@@ -6,7 +6,6 @@ class Unit {
         this.description = data.description;
         this.image = data.image;
         this.imageUrl = data.imageUrl;
-        this.warn = data.warn;
         this.etc = data.etc;
         this.lowest = data.lowest;
         this.formulas = data.formulas || [];
@@ -192,8 +191,7 @@ class Unit {
 
         if (! newBuild && ! window.USE_ETC && this.etc) {
             return {
-                score: this.buildScore,
-                warn: false
+                score: this.buildScore
             };
         }
 
@@ -201,8 +199,7 @@ class Unit {
             this.preCount--;
 
             return {
-                score: this.buildScore,
-                warn: false
+                score: this.buildScore
             };
         } else {
             let result = {},
@@ -212,7 +209,6 @@ class Unit {
                 addRecord = true;
             } else if (this.formulas && this.formulas.length) {
                 let buildScore = 0,
-                    warn = (! newBuild && this.warn),
                     recorderSize = window.RECORDER.length;
 
                 this.formulas.forEach(formula => {
@@ -220,7 +216,6 @@ class Unit {
                         let build = formula[0].preventBuild(false, false, false, absMake);
 
                         buildScore += build.score;
-                        warn |= build.warn;
                     }
                 });
 
@@ -229,8 +224,7 @@ class Unit {
                     addRecord = true;
                 } else {
                     result = {
-                        score: buildScore,
-                        warn: warn
+                        score: buildScore
                     };
                 }
             } else {
@@ -238,8 +232,7 @@ class Unit {
                     addRecord = true;
                 } else {
                     result = {
-                        score: 0,
-                        warn: false
+                        score: 0
                     };
                 }
             }
@@ -248,8 +241,7 @@ class Unit {
                 window.RECORDER.push(this);
 
                 result = {
-                    score: 0,
-                    warn: false
+                    score: 0
                 };
             }
 

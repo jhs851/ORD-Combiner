@@ -20,7 +20,6 @@ class CreateUnitsTable extends Migration
             $table->text('description')->nullable();
             $table->unsignedInteger('order')->index()->nullable();
             $table->string('image')->nullable();
-            $table->boolean('warn')->default(false);
             $table->boolean('etc')->default(false);
             $table->boolean('lowest')->default(false);
             $table->unsignedInteger('count')->default(0);

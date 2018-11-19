@@ -24,7 +24,7 @@
                         <div class="border-top d-flex justify-content-center flex-wrap pt-3 pb-2">
                             <div class="text-center mx-2" v-for="formula in formulas">
                                 <div style="cursor: pointer;" @click="refresh(formula[0])">
-                                    <img class="img-fluid" :src="'/images/units/' + formula[0].image" alt="">
+                                    <img class="img-fluid" :src="formula[0].imageUrl" alt="">
                                     <small class="d-block mt-1">
                                         {{ formula | nameWithCount }}
                                     </small>
@@ -39,7 +39,7 @@
                         <div class="border-top d-flex justify-content-center flex-wrap pt-3 pb-2">
                             <div class="text-center mx-2" v-for="necessary in necessaries">
                                 <div style="cursor: pointer;" @click="refresh(necessary[0])">
-                                    <img class="img-fluid" :src="`/images/units/${necessary[0].image}`" alt="">
+                                    <img class="img-fluid" :src="necessary[0].imageUrl" alt="">
                                     <small class="d-block mt-1">
                                         {{ necessary | nameWithCount }}
                                     </small>
@@ -54,7 +54,7 @@
                         <div class="border-top d-flex justify-content-center flex-wrap pt-3 pb-2">
                             <div class="text-center mx-2" v-for="necessary in lowestNecessaries">
                                 <div style="cursor: pointer;" @click="refresh(necessary[0])">
-                                    <img class="img-fluid" :src="`/images/units/${necessary[0].image}`" alt="">
+                                    <img class="img-fluid" :src="necessary[0].imageUrl" alt="">
                                     <small class="d-block mt-1">
                                         {{ necessary | nameWithCount }}
                                     </small>
@@ -69,7 +69,7 @@
                         <div class="border-top d-flex justify-content-center flex-wrap pt-3 pb-2">
                             <div class="text-center mx-2" v-for="upper in uppers">
                                 <div style="cursor: pointer;" @click="refresh(upper)">
-                                    <img class="img-fluid" :src="'/images/units/' + upper.image" alt="">
+                                    <img class="img-fluid" :src="upper.imageUrl" alt="">
                                     <small class="d-block mt-1" v-text="upper ? upper.getNameWithRate() : ''"></small>
                                 </div>
                             </div>

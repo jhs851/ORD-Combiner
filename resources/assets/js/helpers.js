@@ -1,5 +1,6 @@
 import Swatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.min.css';
+import Popover  from 'vue-js-popover'
 
 Vue.mixin({
     components: { Swatches },
@@ -12,4 +13,4 @@ Vue.mixin({
             }
         }
     }
-});
+}).use(Popover);

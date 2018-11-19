@@ -7,5 +7,8 @@ $this->namespace('Api')->group(function() {
 
         // 등급
         $this->get('rates', 'RatesController');
+
+        // 조합
+        $this->get('formulas/{unit}', 'FormulasController');
     });
 });

@@ -16,5 +16,8 @@ $this->prefix('/admin')->namespace('Admin')->name('admin.')->group(function() {
         $this->put('units/{unit}/order', 'UnitsController@order');
         $this->post('units/{unit}', 'UnitsController@update')->name('units.update');
         $this->resource('units', 'UnitsController')->except(['create', 'show', 'edit', 'update']);
+
+        // 조합
+        $this->resource('formulas', 'FormulasController')->except(['create', 'show', 'edit']);
     });
 });

@@ -13,6 +13,8 @@ class Rate extends Model implements Orderablent
 
     const ETC_NAME = '기타';
 
+    const FORMULA_EXCLUSION_RATES = ['초월함', '불멸의', '영원함', '제한됨'];
+
     /**
      * The "booting" method of the model.
      *
@@ -87,5 +89,31 @@ class Rate extends Model implements Orderablent
     public function scopeEtc(Builder $builder) : Builder
     {
         return $builder->where('name', static::ETC_NAME);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeGeneral(Builder $builder) : Builder
+    {
+        return $builder->whereNotIn('name', [static::LOWEST_NAME, static::ETC_NAME]);
+    }
+
+    /**
+     * 해당 유닛보다 작은 등급을 가져온다.
+     * 초월함, 불멸, 영원함, 제한됨 등급은 제외시킨다.
+     *
+     * @param Builder $builder
+     * @param Unit    $target
+     * @return Builder
+     */
+    public function scopeLowerGrade(Builder $builder, Unit $target) : Builder
+    {
+        return $builder->whereNotIn('name', static::FORMULA_EXCLUSION_RATES)
+                ->where(function($query) use ($target) {
+                    $query->where('id', '<', $target->rate->id)
+                          ->orWhere('name', static::ETC_NAME);
+                });
     }
 }

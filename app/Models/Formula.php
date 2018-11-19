@@ -18,6 +18,17 @@ class Formula extends UnitRelated
                 Rate::flush();
             });
         }
+
+        static::updated(function($formula) {
+            Unit::find($formula->unit_id)->uppers()->create(['unit_id' => $formula->target_id]);
+        });
+
+        static::deleted(function($formula) {
+            Upper::where([
+                ['target_id', $formula->unit_id],
+                ['unit_id', $formula->target_id],
+            ])->delete();
+        });
     }
 
     /**

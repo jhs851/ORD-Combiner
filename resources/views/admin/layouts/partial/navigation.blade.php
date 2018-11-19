@@ -33,13 +33,6 @@
                 </a>
             </li>
 
-            <li class="nav-item mt-md-4 {{ str_contains(request()->path(), 'uppers') ? 'active' : '' }}">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-caret-square-o-up d-none d-md-block" aria-hidden="true"></i>
-                    상위조합
-                </a>
-            </li>
-
             <li class="nav-item mt-md-4 {{ str_contains(request()->path(), 'characteristics') ? 'active' : '' }}">
                 <a class="nav-link" href="#">
                     <i class="fa fa-id-card-o d-none d-md-block" aria-hidden="true"></i>

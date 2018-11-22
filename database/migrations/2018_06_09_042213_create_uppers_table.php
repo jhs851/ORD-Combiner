@@ -18,8 +18,6 @@ class CreateUppersTable extends Migration
             $table->unsignedInteger('target_id')->index();
             $table->unsignedInteger('unit_id')->index();
             $table->unique(['target_id', 'unit_id']);
-
-            $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
         });
     }
 

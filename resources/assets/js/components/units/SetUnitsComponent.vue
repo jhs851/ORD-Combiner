@@ -6,7 +6,7 @@
 
 <script>
     import SetUnitComponent from './SetUnitComponent.vue';
-    import collection from '../mixins/collection.vue';
+    import collection from '../../mixins/collection.vue';
 
     export default {
         props: ['data', 'rateId'],

@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-2">
-                        <characteristics-component :data="{{ $characteristics }}"></characteristics-component>
+                        <characteristics-component :data="{{ $characteristics }}" />
                     </div>
                 </div>
             </div>
@@ -15,14 +15,14 @@
                 <div class="row no-gutters">
                     @forelse ($columns as $column)
                         <div class="col-lg-2 col-md-7">
-                            <rates-component :data="{{ $column->rates }}" v-on:push="append"></rates-component>
+                            <rates-component :data="{{ $column->rates }}" v-on:push="append" />
                         </div>
                     @empty
                     @endforelse
                 </div>
             </div>
 
-            <modal-component></modal-component>
+            <modal-component />
         </div>
     </combiner-view>
 @stop

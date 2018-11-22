@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import UnitsComponent from './UnitsComponent.vue';
+    import UnitsComponent from './UnitsComponent';
 
     export default {
         props: ['data'],

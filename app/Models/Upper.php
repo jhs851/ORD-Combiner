@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class Upper extends UnitRelated
 {
     /**
@@ -12,4 +14,14 @@ class Upper extends UnitRelated
     protected $fillable = [
         'unit_id',
     ];
+
+    /**
+     * @param Builder $builder
+     * @param Formula $formula
+     * @return Builder
+     */
+    public function scopeCurrentUpperWithFormula(Builder $builder, Formula $formula)
+    {
+        return $builder->where([['target_id', $formula->unit_id], ['unit_id', $formula->target_id]]);
+    }
 }

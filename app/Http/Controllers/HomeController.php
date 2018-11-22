@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Characteristic, Column, Unit};
+use App\Models\{Characteristic, Unit};
 
 class HomeController extends Controller
 {
@@ -31,6 +31,6 @@ class HomeController extends Controller
             return $characteristic->orderBy('id', 'asc')->get();
         });
 
-        return view('combiner', compact('columns', 'unitsCount', 'characteristics'));
+        return view('combiner', compact('unitsCount', 'characteristics'));
     }
 }

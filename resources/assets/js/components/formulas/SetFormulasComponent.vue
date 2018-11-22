@@ -11,7 +11,7 @@
 
 <script>
     import SetFormulaComponent from './SetFormulaComponent.vue';
-    import collection from '../mixins/collection.vue';
+    import collection from '../../mixins/collection.vue';
 
     export default {
         props: ['data'],

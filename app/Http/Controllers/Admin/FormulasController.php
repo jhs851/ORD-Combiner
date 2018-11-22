@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\FormulasRequest;
-use App\Models\{Formula, Rate, Unit};
+use App\Models\{Formula, Rate, Unit, Upper};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -48,7 +48,12 @@ class FormulasController extends Controller
      */
     public function update(FormulasRequest $request, Formula $formula)
     {
+        $upper = Upper::currentUpperWithFormula($formula)->first();
+
         $formula->update($request->all());
+
+        $upper->target_id = $formula->unit_id;
+        $upper->save();
 
         return $this->respondForJson('변경되었습니다.', ['formula' => $formula->load('unit')]);
     }

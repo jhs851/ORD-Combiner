@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Core\{Cacheable, Orderable, Orderablent};
-use Illuminate\Database\Eloquent\{Builder, Model, Relations\HasMany};
+use App\Core\{Cacheable, Orderable};
+use Illuminate\Database\Eloquent\{Builder, Relations\HasMany};
 
-class Rate extends Model implements Orderablent
+class Rate extends Orderable
 {
-    use Cacheable, Orderable;
+    use Cacheable;
 
     const LOWEST_NAME = '흔함';
 
@@ -57,20 +57,14 @@ class Rate extends Model implements Orderablent
      */
     public $timestamps = false;
 
+    protected $criteriaId = 'column_id';
+
     /**
      * @return HasMany
      */
     public function units() : HasMany
     {
         return $this->hasMany(Unit::class)->with(['rate', 'formulas', 'uppers'])->orderBy('order', 'asc');
-    }
-
-    /**
-     * @return string
-     */
-    public function getCriteriaId() : string
-    {
-        return 'column_id';
     }
 
     /**

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import RateComponent from './RateComponent.vue';
+    import RateComponent from './RateComponent';
 
     export default {
         props: ['data'],

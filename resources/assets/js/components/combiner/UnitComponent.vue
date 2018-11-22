@@ -31,9 +31,9 @@
 </template>
 
 <script>
-    import Unit from '../core/Unit.js';
-    import ProgressComponent from './ProgressComponent.vue';
-    import FiltersComponent from './FiltersComponent.vue';
+    import Unit from '../../core/Unit.js';
+    import ProgressComponent from './ProgressComponent';
+    import FiltersComponent from './FiltersComponent';
 
     export default {
         props: ['data'],

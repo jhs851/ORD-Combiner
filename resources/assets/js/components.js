@@ -1,6 +1,6 @@
-Vue.component('combiner-view', require('./views/CombinerView.vue'));
-Vue.component('set-rates-component', require('./components/SetRatesComponent.vue'));
-Vue.component('set-units-component', require('./components/SetUnitsComponent.vue'));
-Vue.component('set-formulas-component', require('./components/SetFormulasComponent.vue'));
+Vue.component('combiner-view', require('./views/CombinerView'));
+Vue.component('set-rates-component', require('./components/rates/SetRatesComponent'));
+Vue.component('set-units-component', require('./components/units/SetUnitsComponent'));
+Vue.component('set-formulas-component', require('./components/formulas/SetFormulasComponent'));
 Vue.component('draggable', require('vuedraggable'));
-Vue.component('create-modal-component', require('./components/CreateModalComponent.vue'));
+Vue.component('create-modal-component', require('./components/CreateModalComponent'));

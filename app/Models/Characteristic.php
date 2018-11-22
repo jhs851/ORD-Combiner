@@ -50,8 +50,8 @@ class Characteristic extends Model
      */
     public function getIncludedAttribute() : Collection
     {
-        return cache()->rememberForever("8.4-{$this->id}-included", function() {
-            return $this->units->pluck('id');
-        });
+        return $this->cache(function($characteristic) {
+            return $characteristic->units->pluck('id');
+        }, ".{$this->id}");
     }
 }

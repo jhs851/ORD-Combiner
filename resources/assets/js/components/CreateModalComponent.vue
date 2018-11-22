@@ -34,8 +34,8 @@
 </template>
 
 <script>
-    import CreateRateComponent from './CreateRateComponent.vue';
-    import CreateUnitComponent from './CreateUnitComponent.vue';
+    import CreateRateComponent from './rates/CreateRateComponent';
+    import CreateUnitComponent from './units/CreateUnitComponent';
 
     export default {
         props: {

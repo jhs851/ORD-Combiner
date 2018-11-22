@@ -57,11 +57,8 @@ class Unit {
         window.RECORDER.forEach(recorder => {
             let unitSet = result.find((a) => a[0] == recorder);
 
-            if (unitSet) {
-                unitSet[1]++;
-            } else {
-                result.push([recorder, 1]);
-            }
+            if (unitSet) unitSet[1]++;
+            else result.push([recorder, 1]);
         });
 
         return result;
@@ -121,9 +118,7 @@ class Unit {
     }
 
     setCount(count) {
-        if (! isNaN(count)) {
-            this.count = count < 0 ? 0 : count;
-        }
+        if (! isNaN(count)) this.count = count < 0 ? 0 : count;
     }
 
     refresh() {
@@ -280,11 +275,8 @@ class Unit {
     }
 
     static get(id, units) {
-        for (let i = 0; i < units.length; i++) {
-            if (units[i].id == id) {
-                return units[i];
-            }
-        }
+        for (let i = 0; i < units.length; i++) if (units[i].id == id)
+            return units[i];
     }
 }
 

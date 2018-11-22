@@ -1,4 +1,3 @@
-
 <template>
     <div class="filters position-absolute">
         <i class="fa fa-check animated rotateIn" aria-hidden="true" v-for="characteristic in includeCharacteristics" :style="`color: ${characteristic.color};`"></i>
@@ -20,11 +19,8 @@
 
         mounted() {
             this.$root.$on('filter', characteristic => {
-                if (characteristic) {
-                    this.characteristics.push(characteristic);
-                } else {
-                    this.characteristics = [];
-                }
+                if (characteristic) this.characteristics.push(characteristic);
+                else this.characteristics = [];
 
                 this.filtering();
             });
@@ -41,19 +37,15 @@
                 this.included = [];
                 this.includeCharacteristics = [];
 
-                if (! this.characteristics.length) {
-                    return this.unit.show = true;
-                }
+                if (! this.characteristics.length) return this.unit.show = true;
 
                 this.characteristics.forEach(characteristic => {
                     this.included = characteristic.included.concat(this.included);
 
-                    if (characteristic.included.indexOf(this.unit.id) > -1) {
-                        this.includeCharacteristics.push(characteristic);
-                    }
+                    if (characteristic.included.indexOf(this.unit.id) > -1) this.includeCharacteristics.push(characteristic);
                 });
 
-                this.unit.show = this.unit.lowest || this.unit.etc || this.unit.rate.name == '안흔함' || this.included.indexOf(this.unit.id) > -1
+                this.unit.show = this.unit.lowest || this.unit.etc || this.unit.rate.name === '안흔함' || this.included.indexOf(this.unit.id) > -1
             }
         }
     }

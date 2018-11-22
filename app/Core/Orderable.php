@@ -2,9 +2,9 @@
 
 namespace App\Core;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\{Builder, Model};
 
-trait Orderable
+abstract class Orderable extends Model
 {
     /**
      * The "booting" method of the model.
@@ -110,5 +110,13 @@ trait Orderable
         return $builder->where($this->getCriteriaId(), $criteriaId)
             ->whereNotNull('order')
             ->orderBy('order', 'desc');
+    }
+
+    /**
+     * @return string
+     */
+    public function getCriteriaId() : string
+    {
+        return $this->criteriaId;
     }
 }

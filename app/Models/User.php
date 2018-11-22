@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\{ResetPasswordNotification, VerifyEmail};
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\{Builder, Relations\HasMany};
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -97,5 +97,13 @@ class User extends Authenticatable implements MustVerifyEmail
         foreach (config('auth.admin') as $column => $admin) if (in_array($this->$column, $admin)) return true;
 
         return false;
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function themes() : HasMany
+    {
+        return $this->hasMany(Theme::class);
     }
 }

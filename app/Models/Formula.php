@@ -19,10 +19,6 @@ class Formula extends UnitRelated
             });
         }
 
-        static::updated(function($formula) {
-            Unit::find($formula->unit_id)->uppers()->create(['unit_id' => $formula->target_id]);
-        });
-
         static::deleted(function($formula) {
             Upper::where([
                 ['target_id', $formula->unit_id],

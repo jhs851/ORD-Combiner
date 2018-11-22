@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Core\{Cacheable, Orderable, Orderablent};
-use Illuminate\Database\Eloquent\{Builder, Model, Relations\BelongsTo, Relations\HasMany};
+use App\Core\{Cacheable, Orderable};
+use Illuminate\Database\Eloquent\{Builder, Relations\BelongsTo, Relations\HasMany};
 use Illuminate\Support\Facades\Storage;
 
-class Unit extends Model implements Orderablent
+class Unit extends Orderable
 {
-    use Cacheable, Orderable;
+    use Cacheable;
 
     /**
      * The "booting" method of the model.
@@ -20,11 +20,7 @@ class Unit extends Model implements Orderablent
         parent::boot();
 
         static::creating(function($unit) {
-            if (request()->hasFile('image') && request()->file('image')->isValid()) {
-                request()->file('image')->store('units');
-
-                $unit->image = request()->file('image')->hashName();
-            }
+            if ($unit->hasImage()) $unit->image = $unit->getHashImageName();
 
             $unit->lowest = $unit->isLowest();
             $unit->etc = $unit->isEtc();
@@ -35,12 +31,10 @@ class Unit extends Model implements Orderablent
         });
 
         static::updating(function($unit) {
-            if (request()->hasFile('image') && request()->file('image')->isValid()) {
+            if ($unit->hasImage()) {
                 Storage::delete("units/{$unit->image}");
 
-                request()->file('image')->store('units');
-
-                $unit->image = request()->file('image')->hashName();
+                $unit->image = $unit->getHashImageName();
             }
         });
 
@@ -87,6 +81,8 @@ class Unit extends Model implements Orderablent
         'lowest' => 'boolean',
     ];
 
+    protected $criteriaId = 'rate_id';
+
     /**
      * @return BelongsTo
      */
@@ -120,14 +116,6 @@ class Unit extends Model implements Orderablent
     }
 
     /**
-     * @return string
-     */
-    public function getCriteriaId() : string
-    {
-        return 'rate_id';
-    }
-
-    /**
      * @return bool
      */
     protected function isLowest() : bool
@@ -145,7 +133,7 @@ class Unit extends Model implements Orderablent
 
     /**
      * 해당 유닛의 조합 유닛으로 가능한 모든 유닛을 반환한다.
-     * 선위 빼와 해당 유닛의 이미 존재하는 조합 유닛들도 제외시킨다.
+     * 선위와 해당 유닛의 이미 존재하는 조합 유닛들도 제외시킨다.
      *
      * @param Builder $builder
      * @param int     $targetId
@@ -156,10 +144,26 @@ class Unit extends Model implements Orderablent
         $target = static::findOrFail($targetId);
 
         return $builder->where('name', '<>', '위습')
-                       ->whereIn('rate_id', Rate::cache(function($rate) use ($target) { return $rate->lowerGrade($target)->pluck('id'); }))
+                       ->whereIn('rate_id', Rate::cache(function($rate) use ($target) { return $rate->lowerGrade($target)->pluck('id'); }, ".{$targetId}"))
                        ->whereNotIn('id', $target->formulas()->pluck('unit_id'))
                        ->orderBy('rate_id', 'asc')
                        ->orderBy('order', 'asc')
                        ->with('rate');
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHashImageName() : string
+    {
+        return str_replace('units/', '', request()->file('image')->store('units'));
+    }
+
+    /**
+     * @return bool
+     */
+    protected function hasImage() : bool
+    {
+        return request()->hasFile('image') && request()->file('image')->isValid();
     }
 }

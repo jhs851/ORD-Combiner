@@ -10,7 +10,7 @@ class FormulasController extends Controller
     public function __invoke(int $targetId)
     {
         return Unit::cache(function($unit) use ($targetId) {
-            return $unit->possibleFormulas($targetId)->get();
+            return $unit->possibleFormulas($targetId)->get()->groupBy('rate_id');
         }, ".{$targetId}");
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="position-relative">
-        <div class="text-center mx-1" v-popover.bottom="{ name: `popover-${formula.id}` }">
+        <div class="formula text-center mx-1" v-popover.bottom="{ name: `popover-${formula.id}` }">
             <img :src="formula.unit.imageUrl" alt="" style="width: 40px; height: 40px; cursor:pointer;"><br>
             <span v-text="name"></span>
         </div>
@@ -13,7 +13,7 @@
                     </div>
 
                     <div>
-                        <button class="btn btn-sm btn-floating p-0 m-0 btn-primary" @click="update">
+                        <button class="btn btn-sm btn-floating p-0 m-0 btn-primary" @click="update(null)">
                             <i class="fa fa-upload" aria-hidden="true"></i>
                         </button>
 
@@ -28,30 +28,31 @@
                 </div>
             </div>
 
-            <div class="popover-body p-1 text-center">
-                <formula-component v-for="formula in possibleFormulas"
-                                    :unit_id="unit_id"
-                                    :key="formula.id"
-                                    :formula="formula"
-                                    @set="setUnitId"
-                                    @edit="update" />
+            <div class="popover-body p-1">
+                <formulas-component v-for="(formulas, key) in possibleFormulasOfRates"
+                                :unit_id="unit_id"
+                                :key="key"
+                                :id="key"
+                                :formulas="formulas"
+                                @fixed="setUnitId"
+                                @edited="update" />
             </div>
         </popover>
     </div>
 </template>
 
 <script>
-    import FormulaComponent from './FormulaComponent.vue';
+    import FormulasComponent from './FormulasComponent';
 
     export default {
         props: ['data'],
 
-        components: { FormulaComponent },
+        components: { FormulasComponent },
 
         data() {
             return {
                 formula: this.data,
-                possibleFormulas: [],
+                possibleFormulasOfRates: [],
                 count: this.data.count,
                 unit_id: null
             };
@@ -65,7 +66,7 @@
 
         methods: {
             flush() {
-                axios.get(`/api/admin/formulas/${this.formula.target_id}`).then(({data}) => this.possibleFormulas = data);
+                axios.get(`/api/admin/formulas/${this.formula.target_id}`).then(({data}) => this.possibleFormulasOfRates = data);
             },
 
             update(id) {
@@ -74,6 +75,7 @@
                 axios.put(`/admin/formulas/${this.formula.id}`, { unit_id: id || this.unit_id, count: this.count })
                      .then(({data}) => {
                          this.formula = data.formula;
+                         this.unit_id = null;
                          this.flush();
                      });
             },
@@ -88,7 +90,7 @@
             close() {
                 this.$refs.popover.visible = false;
                 this.count = this.data.count;
-                this.possibleFormulas = [];
+                this.possibleFormulasOfRates = [];
                 this.unit_id = null;
             },
 

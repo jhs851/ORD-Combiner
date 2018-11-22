@@ -1,7 +1,7 @@
 <script>
-    import RatesComponent from '../components/RatesComponent.vue';
-    import CharacteristicsComponent from '../components/CharacteristicsComponent.vue';
-    import ModalComponent from '../components/ModalComponent.vue';
+    import RatesComponent from '../components/combiner/RatesComponent';
+    import CharacteristicsComponent from '../components/combiner/CharacteristicsComponent';
+    import ModalComponent from '../components/combiner/ModalComponent';
 
     export default {
         props: ['unitsCount'],

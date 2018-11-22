@@ -29,9 +29,7 @@
             off(communication = true) {
                 this.active = false;
 
-                if (communication) {
-                    this.$root.$emit('except', this.data);
-                }
+                if (communication) this.$root.$emit('except', this.data);
             }
         },
 

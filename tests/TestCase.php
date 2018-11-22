@@ -4,8 +4,6 @@ namespace Tests;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use phpDocumentor\Reflection\Types\This;
-use UnitsTest;
 
 abstract class TestCase extends BaseTestCase
 {

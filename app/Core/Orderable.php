@@ -11,8 +11,10 @@ abstract class Orderable extends Model
      *
      * @return void
      */
-    protected static function bootOrderable()
+    protected static function boot()
     {
+        parent::boot();
+
         static::created(function($model) {
             $model->setOrder();
         });

@@ -24,8 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('orphaned:clear')
+            ->evenInMaintenanceMode()           // 공사중 모드에서도 강제 실행
+            ->timezone('Asia/Seoul')
+            ->dailyAt('04:00');           // 매일 04시 00분에 커맨드 실행
     }
 
     /**

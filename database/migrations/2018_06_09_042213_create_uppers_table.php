@@ -15,9 +15,10 @@ class CreateUppersTable extends Migration
     {
         Schema::create('uppers', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('version_id')->index();
             $table->unsignedInteger('target_id')->index();
             $table->unsignedInteger('unit_id')->index();
-            $table->unique(['target_id', 'unit_id']);
+            $table->unique(['version_id', 'target_id', 'unit_id']);
         });
     }
 

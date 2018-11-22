@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\{Rate, Unit};
+use App\Models\{Rate, Unit, Version};
 use Illuminate\Database\Seeder;
 
 class FormulasTableSeeder extends Seeder
@@ -15,18 +15,21 @@ class FormulasTableSeeder extends Seeder
     {
         $formulas = config('formulas');
 
-        foreach ($formulas as $rate => $formula) {
-            $rate = $this->getRate($rate);
+        foreach (Version::all() as $version) {
+            version($version);
 
-            foreach ($formula as $unit => $recipes) {
-                $unit = $this->getUnit($rate, $unit);
+            foreach ($formulas as $rate => $formula) {
+                $rate = $this->getRate($rate);
 
-                foreach ($recipes as $recipe) {
-                    $attributes = $this->getAttributes($rate, $unit, $recipe);
+                foreach ($formula as $unit => $recipes) {
+                    $unit = $this->getUnit($rate, $unit);
 
-                     if (! $unit->formulas()->where($attributes)->exists()) {
-                        $unit->formulas()->create($attributes);
-                     }
+                    foreach ($recipes as $recipe) {
+                        $attributes = $this->getAttributes($rate, $unit, $recipe);
+
+                        if (! $unit->formulas()->where($attributes)->exists())
+                            $unit->formulas()->create($attributes);
+                    }
                 }
             }
         }
@@ -42,11 +45,10 @@ class FormulasTableSeeder extends Seeder
      */
     protected function getRate(string $rateName, Unit $combinationUnit = null) : Rate
     {
-        if (! $rate = Rate::where('name', $rateName)->first()) {
+        if (! $rate = Rate::where('name', $rateName)->first())
             throw new Exception(
                 $combinationUnit ? "'{$combinationUnit->name}' 조합식의 " : '' . "'{$rateName}'은(는) 존재하지 않는 등급입니다."
             );
-        }
 
         return $rate;
     }
@@ -65,11 +67,10 @@ class FormulasTableSeeder extends Seeder
             ['name', $unitName],
         ])->first();
 
-        if (! $unit) {
+        if (! $unit)
             throw new Exception(
                 $combinationUnit ? "'{$combinationUnit->name}' 조합식의 " : '' . "'{$unitName}_{$rate->name}'은(는) 존재하지 않는 유닛 입니다."
             );
-        }
 
         return $unit;
     }
@@ -85,17 +86,16 @@ class FormulasTableSeeder extends Seeder
     {
         $recipe = preg_split('/(_|x)/', $recipe);
 
-        if (count($recipe) !== 2 && count($recipe) !== 3) {
+        if (count($recipe) !== 2 && count($recipe) !== 3)
             throw new Exception("{$rate->name} 등급의 {$unit->name} 조합에서 '" . implode('_', $recipe) . '\' 조합 형식을 확인해주세요.');
-        }
 
         return $recipe;
     }
 
     /**
-     * @param Rate   $rate
-     * @param Unit   $unit
-     * @param string $recipe
+     * @param Rate    $rate
+     * @param Unit    $unit
+     * @param string  $recipe
      * @return array
      * @throws Exception
      */
@@ -106,9 +106,10 @@ class FormulasTableSeeder extends Seeder
         $character = $this->getUnit($recipeRate, $recipe[0], $unit);
 
         return [
-            'target_id' => $unit->id,
-            'unit_id' => $character->id,
-            'count' => $recipe[2] ?? 1,
+            'version_id' => version()->id,
+            'target_id'  => $unit->id,
+            'unit_id'    => $character->id,
+            'count'      => $recipe[2] ?? 1,
         ];
     }
 }

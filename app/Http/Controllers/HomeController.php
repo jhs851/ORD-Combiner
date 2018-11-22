@@ -33,4 +33,15 @@ class HomeController extends Controller
 
         return view('combiner', compact('unitsCount', 'characteristics'));
     }
+
+    public function version()
+    {
+        $cookie = cookie()->forever('version', request('version'));
+
+        cookie()->queue($cookie);
+
+        return ($return = request('return'))
+            ? redirect(urldecode($return))->withCookie($cookie)
+            : redirect(route('home'))->withCookie($cookie);
+    }
 }

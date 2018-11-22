@@ -14,7 +14,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        AdministrationException::class,
+        NotFoundVersionException::class,
     ];
 
     /**
@@ -42,14 +43,15 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception               $exception
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof AdministrationException)
-            return $this->unadministrated($request, $exception);
+        if ($exception instanceof AdministrationException) return $this->unadministrated($request, $exception);
+
+        if ($exception instanceof NotFoundVersionException) return $this->notFoundVersion($request, $exception);
 
         return parent::render($request, $exception);
     }
@@ -79,12 +81,12 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * @param             $request
-     * @param Exception   $exception
-     * @param int         $status
-     * @param string|null $message
-     * @param string      $level
-     * @param string|null $redirect
+     * @param \Illuminate\Http\Request $request
+     * @param Exception                $exception
+     * @param int                      $status
+     * @param string|null              $message
+     * @param string                   $level
+     * @param string|null              $redirect
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     protected function respondException($request, Exception $exception, int $status = 500, string $redirect = null, string $message = '', string $level = 'error')
@@ -94,5 +96,25 @@ class Handler extends ExceptionHandler
         flash($message ?: $exception->getMessage(), $level);
 
         return redirect()->guest($exception->redirectTo() ?? $redirect ?: route('home'));
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param NotFoundVersionException $exception
+     * @param int                      $status
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    protected function notFoundVersion($request, NotFoundVersionException $exception, int $status = 500)
+    {
+        $cookie = cookie()->forget('version');
+
+        cookie()->queue($cookie);
+
+        if ($request->expectsJson()) return response()->json(['message' => $exception->getMessage()], $status)->withCookie($cookie);
+
+        // 왠진 모르겠지만 안나오네요.
+        // flash($exception->getMessage(), 'error');
+
+        return redirect($exception->redirectTo())->withCookie($cookie);
     }
 }

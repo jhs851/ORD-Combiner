@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Core\Versionable;
+
 class Formula extends UnitRelated
 {
+    use Versionable;
+
     /**
      * The "booting" method of the model.
      *
@@ -19,6 +23,13 @@ class Formula extends UnitRelated
             });
         }
 
+        static::created(function($formula) {
+            Unit::find($formula->unit_id)->uppers()->create([
+                'version_id' => $formula->version_id,
+                'unit_id'    => $formula->target_id,
+            ]);
+        });
+
         static::deleted(function($formula) {
             Upper::where([
                 ['target_id', $formula->unit_id],
@@ -33,6 +44,7 @@ class Formula extends UnitRelated
      * @var array
      */
     protected $fillable = [
+        'version_id',
         'unit_id',
         'count',
     ];

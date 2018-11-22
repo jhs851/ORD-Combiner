@@ -5,6 +5,11 @@ Route::get('/home', [
     'uses' => 'HomeController@index',
 ]);
 
+Route::get('/version', [
+    'as'   => 'version',
+    'uses' => 'HomeController@version',
+]);
+
 /*Route::get('info', function() {
     return response()->json(phpinfo());
 });*/

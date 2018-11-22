@@ -56,7 +56,9 @@
 
 <body>
     <div id="app" class="wrap">
-        <div class="view">
+        @includeWhen(! isIntro(), 'layouts.partial.navigation')
+
+        <div class="view" style="padding-bottom: 60px;">
             <div class="mask background-gradient d-flex justify-content-center align-items-center">
                 @yield('into-mask-content')
             </div>

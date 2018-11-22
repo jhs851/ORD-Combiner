@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\{Rate, Unit};
+use App\Models\{Rate, Unit, Version};
 use Illuminate\Database\Seeder;
 
 class UnitsTableSeeder extends Seeder
@@ -13,18 +13,20 @@ class UnitsTableSeeder extends Seeder
      */
     public function run() : void
     {
-        foreach (config('units') as $rateName => $units) {
-            if (! $rate = Rate::where('name', $rateName)->first()) {
-                throw new Exception("rates 테이블에 '{$rateName}' 이름을 가진 칼럼이 존재하지 않습니다.");
-            }
+        foreach (Version::all() as $version) {
+            version($version);
 
-            $order = 0;
+            foreach (config('units') as $rateName => $units) {
+                if (! $rate = Rate::where('name', $rateName)->first())
+                    throw new Exception("rates 테이블에 '{$rateName}' 이름을 가진 칼럼이 존재하지 않습니다.");
 
-            collect($units)->filter(function($item, $unitName) use ($rate) {
-                    return $this->has($rate, $unitName);
-                })
-                ->each(function($item, $unitName) use ($rate, &$order) {
+                $order = 0;
+
+                foreach ($units as $unitName => $item) {
+                    if ($this->has($rate, $unitName)) continue;
+
                     $rate->units()->create([
+                        'version_id'  => version()->id,
                         'name'        => $unitName,
                         'description' => $item['description'],
                         'order'       => $order++,
@@ -33,20 +35,21 @@ class UnitsTableSeeder extends Seeder
                         'lowest'      => $item['lowest'] ?? false,
                         'count'       => $item['count'] ?? 0,
                     ]);
-                });
+                }
+            }
         }
 
         $this->command->info('Seeded Units Table.');
     }
 
     /**
-     * @param Rate   $rate
+     * @param Rate    $rate
      * @param string  $unitName
      * @return bool
      */
     protected function has(Rate $rate, string $unitName) : bool
     {
-        return ! Unit::where([
+        return Unit::where([
             ['rate_id', $rate->id],
             ['name', $unitName],
         ])->exists();

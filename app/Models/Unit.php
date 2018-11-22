@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Core\{Cacheable, Orderable};
+use App\Core\{Cacheable, Orderable, Versionable};
 use Illuminate\Database\Eloquent\{Builder, Relations\BelongsTo, Relations\HasMany};
 use Illuminate\Support\Facades\Storage;
 
 class Unit extends Orderable
 {
-    use Cacheable;
+    use Cacheable, Versionable;
 
     /**
      * The "booting" method of the model.
@@ -31,11 +31,7 @@ class Unit extends Orderable
         });
 
         static::updating(function($unit) {
-            if ($unit->hasImage()) {
-                Storage::delete("units/{$unit->image}");
-
-                $unit->image = $unit->getHashImageName();
-            }
+            if ($unit->hasImage()) $unit->image = $unit->getHashImageName();
         });
 
         static::deleting(function($unit) {
@@ -52,6 +48,7 @@ class Unit extends Orderable
      * @var array
      */
     protected $fillable = [
+        'version_id',
         'rate_id',
         'name',
         'description',

@@ -82,6 +82,23 @@
 </nav>
 
 <nav class="navbar navbar-light d-none d-md-flex" style="box-shadow: none;">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="versionDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"aria-expanded="false">
+                {{ version()->version }}
+            </a>
+
+            <div class="dropdown-menu dropdown-primary" aria-labelledby="versionDropdownMenuLink">
+                @forelse ($versions as $version)
+                    <a class="dropdown-item {{ version()->id === $version->id ? 'disabled' : '' }}" href="{{ route('version', ['version' => $version->version, 'return' => urlencode($currentUrl)]) }}">
+                        {{ $version->version }}
+                    </a>
+                @empty
+                @endforelse
+            </div>
+        </li>
+    </ul>
+
     <ul class="navbar-nav d-none d-md-flex flex-row ml-auto">
         <li class="nav-item">
             <a class="nav-link" href="{{ route('home') }}" target="_blank">

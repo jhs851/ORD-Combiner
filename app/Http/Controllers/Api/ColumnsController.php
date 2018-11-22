@@ -9,8 +9,6 @@ class ColumnsController extends Controller
 {
     public function __invoke()
     {
-        return Column::cache(function($column) {
-            return $column->orderBy('id', 'asc')->pluck('id');
-        });
+        return Column::orderBy('id', 'asc')->pluck('id');
     }
 }

@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run() : void
     {
+        $this->call(VersionsTableSeeder::class);
+
         $this->call(ColumnsTableSeeder::class);
 
         $this->call(RatesTableSeeder::class);
@@ -18,8 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UnitsTableSeeder::class);
 
         $this->call(FormulasTableSeeder::class);
-
-        $this->call(UppersTableSeeder::class);
 
         $this->call(CharacteristicsTableSeeder::class);
 

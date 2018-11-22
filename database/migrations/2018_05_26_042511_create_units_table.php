@@ -15,6 +15,7 @@ class CreateUnitsTable extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('version_id')->index();
             $table->unsignedInteger('rate_id')->index();
             $table->string('name', 50);
             $table->text('description')->nullable();
@@ -25,7 +26,7 @@ class CreateUnitsTable extends Migration
             $table->unsignedInteger('count')->default(0);
             $table->timestamps();
 
-            $table->unique(['rate_id', 'name']);
+            $table->unique(['version_id', 'rate_id', 'name']);
         });
     }
 

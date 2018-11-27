@@ -2,12 +2,26 @@
 
 namespace Tests;
 
-use App\Models\User;
+use App\Models\{User, Version};
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+
+    /**
+     * @var Version
+     */
+    protected $version;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->version = create(Version::class);
+
+        version($this->version);
+    }
 
     /**
      * @param User|null $user

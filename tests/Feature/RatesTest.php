@@ -1,6 +1,8 @@
 <?php
 
+use App\Exceptions\AdministrationException;
 use App\Models\{Column, Rate, User};
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -23,6 +25,8 @@ class RatesTest extends TestCase
     /** @test */
     function guests_cannot_create_new_rate()
     {
+        $this->expectException(AuthenticationException::class);
+
         $this->post(route('admin.rates.store'))
              ->assertRedirect(route('login'));
     }
@@ -31,6 +35,8 @@ class RatesTest extends TestCase
     function general_users_cannot_create_new_rate()
     {
         $this->signIn(create(User::class));
+
+        $this->expectException(AdministrationException::class);
 
         $this->post(route('admin.rates.store'))
              ->assertRedirect(route('admin.login'));

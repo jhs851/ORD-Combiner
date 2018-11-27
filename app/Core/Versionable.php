@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Scopes\VersionScope;
+
 trait Versionable
 {
     /**
@@ -12,10 +14,17 @@ trait Versionable
     protected static function bootVersionable()
     {
         static::addGlobalScope(new VersionScope);
+
+        static::creating(function($model) {
+            $model->version_id = version()->id;
+        });
     }
 
-    public function setVersionIdAttribute() : void
+    /**
+     * @param int|null $versionId
+     */
+    public function setVersionIdAttribute(int $versionId = null) : void
     {
-        $this->attributes['version_id'] = version()->id;
+        $this->attributes['version_id'] = $versionId ?: version()->id;
     }
 }

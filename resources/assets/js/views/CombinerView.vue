@@ -18,9 +18,7 @@
             append(unit) {
                 this.units.push(unit);
 
-                if (this.unitsCount == this.units.length) {
-                    this.init();
-                }
+                if (this.unitsCount == this.units.length) this.init();
             },
 
             init() {

@@ -72,18 +72,13 @@ class Unit {
 
                     this.buildScore += formula[0].buildScore * formula[1];
 
-                    if (formula[0].etc) {
-                        this.etcBuildScore += formula[0].buildScore * formula[1];
-                    } else {
-                        this.etcBuildScore += formula[0].etcBuildScore * formula[1];
-                    }
+                    if (formula[0].etc) this.etcBuildScore += formula[0].buildScore * formula[1];
+                    else this.etcBuildScore += formula[0].etcBuildScore * formula[1];
                 });
             } else {
                 this.buildScore = 1;
 
-                if (this.etc) {
-                    this.etcBuildScore = 1;
-                }
+                if (this.etc) this.etcBuildScore = 1;
             }
         }
 
@@ -108,9 +103,7 @@ class Unit {
      setUppers(units) {
          let uppers = [];
 
-         this.uppers.forEach(upper => {
-             uppers.push(Unit.get(upper.unit_id, units));
-         });
+         this.uppers.forEach(upper => uppers.push(Unit.get(upper.unit_id, units)));
 
          this.uppers = uppers;
 
@@ -138,21 +131,15 @@ class Unit {
 
             if (window.USE_ETC || ! this.etc) {
                 for (let i = 0; i < 100; i++) {
-                    if (this.preventBuild(false, true).score == this.buildScore) {
-                        makeCount++;
-                    } else {
-                        break;
-                    }
+                    if (this.preventBuild(false, true).score == this.buildScore) makeCount++;
+                    else break;
                 }
             }
 
             this.output = makeCount == 1 ? this.name : `(${makeCount}) ${this.name}`;
 
-        } else if (this.percent > 0) {
-            this.output = `<span class="font-weight-bold">${this.percent}%</span> ${this.name}`;
-        } else {
-            this.output = this.name;
-        }
+        } else if (this.percent > 0) this.output = `<span class="font-weight-bold">${this.percent}%</span> ${this.name}`;
+        else this.output = this.name;
     }
 
     /**
@@ -171,9 +158,7 @@ class Unit {
 
             if (! skipLocks) {
                 window.LOCK_UNITS.forEach(unit => {
-                    if (unit && this != unit) {
-                        unit.preventBuild(false, true);
-                    }
+                    if (unit && this != unit) unit.preventBuild(false, true);
                 });
             }
         }
@@ -186,7 +171,8 @@ class Unit {
 
         if (! newBuild && ! window.USE_ETC && this.etc) {
             return {
-                score: this.buildScore
+                score: this.buildScore,
+                lowest: false
             };
         }
 
@@ -194,16 +180,17 @@ class Unit {
             this.preCount--;
 
             return {
-                score: this.buildScore
+                score: this.buildScore,
+                lowest: false
             };
         } else {
             let result = {},
                 addRecord = false;
 
-            if (window.IS_RECORD && ! newBuild && this.lowest) {
-                addRecord = true;
-            } else if (this.formulas && this.formulas.length) {
+            if (window.IS_RECORD && ! newBuild && this.lowest) addRecord = true;
+            else if (this.formulas && this.formulas.length) {
                 let buildScore = 0,
+                    lowest = (! newBuild && this.lowest),
                     recorderSize = window.RECORDER.length;
 
                 this.formulas.forEach(formula => {
@@ -211,6 +198,7 @@ class Unit {
                         let build = formula[0].preventBuild(false, false, false, absMake);
 
                         buildScore += build.score;
+                        lowest |= build.lowest;
                     }
                 });
 
@@ -219,7 +207,8 @@ class Unit {
                     addRecord = true;
                 } else {
                     result = {
-                        score: buildScore
+                        score: buildScore,
+                        lowest: lowest
                     };
                 }
             } else {
@@ -227,7 +216,8 @@ class Unit {
                     addRecord = true;
                 } else {
                     result = {
-                        score: 0
+                        score: 0,
+                        lowest: false
                     };
                 }
             }
@@ -236,7 +226,8 @@ class Unit {
                 window.RECORDER.push(this);
 
                 result = {
-                    score: 0
+                    score: 0,
+                    lowest: false
                 };
             }
 
@@ -245,9 +236,7 @@ class Unit {
     }
 
     canBuild() {
-        if (this.build(true)) {
-            refreshAll();
-        }
+        if (this.build(true)) refreshAll();
     }
 
     build(newBuild) {
@@ -257,9 +246,8 @@ class Unit {
             return false;
         }
 
-        if (! newBuild && this.count > 0) {
-            this.setCount(this.count - 1);
-        } else {
+        if (! newBuild && this.count > 0) this.setCount(this.count - 1);
+        else {
             this.formulas.forEach(formula => {
                 for (let i = 0; i < formula[1]; i++) {
                     formula[0].build();

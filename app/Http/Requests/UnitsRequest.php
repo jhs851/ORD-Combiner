@@ -27,7 +27,7 @@ class UnitsRequest extends FormRequest
         return [
             'rate_id' => ['sometimes', 'required', 'exists:rates,id'],
             'name'    => ['required', Rule::unique('units', 'name')->where(function($query) {
-                return $query->where('rate_id', $this->get('rate_id'));
+                return $query->where([['version_id', version()->id], ['rate_id', $this->get('rate_id')]]);
             })],
             'count'   => ['integer', 'min:0'],
         ];

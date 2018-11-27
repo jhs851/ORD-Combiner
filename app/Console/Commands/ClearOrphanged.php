@@ -41,12 +41,20 @@ class ClearOrphanged extends Command
     public function handle()
     {
         $images = Unit::withoutGlobalScope(VersionScope::class)->pluck('image')->toArray() + ['default.jpg'];
-        $files = Storage::files('units');
 
-        foreach ($files as $file)
-            if (array_search(str_replace('units/', '', $file), $images) === false)
-                Storage::delete($file);
+        foreach (Storage::files('units') as $file) if ($this->notNecessary($file, $images))
+            Storage::delete($file);
 
         $this->info('I\'ve cleaned all orphaned files.');
+    }
+
+    /**
+     * @param       $file
+     * @param array $images
+     * @return bool
+     */
+    protected function notNecessary($file, array $images) : bool
+    {
+        return ! in_array(str_replace('units/', '', $file), $images);
     }
 }

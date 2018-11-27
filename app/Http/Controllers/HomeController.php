@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         $unitsCount = Unit::cache(function($unit) {
             return $unit->count();
-        });
+        }, '.' . version()->id);
 
         $characteristics = Characteristic::cache(function($characteristic) {
             return $characteristic->orderBy('id', 'asc')->get();

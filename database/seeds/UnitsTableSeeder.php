@@ -26,7 +26,6 @@ class UnitsTableSeeder extends Seeder
                     if ($this->has($rate, $unitName)) continue;
 
                     $rate->units()->create([
-                        'version_id'  => version()->id,
                         'name'        => $unitName,
                         'description' => $item['description'],
                         'order'       => $order++,

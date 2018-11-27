@@ -10,37 +10,7 @@ class Unit extends Orderable
 {
     use Cacheable, Versionable;
 
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function($unit) {
-            if ($unit->hasImage()) $unit->image = $unit->getHashImageName();
-
-            $unit->lowest = $unit->isLowest();
-            $unit->etc = $unit->isEtc();
-        });
-
-        static::created(function($unit) {
-            if ($unit->isLowest()) $unit->formulas()->create(['unit_id' => 1]);
-        });
-
-        static::updating(function($unit) {
-            if ($unit->hasImage()) $unit->image = $unit->getHashImageName();
-        });
-
-        static::deleting(function($unit) {
-            Storage::delete("units/{$unit->image}");
-
-            $unit->formulas->each->delete();
-            $unit->uppers->each->delete();
-        });
-    }
+    const WISP_NAME = '위습';
 
     /**
      * The attributes that are mass assignable.
@@ -73,7 +43,6 @@ class Unit extends Orderable
      * @var array
      */
     protected $casts = [
-        'warn'   => 'boolean',
         'etc'    => 'boolean',
         'lowest' => 'boolean',
     ];
@@ -105,27 +74,19 @@ class Unit extends Orderable
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function version() : BelongsTo
+    {
+        return $this->belongsTo(Version::class);
+    }
+
+    /**
      * @return string
      */
     public function getImageUrlAttribute() : string
     {
         return Storage::url('units/' . ($this->image ?: 'default.jpg'));
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isLowest() : bool
-    {
-        return request()->input('rate_id') == Rate::lowest()->value('id');
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isEtc() : bool
-    {
-        return request()->input('rate_id') == Rate::etc()->value('id');
     }
 
     /**
@@ -140,7 +101,7 @@ class Unit extends Orderable
     {
         $target = static::findOrFail($targetId);
 
-        return $builder->where('name', '<>', '위습')
+        return $builder->where('id', '<>', static::wisp()->value('id'))
                        ->whereIn('rate_id', Rate::cache(function($rate) use ($target) { return $rate->lowerGrade($target)->pluck('id'); }, ".{$targetId}"))
                        ->whereNotIn('id', $target->formulas()->pluck('unit_id'))
                        ->orderBy('rate_id', 'asc')
@@ -149,18 +110,11 @@ class Unit extends Orderable
     }
 
     /**
-     * @return string
+     * @param Builder $builder
+     * @return Builder
      */
-    protected function getHashImageName() : string
+    public static function scopeWisp(Builder $builder) : Builder
     {
-        return str_replace('units/', '', request()->file('image')->store('units'));
-    }
-
-    /**
-     * @return bool
-     */
-    protected function hasImage() : bool
-    {
-        return request()->hasFile('image') && request()->file('image')->isValid();
+        return $builder->where('name', static::WISP_NAME);
     }
 }

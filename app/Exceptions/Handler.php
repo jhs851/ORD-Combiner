@@ -46,9 +46,12 @@ class Handler extends ExceptionHandler
      * @param  \Illuminate\Http\Request $request
      * @param  \Exception               $exception
      * @return \Illuminate\Http\Response
+     * @throws Exception
      */
     public function render($request, Exception $exception)
     {
+        if (app()->environment() === 'testing') throw $exception;
+
         if ($exception instanceof AdministrationException) return $this->unadministrated($request, $exception);
 
         if ($exception instanceof NotFoundVersionException) return $this->notFoundVersion($request, $exception);

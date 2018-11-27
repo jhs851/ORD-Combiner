@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace App\Scopes;
 
 use Illuminate\Database\Eloquent\{Builder, Model, Scope};
 
@@ -15,6 +15,6 @@ class VersionScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('version_id', version()->id);
+        $builder->where('version_id', version()->id ?: $model->version_id);
     }
 }

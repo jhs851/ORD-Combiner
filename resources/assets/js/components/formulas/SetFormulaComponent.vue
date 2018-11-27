@@ -2,7 +2,7 @@
     <div class="position-relative">
         <div class="formula text-center mx-1" v-popover.bottom="{ name: `popover-${formula.id}` }">
             <img :src="formula.unit.imageUrl" alt="" style="width: 40px; height: 40px; cursor:pointer;"><br>
-            <span v-text="name"></span>
+            <span v-html="name"></span>
         </div>
 
         <popover :name="`popover-${formula.id}`" :width="300" @show="flush" ref="popover">
@@ -60,7 +60,7 @@
 
         computed: {
             name() {
-                return this.formula.unit.name + (this.formula.count > 1 ? 'x' + this.formula.count : '');
+                return this.formula.unit.name + `<small>(${this.formula.unit.rate.name})</small>` + (this.formula.count > 1 ? 'x' + this.formula.count : '');
             }
         },
 

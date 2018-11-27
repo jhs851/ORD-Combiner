@@ -1,7 +1,7 @@
 <?php
 
 $this->prefix('/admin')->namespace('Admin')->name('admin.')->group(function() {
-    $this->namespace('auth')->group(function() {
+    $this->namespace('Auth')->group(function() {
         $this->get('/', 'LoginController@showLoginForm')->name('login');
         $this->post('/', 'LoginController@login');
         $this->get('/logout', 'LoginController@logout')->name('logout');

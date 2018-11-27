@@ -24,7 +24,7 @@ class FormulasRequest extends FormRequest
     public function rules()
     {
         return [
-            'unit_id' => ['required', 'exists:units,id'],
+            'unit_id' => ['nullable', 'exists:units,id'],
             'count'   => 'min:1',
         ];
     }

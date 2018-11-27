@@ -49,11 +49,9 @@ class Version extends Model
      */
     public static function getVersion() : Version
     {
-        if (app()->environment() === 'testing') return new static;
+        if (app()->environment() === 'testing' && static::currentVersion()->first() === null) return new static;
 
-        return static::cache(function() {
-            return static::currentVersion()->first();
-        }, '.' . static::$version);
+        return static::currentVersion()->first();
     }
 
     /**

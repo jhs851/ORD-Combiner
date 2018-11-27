@@ -12,9 +12,7 @@ class ColumnsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; Column::count() < 7; $i++) {
-            Column::create();
-        }
+        for ($i = 0; Column::count() < 7; $i++) Column::create();
 
         $this->command->info('Seeded Columns Table.');
     }

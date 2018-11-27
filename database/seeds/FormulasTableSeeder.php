@@ -34,7 +34,7 @@ class FormulasTableSeeder extends Seeder
             }
         }
 
-        $this->command->info('Seeded Formulas Table.');
+        $this->command->info('Seeded formulas and uppers table.');
     }
 
     /**
@@ -106,7 +106,6 @@ class FormulasTableSeeder extends Seeder
         $character = $this->getUnit($recipeRate, $recipe[0], $unit);
 
         return [
-            'version_id' => version()->id,
             'target_id'  => $unit->id,
             'unit_id'    => $character->id,
             'count'      => $recipe[2] ?? 1,

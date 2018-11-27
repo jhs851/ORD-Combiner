@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Core\Versionable;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\{Model, Relations\BelongsTo};
 
-class Upper extends UnitRelated
+class Upper extends Model
 {
     use Versionable;
 
@@ -16,16 +16,30 @@ class Upper extends UnitRelated
      */
     protected $fillable = [
         'version_id',
+        'target_id',
         'unit_id',
     ];
 
     /**
-     * @param Builder $builder
-     * @param Formula $formula
-     * @return Builder
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
      */
-    public function scopeCurrentUpperWithFormula(Builder $builder, Formula $formula)
+    public $timestamps = false;
+
+    /**
+     * @return BelongsTo
+     */
+    public function unit() : BelongsTo
     {
-        return $builder->where([['target_id', $formula->unit_id], ['unit_id', $formula->target_id]]);
+        return $this->belongsTo(Unit::class)->with('rate');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function formula() : BelongsTo
+    {
+        return $this->belongsTo(Formula::class);
     }
 }

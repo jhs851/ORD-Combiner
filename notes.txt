@@ -16,7 +16,3 @@ NPM Package 수정사항
 부모 레이아웃
 1. layouts.app
 2. admin.layouts.app
-
-서버 오픈시
-1. artisan storage:link 로 public/storage 를 storage/app/public 으로 심볼릭 링크를 생성
-2. 크론탭에 스케쥴 등록

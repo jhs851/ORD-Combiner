@@ -4,7 +4,7 @@ namespace App\Core;
 
 use Illuminate\Database\Eloquent\{Builder, Model};
 
-abstract class Orderable extends Model
+class Orderable extends Model
 {
     /**
      * The "booting" method of the model.

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\FormulasRequest;
-use App\Models\{Formula, Rate, Unit, Upper};
+use App\Models\{Formula, Rate, Unit};
+use App\Rules\ExistWisp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,7 +18,7 @@ class FormulasController extends Controller
     public function index()
     {
         return view('admin.formulas.index', ['rates' => Rate::cache(function($rate) {
-            return $rate->general()->orderBy('column_id', 'asc')->get();
+            return $rate->general()->get();
         })]);
     }
 
@@ -29,11 +30,13 @@ class FormulasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['target_id' => 'required']);
+        $request->validate([
+            'target_id' => ['required', new ExistWisp($unit = Unit::find($request->get('target_id')))]
+        ]);
 
-        $formula = Unit::find($request->get('target_id'))
+        $formula = $unit
             ->formulas()
-            ->create(['unit_id' => 1])
+            ->create(['unit_id' => Unit::wisp()->value('id')])
             ->load('unit');
 
         return $this->respondForJson('생성되었습니다.', compact('formula'));
@@ -48,12 +51,7 @@ class FormulasController extends Controller
      */
     public function update(FormulasRequest $request, Formula $formula)
     {
-        $upper = Upper::currentUpperWithFormula($formula)->first();
-
         $formula->update($request->all());
-
-        $upper->target_id = $formula->unit_id;
-        $upper->save();
 
         return $this->respondForJson('변경되었습니다.', ['formula' => $formula->load('unit')]);
     }

@@ -91,7 +91,8 @@ class Rate extends Orderable
      */
     public function scopeGeneral(Builder $builder) : Builder
     {
-        return $builder->whereNotIn('name', [static::LOWEST_NAME, static::ETC_NAME]);
+        return $builder->whereNotIn('name', [static::LOWEST_NAME, static::ETC_NAME])
+                       ->orderBy('order', 'asc');
     }
 
     /**
@@ -99,14 +100,14 @@ class Rate extends Orderable
      * 초월함, 불멸, 영원함, 제한됨 등급은 제외시킨다.
      *
      * @param Builder $builder
-     * @param Unit    $target
+     * @param Unit    $unit
      * @return Builder
      */
-    public function scopeLowerGrade(Builder $builder, Unit $target) : Builder
+    public function scopeLowerGrade(Builder $builder, Unit $unit) : Builder
     {
         return $builder->whereNotIn('name', static::FORMULA_EXCLUSION_RATES)
-                ->where(function($query) use ($target) {
-                    $query->where('id', '<', $target->rate->id)
+                ->where(function($query) use ($unit) {
+                    $query->where('id', '<', $unit->rate->id)
                           ->orWhere('name', static::ETC_NAME);
                 });
     }

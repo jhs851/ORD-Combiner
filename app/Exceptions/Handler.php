@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Maknz\Slack\Facades\Slack;
 
 class Handler extends ExceptionHandler
 {
@@ -37,6 +38,11 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if (app()->environment('production') && $this->shouldReport($exception)) {
+            Slack::attach($this->getAttachmentsForSlack($exception))
+                ->send($exception->getMessage());
+        }
+
         parent::report($exception);
     }
 
@@ -118,5 +124,44 @@ class Handler extends ExceptionHandler
         flash($exception->getMessage(), 'error');
 
         return redirect($exception->redirectTo())->withCookie($cookie);
+    }
+
+    /**
+     * @param Exception $exception
+     * @return array
+     */
+    protected function getAttachmentsForSlack(Exception $exception) : array
+    {
+        return [
+            'color'  => 'danger',
+            'fields' => [
+                [
+                    'title' => 'Status code',
+                    'value' => method_exists($exception, 'getStatusCode')
+                        ? $exception->getStatusCode()
+                        : 'This is not status code but just code : ' . $exception->getCode(),
+                ],
+                [
+                    'title' => 'Class',
+                    'value' => get_class($exception),
+                ],
+                [
+                    'title' => 'Url',
+                    'value' => url()->full(),
+                ],
+                [
+                    'title' => 'File',
+                    'value' => $exception->getFile() . ':' . $exception->getLine(),
+                ],
+                [
+                    'title' => 'User',
+                    'value' => auth()->check() ? auth()->user()->email : 'Guest',
+                ],
+                [
+                    'title' => 'Trace',
+                    'value' => $exception->getTraceAsString(),
+                ],
+            ]
+        ];
     }
 }

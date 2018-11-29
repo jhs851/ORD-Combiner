@@ -48,12 +48,6 @@
                     </a>
                 </div>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" onclick="menuToggle()">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </a>
-            </li>
         </ul>
     </div>
 </nav>

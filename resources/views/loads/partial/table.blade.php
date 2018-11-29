@@ -20,7 +20,7 @@
             <tr is="set-load-component" v-for="item in items" :item="item" :key="item.id"></tr>
 
             <tr v-if="! items.length" class="empty">
-                <td>존재하는 코드가 없습니다.</td>
+                <td>코드를 등록해주세요.</td>
             </tr>
         </tbody>
     </table>

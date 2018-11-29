@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('into-mask-content')
+@section('content')
     <div class="container my-6 h-75" style="overflow-y: auto;">
         <div class="row">
             <div class="col">

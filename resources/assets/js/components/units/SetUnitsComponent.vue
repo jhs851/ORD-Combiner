@@ -1,5 +1,5 @@
 <template>
-    <draggable :data-rate-id="rateId" style="min-height: 40px;" :options="draggableOptions" @end="onEnd">
+    <draggable :data-rate-id="rate_id" style="min-height: 40px;" :options="draggableOptions" @end="onEnd">
         <set-unit-component v-for="item in items" :data="item" :key="item.id" @destroy="deletes" />
     </draggable>
 </template>
@@ -9,7 +9,7 @@
     import collection from '../../mixins/collection.vue';
 
     export default {
-        props: ['data', 'rateId'],
+        props: ['data', 'rate_id'],
 
         components: { SetUnitComponent },
 
@@ -17,14 +17,9 @@
 
         data() {
             return {
-                items: this.data
+                items: this.data,
+                criteria: 'rate_id'
             };
-        },
-
-        mounted() {
-            this.$root.$on('maked', ({unit}) => {
-                if (unit.rate_id == this.rateId) this.items.push(unit);
-            });
         },
 
         computed: {
@@ -41,7 +36,7 @@
                 let newIndex = event.newIndex;
                 let newRateId = $(event.to).data('rate-id');
 
-                if (event.oldIndex != newIndex || this.rateId != newRateId)
+                if (event.oldIndex != newIndex || this.rate_id != newRateId)
                     axios.put(`/admin/units/${$(event.item).data('id')}/order`, { rate_id: newRateId, order: newIndex });
             }
         }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -11,7 +12,9 @@ class CombinerTest extends TestCase
     /** @test */
     function guests_are_not_allowed_to_visit()
     {
-        $this->get(route('home'))->assertStatus(302);
+        $this->expectException(AuthenticationException::class);
+
+        $this->get(route('home'));
     }
 
     /** @test */

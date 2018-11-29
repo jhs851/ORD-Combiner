@@ -14,6 +14,11 @@ abstract class TestCase extends BaseTestCase
      */
     protected $version;
 
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
     protected function setUp()
     {
         parent::setUp();

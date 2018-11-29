@@ -115,8 +115,7 @@ class Handler extends ExceptionHandler
 
         if ($request->expectsJson()) return response()->json(['message' => $exception->getMessage()], $status)->withCookie($cookie);
 
-        // 왠진 모르겠지만 안나오네요.
-        // flash($exception->getMessage(), 'error');
+        flash($exception->getMessage(), 'error');
 
         return redirect($exception->redirectTo())->withCookie($cookie);
     }

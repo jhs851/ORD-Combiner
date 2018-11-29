@@ -1,6 +1,9 @@
 import Swatches from 'vue-swatches';
 import 'vue-swatches/dist/vue-swatches.min.css';
-import Popover  from 'vue-js-popover'
+import Popover from 'vue-js-popover'
+import VueClipboard from 'vue-clipboard2';
+
+VueClipboard.config.autoSetContainer = true;
 
 Vue.mixin({
     components: { Swatches },
@@ -13,4 +16,4 @@ Vue.mixin({
             }
         }
     }
-}).use(Popover);
+}).use(Popover).use(VueClipboard);

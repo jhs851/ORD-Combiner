@@ -29,4 +29,8 @@ $this->namespace('Auth')->group(function() {
     // Privacy and terms
     $this->get('/privacy', function() { return view('auth.privacy'); })->name('privacy');
     $this->get('/terms', function() { return view('auth.terms'); })->name('terms');
+
+    // loads...
+    $this->put('/users/{user}/loads/deletes', 'LoadsController@deletes');
+    $this->resource('/users/{user}/loads', 'LoadsController')->except(['create', 'show', 'edit', 'destroy']);
 });

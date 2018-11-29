@@ -27,7 +27,7 @@ const app = new Vue({
                 useDanedenAnimationInHide: true,
                 showMethod: 'bounceInRight',
                 hideMethod: 'fadeOutRight',
-                positionClass: 'toast-bottom-right',
+                positionClass: 'toast-top-right',
                 timeOut: 3000,
                 newestOnTop: false,
                 progressBar: true,

@@ -1,15 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.app', ['type' => 'combiner'])
 
 @section('content')
     <combiner-view inline-template :units-count="{{ $unitsCount }}">
         <div>
-            <div class="container">
+            {{--<div class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-2">
                         <characteristics-component :data="{{ $characteristics }}" />
                     </div>
                 </div>
-            </div>
+            </div>--}}
 
             <div class="container-fluid p-0">
                 <div class="row no-gutters">

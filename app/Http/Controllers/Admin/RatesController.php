@@ -27,7 +27,7 @@ class RatesController extends Controller
      */
     public function store(RatesRequest $request)
     {
-        return $this->respondForJson('생성되었습니다.', ['rate' => Rate::create($request->all())]);
+        return $this->respondForJson('생성되었습니다.', ['item' => Rate::create($request->all())]);
     }
 
     /**

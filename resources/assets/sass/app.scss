@@ -27,6 +27,7 @@
 @import './stylesheets/buttons';
 @import './stylesheets/sidenav';
 @import './stylesheets/navbar';
+@import './stylesheets/table';
 
 .sidenav-body {
     padding-left: 110px;
@@ -111,4 +112,8 @@ h1, h2, h3, h4, h5, h6,
 
 .formula {
     width: 45px;
+}
+
+[v-cloak] {
+    display: none;
 }

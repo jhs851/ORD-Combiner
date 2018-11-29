@@ -15,36 +15,36 @@
         background: linear-gradient(to 45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4) 100%);
     }
 
-    .card {
+    .view .card {
         background-color: rgba(100, 100, 100, 0.2);
     }
 
-    .characteristics button {
+    .view .characteristics button {
         color: white !important;
     }
 
-    .list-group-item {
+    .view .list-group-item {
         background-color: rgba(71, 51, 51, .8);
         border-color: rgba(255, 255, 255, .5);
     }
 
-    .ongoing {
+    .view .ongoing {
         background-color: #19c315;
     }
 
-    .ready {
+    .view .ready {
         background-color: #3872ff;
     }
 
-    .modal-content {
+    .view .modal-content {
         background-color: black;
     }
 
-    .close {
+    .view .close {
         color: white;
     }
 
-    .burn {
+    .view .burn {
         border: 1px solid #007bff;
         background-color: #bbdefb;
     }

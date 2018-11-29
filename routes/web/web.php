@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/home', [
+Route::get('/combiner', [
     'as'   => 'home',
     'uses' => 'HomeController@index',
 ]);

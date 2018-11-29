@@ -6,7 +6,9 @@
             'body'       => $message['message']
         ])
     @else
-        <script>toastr.{{ $message['level'] }}('{!! $message["message"] !!}')</script>
+        <script>
+            toastr['{{ $message['level'] }}']('{!! $message["message"] !!}')
+        </script>
     @endif
 @endforeach
 

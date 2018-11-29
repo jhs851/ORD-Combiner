@@ -13,7 +13,7 @@
         <div class="row no-gutters">
             @forelse ($columns as $column)
                 <div class="col-lg-2 col-md-7">
-                    <set-rates-component column-id="{{ $column->id }}" :data="{{ $column->rates }}" />
+                    <set-rates-component column_id="{{ $column->id }}" :data="{{ $column->rates }}" />
                 </div>
             @empty
             @endforelse

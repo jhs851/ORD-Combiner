@@ -2,8 +2,17 @@
     export default {
         data() {
             return {
-                items: []
+                items: [],
+                criteria: ''
             };
+        },
+
+        mounted() {
+            this.$root.$on('maked', ({item}) => {
+                if (typeof this.fetch === 'function') return this.fetch();
+
+                if (this.criteria && item[this.criteria] == this[this.criteria]) this.items.push(item);
+            });
         },
 
         methods: {

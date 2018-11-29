@@ -19,7 +19,7 @@
                                 {{ $rate->name }}
                             </div>
 
-                            <set-units-component rate-id="{{ $rate->id }}" :data="{{ $rate->units }}" />
+                            <set-units-component rate_id="{{ $rate->id }}" :data="{{ $rate->units }}" />
                         </div>
                     @empty
                     @endforelse

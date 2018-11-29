@@ -27,7 +27,7 @@ class UnitsController extends Controller
      */
     public function store(UnitsRequest $request)
     {
-        return $this->respondForJson('생성되었습니다.', ['unit' => Unit::create($request->all())]);
+        return $this->respondForJson('생성되었습니다.', ['item' => Unit::create($request->all())]);
     }
 
     /**

@@ -1,14 +1,14 @@
 <?php
 
 $this->namespace('Api')->group(function() {
+    $this->get('/users/{user}/loads', 'LoadsController@index')->name('api.loads.index');
+    $this->get('/users/{user}/loads/next', 'LoadsController@next');
+
     Route::prefix('admin')->group(function() {
-        // 컬럼
         $this->get('columns', 'ColumnsController');
 
-        // 등급
         $this->get('rates', 'RatesController');
 
-        // 조합
         $this->get('formulas/{unit}', 'FormulasController');
     });
 });

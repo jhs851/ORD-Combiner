@@ -4,3 +4,6 @@ Vue.component('set-units-component', require('./components/units/SetUnitsCompone
 Vue.component('set-formulas-component', require('./components/formulas/SetFormulasComponent'));
 Vue.component('draggable', require('vuedraggable'));
 Vue.component('create-modal-component', require('./components/CreateModalComponent'));
+Vue.component('loads-component', require('./components/loads/LoadsComponent'));
+
+Vue.component('table-component', require('./components/forum/TableComponent'));

@@ -56,15 +56,25 @@
 
 <body>
     <div id="app" class="wrap">
-        @includeWhen(! isIntro(), 'layouts.partial.navigation')
-
-        <div class="view" style="padding-bottom: 60px;">
-            <div class="mask background-gradient d-flex justify-content-center align-items-center">
-                @yield('into-mask-content')
+        @unless (isset($type))
+            <div class="view" style="padding-bottom: 60px;">
+                <div class="mask background-gradient d-flex justify-content-center align-items-center">
+                    @yield('content')
+                </div>
             </div>
+        @elseif ($type === 'combiner')
+            @include('layouts.partial.combiner-navigation')
+
+            <div class="view" style="padding-bottom: 60px;">
+                <div class="mask background-gradient d-flex justify-content-center align-items-center"></div>
+
+                @yield('content')
+            </div>
+        @elseif ($type === 'forum')
+            @include('layouts.partial.navigation')
 
             @yield('content')
-        </div>
+        @endunless
 
         @include('layouts.partial.footer')
     </div>

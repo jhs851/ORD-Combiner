@@ -14,6 +14,20 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
 
     /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function($user) {
+            $user->loads->each->delete();
+        });
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -45,6 +59,24 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $dates = [
         'last_login',
     ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function loads() : HasMany
+    {
+        return $this->hasMany(Load::class)->orderBy('clear', 'desc');
+    }
 
     /**
      * @param string $password
@@ -105,5 +137,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function themes() : HasMany
     {
         return $this->hasMany(Theme::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function maxLoad()
+    {
+        return $this->loads->first();
     }
 }

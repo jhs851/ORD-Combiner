@@ -26132,6 +26132,60 @@ input.count {
   transform: rotate(0deg);
 }
 
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+table.table th {
+  font-weight: 800;
+}
+
+table.table a {
+  color: #007bff;
+}
+
+table.table a:hover,
+table.table a:focus,
+table.table a:active {
+  color: #0056b3;
+}
+
+table.table tr.empty {
+  position: relative;
+  height: 4rem;
+  background-color: transparent !important;
+}
+
+table.table tr.empty td {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0;
+  color: #ff3547;
+  font-weight: bold;
+}
+
+table.table th,
+table.table td {
+  vertical-align: middle;
+}
+
+.table-responsive .table {
+  width: auto;
+}
+
+.table-responsive th,
+.table-responsive td {
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .table-responsive .table {
+    width: 100%;
+  }
+}
+
 .sidenav-body {
   padding-left: 110px;
 }
@@ -26234,5 +26288,9 @@ h6,
 
 .formula {
   width: 45px;
+}
+
+[v-cloak] {
+  display: none;
 }
 

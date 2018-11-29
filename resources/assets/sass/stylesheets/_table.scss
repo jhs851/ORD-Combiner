@@ -1,0 +1,57 @@
+table {
+    table-layout: fixed;
+    width: 100%;
+
+    &.table {
+        th {
+            font-weight: 800;
+        }
+
+        a {
+            color: $link-color;
+
+            @include hover-focus-active {
+                color: $link-hover-color;
+            }
+        }
+
+        tr.empty {
+            position: relative;
+            height: 4rem;
+            background-color: transparent !important;
+
+            td {
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: 0;
+                color: $danger-color;
+                font-weight: bold;
+            }
+        }
+
+        th,
+        td {
+            vertical-align: middle;
+        }
+    }
+}
+
+.table-responsive {
+    .table {
+        width: auto;
+    }
+
+    th,
+    td {
+        white-space: nowrap;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .table-responsive {
+        .table {
+            width: 100%;
+        }
+    }
+}

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('into-mask-content')
+@section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-5 offset-md-2 text-center text-md-left d-flex flex-column justify-content-center wow fadeInLeft animated" data-wow-delay="0.3s">

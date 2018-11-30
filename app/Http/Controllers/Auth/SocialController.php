@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\{Guest, User};
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
 {
+    use AuthenticatesUsers;
+
     /**
      * SocialController constructor.
      */
@@ -36,6 +39,9 @@ class SocialController extends Controller
      */
     protected function redirectToProvider(string $provider)
     {
+        if (! array_key_exists($provider, config('services')))
+            return $this->toRespond("{$provider}는 지원하지 않는 소셜 로그인입니다.", route('login'), 'error');
+
         return Socialite::driver($provider)->redirect();
     }
 
@@ -52,7 +58,7 @@ class SocialController extends Controller
         if ($user = User::where('email', $email)->first()) {
             auth()->login($user, true);
 
-            return $this->createdSession();
+            return $this->sendLoginResponse(request());
         }
 
         return $this->createGuest($email, $socialUser);
@@ -77,29 +83,11 @@ class SocialController extends Controller
      */
     protected function createGuest(string $email, $socialUser)
     {
-        $avatarId = $socialUser->getAvatar() ? $this->sendAvatarUrl($socialUser) : null;
-
         $guest = (Guest::where('email', $email)->first()) ?: Guest::create([
-            'avatar_id' => $avatarId,
-            'name'      => $socialUser->getName() ?: __('auth.users.unknown'),
-            'email'     => $email,
+            'name'  => $socialUser->getName() ?: '이름없음',
+            'email' => $email,
         ]);
 
         return redirect(route('guests.edit', $guest->id));
-    }
-
-    /**
-     * @param $socialUser
-     * @return int
-     * @throws \Exception
-     */
-    protected function sendAvatarUrl($socialUser) : int
-    {
-        $request = new AvatarsRequest([], [
-            'model' => 'Avatar',
-            'src'   => $socialUser->getAvatar(),
-        ]);
-
-        return $request->createAvatar()->id;
     }
 }

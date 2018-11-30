@@ -132,14 +132,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * @return HasMany
-     */
-    public function themes() : HasMany
-    {
-        return $this->hasMany(Theme::class);
-    }
-
-    /**
      * @return string
      */
     public function maxLoad()

@@ -66,10 +66,6 @@
                                     <a href="{{ route('social.login', 'naver') }}" class="btn-na btn-floating btn-sm" data-toggle="tooltip" title="네이버로 로그인">
                                         <i class="Archivo-font">N</i>
                                     </a>
-
-                                    <a href="{{ route('social.login', 'kakao') }}" class="btn-ka btn-floating btn-sm" data-toggle="tooltip" title="카카오로 로그인">
-                                        <i class="fa fa-comment yellow-text"></i>
-                                    </a>
                                 </div>
                             </div>
                         </form>

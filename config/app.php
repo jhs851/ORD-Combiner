@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'version' => '8.4',
+    'version' => '8.5',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,7 @@ return [
          */
         Barryvdh\Debugbar\ServiceProvider::class,
         Maknz\Slack\Laravel\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,6 +228,7 @@ return [
         'View'         => Illuminate\Support\Facades\View::class,
         'Debugbar'     => Barryvdh\Debugbar\Facade::class,
         'Slack'        => Maknz\Slack\Laravel\Facade::class,
+        'Image'        => Intervention\Image\Facades\Image::class
 
     ],
 

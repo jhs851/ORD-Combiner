@@ -40,6 +40,7 @@ return [
     'digits_between' => ':attribute 값이 :min ~ :max 자릿수를 벗어납니다.',
     'distinct' => ':attribute 값에 중복된 항목이 있습니다.',
     'email' => ':attribute 값이 유효한 이메일 주소가 아닙니다.',
+    'email_match' => '소셜 이메일과 입력하신 이메일이 같아야 합니다.',
     'exists' => ':attribute 값에 해당하는 리소스가 존재하지 않습니다.',
     'exist_wisp' => '존재하는 위습을 먼저 정의해주세요.',
     'filled' => ':attribute 값이 누락되었습니다.',

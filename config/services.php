@@ -46,10 +46,4 @@ return [
         'client_secret' => env('NAVER_SECRET'),
         'redirect'      => env('APP_URL') . env('NAVER_CALLBACK'),
     ],
-
-    'kakao' => [
-        'client_id'     => env('KAKAO_ID'),
-        'client_secret' => env('KAKAO_SECRET'),
-        'redirect'      => env('APP_URL') . env('NAVER_CALLBACK'),
-    ],
 ];

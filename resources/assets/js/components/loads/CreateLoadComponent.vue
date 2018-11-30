@@ -22,7 +22,7 @@
         },
 
         created() {
-            axios.get(`/api/${location.pathname}/next`)
+            axios.get(`/api${location.pathname}/next`)
                  .then(({data}) => this.clear = data);
         },
 

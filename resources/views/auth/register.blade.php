@@ -10,13 +10,6 @@
                         네이버로 로그인
                     </string>
                 </a>
-
-                <a href="{{ route('social.login', 'kakao') }}" class="btn btn-yellow btn-block position-relative mx-0 my-2">
-                    <string class="d-flex align-items-center justify-content-center ka-ic">
-                        <i class="fa fa-comment position-absolute" style="left: 1rem;"></i>
-                        카카오로 로그인
-                    </string>
-                </a>
             </div>
 
             <div class="col-md-5 wow fadeInRight animated" data-wow-delay="0.3s">

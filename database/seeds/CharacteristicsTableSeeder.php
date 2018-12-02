@@ -12,20 +12,11 @@ class CharacteristicsTableSeeder extends Seeder
      */
     public function run()
     {
-        collect(config('characteristics'))
-            ->filter(function($item) {
-                return ! Characteristic::where('name', $item['name'])->exists();
-            })
-            ->each(function($item) {
-                $characteristic = Characteristic::create([
-                    'name' => $item['name'],
-                    'color' => $item['color'],
-                ]);
+        foreach (config('characteristics') as $characteristic) {
+            if (Characteristic::where('name', $characteristic['name'])->exists()) continue;
 
-                $hasCharacteristicUnits = Unit::where('description', 'REGEXP', $item['regexp'])->pluck('id');
-
-                $characteristic->units()->sync($hasCharacteristicUnits);
-            });
+            Characteristic::create($characteristic);
+        }
 
         $this->command->info('Seeded Characteristics Table.');
     }

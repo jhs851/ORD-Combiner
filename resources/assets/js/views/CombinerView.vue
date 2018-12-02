@@ -14,6 +14,14 @@
             };
         },
 
+        mounted() {
+            this.$root.$on('reset', () => {
+                this.units.forEach(unit => unit.count = unit.defaultCount);
+
+                this.refreshAll();
+            });
+        },
+
         methods: {
             append(unit) {
                 this.units.push(unit);
@@ -29,12 +37,12 @@
 
                 // 하위 조합을 모두 구성해야 빌드 스코어 계산이 가능합니다.
                 this.units.forEach(unit => unit.calculateBuildScore());
+
+                this.refreshAll();
             },
 
             refreshAll() {
-                this.units.forEach(unit => {
-                    unit.refresh();
-                });
+                this.units.forEach(unit => unit.refresh());
             }
         },
 

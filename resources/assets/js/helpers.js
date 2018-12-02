@@ -8,7 +8,21 @@ VueClipboard.config.autoSetContainer = true;
 Vue.mixin({
     components: { Swatches },
 
+    data() {
+        return {
+            user: {}
+        };
+    },
+
+    created() {
+        this.user = this.auth ? window.user : {};
+    },
+
     computed: {
+        auth() {
+            return !! window.auth;
+        },
+
         swatchTriggerStyles() {
             return {
                 width: '100%',

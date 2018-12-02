@@ -19,6 +19,7 @@
         "lodash": "^4.17.4",
         "mdbootstrap": "^4.5.4",
         "popper.js": "^1.12",
+        "textarea-autosize": "^0.4.2",
         "toastr": "^2.1.4",
         "vue": "^2.5.7",
         "vue-clipboard2": "^0.2.1",

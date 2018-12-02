@@ -40,7 +40,7 @@ class ClearOrphanged extends Command
      */
     public function handle()
     {
-        $images = Unit::withoutGlobalScope(VersionScope::class)->pluck('image')->toArray() + ['default.jpg'];
+        $images = Unit::withoutGlobalScope(VersionScope::class)->pluck('image')->toArray() + ['units/default.jpg'];
 
         foreach (Storage::files('units') as $file) if ($this->notNecessary($file, $images))
             Storage::delete($file);

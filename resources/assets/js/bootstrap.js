@@ -16,6 +16,8 @@ try {
     window.toastr = require('toastr');
 
     require('bootstrap');
+
+    require('textarea-autosize');
 } catch (e) {}
 
 /**
@@ -65,3 +67,6 @@ window.IS_RECORD = false;
 
 window.events = new Vue();
 window.refreshAll = () => window.events.$emit('refreshAll');
+
+window.auth = document.head.querySelector('meta[name="auth"]').content;
+if (window.auth) window.user = JSON.parse(document.head.querySelector('meta[name="user"]').content);

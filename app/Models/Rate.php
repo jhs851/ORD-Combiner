@@ -13,7 +13,7 @@ class Rate extends Orderable
 
     const ETC_NAME = '기타';
 
-    const FORMULA_EXCLUSION_RATES = ['초월함', '불멸의', '영원함', '제한됨'];
+    const FORMULA_EXCLUSION_RATES = ['초월함', '불멸의', '영원함', '제한됨', '랜덤', '특수함'];
 
     /**
      * The "booting" method of the model.

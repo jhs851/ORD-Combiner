@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="msapplication-tap-highlight" content="no">
 
+    {{-- Authenticate --}}
+    <meta name="auth" content="{{ auth()->check() }}">
+    @auth <meta name="user" content="{{ auth()->user()->load('loads') }}"> @endauth
+
     {{-- Chrome, Firefox OS and Opera --}}
     <meta name="theme-color" content="#000000">
     {{-- Windows Phone --}}

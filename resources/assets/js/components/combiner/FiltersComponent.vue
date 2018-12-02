@@ -1,6 +1,6 @@
 <template>
     <div class="filters position-absolute">
-        <i class="fa fa-check animated rotateIn" aria-hidden="true" v-for="characteristic in includeCharacteristics" :style="`color: ${characteristic.color};`"></i>
+        <i class="fa fa-check animated rotateIn" aria-hidden="true" v-for="include in includes" :style="`color: ${include.color};`"></i>
     </div>
 </template>
 
@@ -12,40 +12,46 @@
             return {
                 unit: this.data,
                 characteristics: [],
-                included: [],
-                includeCharacteristics: []
+                includes: []
             };
         },
 
         mounted() {
             this.$root.$on('filter', characteristic => {
-                if (characteristic) this.characteristics.push(characteristic);
-                else this.characteristics = [];
+                this.characteristics.push(characteristic);
 
                 this.filtering();
             });
 
             this.$root.$on('except', characteristic => {
-                this.characteristics.splice(this.characteristics.indexOf(characteristic), 1);
+                this.$delete(this.characteristics, this.characteristics.map(item => item.id).indexOf(characteristic.id));
+
+                this.filtering();
+            });
+
+            this.$root.$on('disableFilter', () => {
+                this.characteristics = [];
+                this.includes = [];
 
                 this.filtering();
             });
         },
 
+        computed: {
+            isShow() {
+                return this.unit.lowest || this.unit.etc || this.unit.rate.name === '안흔함' || (! this.characteristics.length || this.characteristics.some(this.test));
+            }
+        },
+
         methods: {
+            test(characteristic) {
+                return new RegExp(characteristic.regexp).test(this.unit.description);
+            },
+
             filtering() {
-                this.included = [];
-                this.includeCharacteristics = [];
+                this.includes = this.characteristics.filter(this.test);
 
-                if (! this.characteristics.length) return this.unit.show = true;
-
-                this.characteristics.forEach(characteristic => {
-                    this.included = characteristic.included.concat(this.included);
-
-                    if (characteristic.included.indexOf(this.unit.id) > -1) this.includeCharacteristics.push(characteristic);
-                });
-
-                this.unit.show = this.unit.lowest || this.unit.etc || this.unit.rate.name === '안흔함' || this.included.indexOf(this.unit.id) > -1
+                this.unit.show = this.isShow;
             }
         }
     }

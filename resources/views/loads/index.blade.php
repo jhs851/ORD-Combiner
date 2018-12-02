@@ -7,7 +7,7 @@
                 <h3 class="font-weight-bold">코드 설정</h3>
             </div>
 
-            <table-component class="col-14 mt-3" inline-template endpoint="{{ route('api.loads.index', $user->name) }}" v-cloak>
+            <table-component class="col-14 mt-3" inline-template endpoint="{{ route('api.loads.index', $user->id) }}" v-cloak>
                 <div>
                     @include('loads.partial.table')
 

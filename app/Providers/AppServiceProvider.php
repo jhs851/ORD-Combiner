@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
 
-        view()->composer(['*.navigation', 'layouts.partial.combiner-navigation'], function($view) {
+        view()->composer('*.navigation', function($view) {
             $view->with([
                 'versions' => Version::cache(function($version) {
                     return $version->get();

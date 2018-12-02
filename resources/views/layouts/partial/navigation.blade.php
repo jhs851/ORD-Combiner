@@ -10,12 +10,6 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a href="{{ route('home') }}" class="nav-link">
-                    조합기
-                </a>
-            </li>
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="versionDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"aria-expanded="false">
                     {{ version() }}
@@ -29,6 +23,12 @@
                     @empty
                     @endforelse
                 </div>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('home') }}" class="nav-link" data-toggle="tooltip" title="조합기">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                </a>
             </li>
         </ul>
 

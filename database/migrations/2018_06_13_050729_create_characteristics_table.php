@@ -17,6 +17,7 @@ class CreateCharacteristicsTable extends Migration
             $table->increments('id');
             $table->string('name', 50);
             $table->string('color', 50)->default('#000000');
+            $table->string('regexp');
         });
     }
 

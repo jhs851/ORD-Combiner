@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="msapplication-tap-highlight" content="no">
 
+    {{-- Authenticate --}}
+    <meta name="auth" content="{{ auth()->check() }}">
+    @auth <meta name="user" content="{{ auth()->user()->load('loads') }}"> @endauth
+
     {{-- Chrome, Firefox OS and Opera --}}
     <meta name="theme-color" content="#000000">
     {{-- Windows Phone --}}
@@ -63,7 +67,7 @@
                 </div>
             </div>
         @elseif ($type === 'combiner')
-            @include('layouts.partial.combiner-navigation')
+            <combiner-navigation-component :current-version="{{ json_encode(version()) }}" referer="{{ urlencode($currentUrl) }}"></combiner-navigation-component>
 
             <div class="view" style="padding-bottom: 60px;">
                 <div class="mask background-gradient d-flex justify-content-center align-items-center"></div>

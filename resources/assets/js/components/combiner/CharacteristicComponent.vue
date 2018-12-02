@@ -17,27 +17,16 @@
 
         methods: {
             toggle() {
-                this.active ? this.off() : this.on();
-            },
+                this.$root.$emit(this.active ? 'except' : 'filter', this.data);
 
-            on() {
-                this.active = true;
-
-                this.$root.$emit('filter', this.data);
-            },
-
-            off(communication = true) {
-                this.active = false;
-
-                if (communication) this.$root.$emit('except', this.data);
+                this.active = ! this.active;
             }
         },
 
         computed: {
             styles() {
                 return {
-                    backgroundColor: this.active ? this.data.color : 'transparent',
-                    color: this.active ? 'white' : 'black'
+                    backgroundColor: this.active ? this.data.color : 'transparent'
                 };
             }
         }

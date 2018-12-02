@@ -24,6 +24,6 @@ class LoadsController extends Controller
      */
     public function next(User $user) : int
     {
-        return $user->maxLoad() ? $user->maxLoad()->clear + 1 : 1;
+        return $user->maxLoad ? $user->maxLoad->clear + 1 : 1;
     }
 }

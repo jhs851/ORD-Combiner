@@ -32,12 +32,18 @@
 
 <script>
     export default {
-        props: ['loads', 'maxLoad'],
-
         data() {
             return {
-                currentLoad: this.maxLoad
+                loads: [],
+                maxLoad: {},
+                currentLoad: {}
             };
+        },
+
+        created() {
+            this.loads = this.user.loads;
+            this.maxLoad = this.user.maxLoad;
+            this.currentLoad = this.user.maxLoad;
         },
 
         computed: {

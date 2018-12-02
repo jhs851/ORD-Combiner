@@ -56,11 +56,16 @@ const app = new Vue({
                 }
             });
         },
+
+        enableTextareaAutoSize() {
+            $('textarea').textareaAutoSize();
+        }
     },
 
     mounted() {
         this.setToastrOptions();
         this.enableBootstrapToolTips();
         this.disableButtonOnSubmit();
+        this.enableTextareaAutoSize();
     }
 });

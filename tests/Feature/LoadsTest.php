@@ -31,7 +31,7 @@ class LoadsTest extends TestCase
     {
         $this->expectException(AuthenticationException::class);
 
-        $this->get(route('loads.index', $this->john->name));
+        $this->get(route('loads.index', $this->john->id));
     }
 
     /** @test */
@@ -43,7 +43,7 @@ class LoadsTest extends TestCase
 
         $this->expectException(AuthorizationException::class);
 
-        $this->get(route('loads.index', $jane->name));
+        $this->get(route('loads.index', $jane->id));
     }
 
     /** @test */
@@ -51,7 +51,7 @@ class LoadsTest extends TestCase
     {
         $this->signIn($this->john);
 
-        $this->post(route('loads.store', $this->john->name), [
+        $this->post(route('loads.store', $this->john->id), [
             'code'  => 'Test',
             'clear' => 1
         ])->assertStatus(200);
@@ -67,7 +67,7 @@ class LoadsTest extends TestCase
         $load = create(Load::class, ['user_id' => $this->john->id]);
 
         $this->put(
-            route('loads.update', ['user' => $this->john->name, 'load' => $load->id]),
+            route('loads.update', ['user' => $this->john->id, 'load' => $load->id]),
             ['code' => 'Updated', 'clear' => $load->clear]
         )->assertStatus(200);
 

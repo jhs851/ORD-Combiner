@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use App\Core\Cacheable;
-use Illuminate\Database\Eloquent\{Model, Relations\BelongsToMany};
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class Characteristic extends Model
 {
@@ -18,15 +17,7 @@ class Characteristic extends Model
     protected $fillable = [
         'name',
         'color',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'included',
+        'regexp',
     ];
 
     /**
@@ -35,23 +26,4 @@ class Characteristic extends Model
      * @var bool
      */
     public $timestamps = false;
-
-    /**
-     * @return BelongsToMany
-     */
-    public function units() : BelongsToMany
-    {
-        return $this->belongsToMany(Unit::class);
-    }
-
-    /**
-     * @return Collection
-     * @throws \Exception
-     */
-    public function getIncludedAttribute() : Collection
-    {
-        return $this->cache(function($characteristic) {
-            return $characteristic->units->pluck('id');
-        }, ".{$this->id}");
-    }
 }

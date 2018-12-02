@@ -61,14 +61,13 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Get the route key for the model.
+     * The accessors to append to the model's array form.
      *
-     * @return string
+     * @var array
      */
-    public function getRouteKeyName()
-    {
-        return 'name';
-    }
+    protected $appends = [
+        'maxLoad',
+    ];
 
     /**
      * @return HasMany
@@ -134,7 +133,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * @return string
      */
-    public function maxLoad()
+    public function getMaxLoadAttribute()
     {
         return $this->loads->first();
     }

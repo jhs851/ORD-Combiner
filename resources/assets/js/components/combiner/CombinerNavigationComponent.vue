@@ -1,5 +1,5 @@
 <template>
-    <nav id="combiner-nav" class="navbar navbar-expand-lg navbar-dark black lighten-3 fixed-bottom">
+    <nav id="combiner-nav" class="navbar navbar-expand-lg navbar-dark black lighten-3 fixed-bottom" style="z-index: 1060;">
         <a class="navbar-brand">
             <img src="/images/etc/icon.png" height="30" alt="">
         </a>
@@ -46,6 +46,12 @@
                         <i class="fa fa-refresh" aria-hidden="true"></i>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tooltip" title="전체화면" @click="toggleFullScreen">
+                        <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                    </a>
+                </li>
             </ul>
 
             <loads-component v-if="auth" />
@@ -67,6 +73,7 @@
 
 <script>
     import LoadsComponent from './LoadsComponent';
+    import screenfull from 'screenfull';
 
     export default {
         props: ['referer', 'currentVersion'],
@@ -87,11 +94,17 @@
             reset() {
                 if (! confirm('정말 새로고침 하시겠습니까?')) return;
 
+                this.$root.$emit('disableFilter');
+
                 this.$root.$emit('reset');
             },
 
             toggleCharacteristic() {
                 $('#characteristics-modal').modal('toggle');
+            },
+
+            toggleFullScreen() {
+                if (screenfull.enabled) screenfull.request();
             }
         }
     }

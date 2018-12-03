@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <modal-component />
+            <unit-modal-component />
         </div>
     </combiner-view>
 @stop

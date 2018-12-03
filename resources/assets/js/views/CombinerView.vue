@@ -1,12 +1,12 @@
 <script>
     import RatesComponent from '../components/combiner/RatesComponent';
     import CharacteristicsComponent from '../components/combiner/CharacteristicsComponent';
-    import ModalComponent from '../components/combiner/ModalComponent';
+    import UnitModalComponent from '../components/combiner/UnitModalComponent';
 
     export default {
         props: ['unitsCount'],
 
-        components: { RatesComponent, CharacteristicsComponent, ModalComponent },
+        components: { RatesComponent, CharacteristicsComponent, UnitModalComponent },
 
         data() {
             return {
@@ -20,6 +20,10 @@
 
                 this.refreshAll();
             });
+
+            this.resizing();
+
+            $(window).resize(this.resizing);
         },
 
         methods: {
@@ -43,6 +47,10 @@
 
             refreshAll() {
                 this.units.forEach(unit => unit.refresh());
+            },
+
+            resizing() {
+                $(this.$el).css({ 'min-height': window.innerHeight });
             }
         },
 

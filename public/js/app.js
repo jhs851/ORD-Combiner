@@ -25071,7 +25071,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(142);
+module.exports = __webpack_require__(143);
 
 
 /***/ }),
@@ -49649,8 +49649,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_combiner_RatesComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_combiner_RatesComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_combiner_CharacteristicsComponent__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_combiner_CharacteristicsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_combiner_CharacteristicsComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_combiner_ModalComponent__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_combiner_ModalComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_combiner_ModalComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_combiner_UnitModalComponent__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_combiner_UnitModalComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_combiner_UnitModalComponent__);
 
 
 
@@ -49659,7 +49659,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['unitsCount'],
 
-    components: { RatesComponent: __WEBPACK_IMPORTED_MODULE_0__components_combiner_RatesComponent___default.a, CharacteristicsComponent: __WEBPACK_IMPORTED_MODULE_1__components_combiner_CharacteristicsComponent___default.a, ModalComponent: __WEBPACK_IMPORTED_MODULE_2__components_combiner_ModalComponent___default.a },
+    components: { RatesComponent: __WEBPACK_IMPORTED_MODULE_0__components_combiner_RatesComponent___default.a, CharacteristicsComponent: __WEBPACK_IMPORTED_MODULE_1__components_combiner_CharacteristicsComponent___default.a, UnitModalComponent: __WEBPACK_IMPORTED_MODULE_2__components_combiner_UnitModalComponent___default.a },
 
     data: function data() {
         return {
@@ -49676,6 +49676,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             _this.refreshAll();
         });
+
+        this.resizing();
+
+        $(window).resize(this.resizing);
     },
 
 
@@ -49703,6 +49707,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.units.forEach(function (unit) {
                 return unit.refresh();
             });
+        },
+        resizing: function resizing() {
+            $(this.$el).css({ 'min-height': window.innerHeight });
         }
     },
 
@@ -51221,7 +51228,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/combiner/ModalComponent.vue"
+Component.options.__file = "resources/assets/js/components/combiner/UnitModalComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -51230,9 +51237,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-25da2ba5", Component.options)
+    hotAPI.createRecord("data-v-815efc6e", Component.options)
   } else {
-    hotAPI.reload("data-v-25da2ba5", Component.options)
+    hotAPI.reload("data-v-815efc6e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -51689,7 +51696,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-25da2ba5", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-815efc6e", module.exports)
   }
 }
 
@@ -57332,7 +57339,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(137)
 /* template */
-var __vue_template__ = __webpack_require__(141)
+var __vue_template__ = __webpack_require__(142)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57378,6 +57385,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__LoadsComponent__ = __webpack_require__(138);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__LoadsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__LoadsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_screenfull__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_screenfull___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_screenfull__);
 //
 //
 //
@@ -57445,6 +57454,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -57472,10 +57488,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         reset: function reset() {
             if (!confirm('정말 새로고침 하시겠습니까?')) return;
 
+            this.$root.$emit('disableFilter');
+
             this.$root.$emit('reset');
         },
         toggleCharacteristic: function toggleCharacteristic() {
-            $('#characteristics-modal').modal({ backdrop: false });
+            $('#characteristics-modal').modal('toggle');
+        },
+        toggleFullScreen: function toggleFullScreen() {
+            if (__WEBPACK_IMPORTED_MODULE_1_screenfull___default.a.enabled) __WEBPACK_IMPORTED_MODULE_1_screenfull___default.a.request();
         }
     }
 });
@@ -57685,6 +57706,180 @@ if (false) {
 
 /***/ }),
 /* 141 */
+/***/ (function(module, exports) {
+
+/*!
+* screenfull
+* v3.3.3 - 2018-09-04
+* (c) Sindre Sorhus; MIT License
+*/
+(function () {
+	'use strict';
+
+	var document = typeof window !== 'undefined' && typeof window.document !== 'undefined' ? window.document : {};
+	var isCommonjs = typeof module !== 'undefined' && module.exports;
+	var keyboardAllowed = typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;
+
+	var fn = (function () {
+		var val;
+
+		var fnMap = [
+			[
+				'requestFullscreen',
+				'exitFullscreen',
+				'fullscreenElement',
+				'fullscreenEnabled',
+				'fullscreenchange',
+				'fullscreenerror'
+			],
+			// New WebKit
+			[
+				'webkitRequestFullscreen',
+				'webkitExitFullscreen',
+				'webkitFullscreenElement',
+				'webkitFullscreenEnabled',
+				'webkitfullscreenchange',
+				'webkitfullscreenerror'
+
+			],
+			// Old WebKit (Safari 5.1)
+			[
+				'webkitRequestFullScreen',
+				'webkitCancelFullScreen',
+				'webkitCurrentFullScreenElement',
+				'webkitCancelFullScreen',
+				'webkitfullscreenchange',
+				'webkitfullscreenerror'
+
+			],
+			[
+				'mozRequestFullScreen',
+				'mozCancelFullScreen',
+				'mozFullScreenElement',
+				'mozFullScreenEnabled',
+				'mozfullscreenchange',
+				'mozfullscreenerror'
+			],
+			[
+				'msRequestFullscreen',
+				'msExitFullscreen',
+				'msFullscreenElement',
+				'msFullscreenEnabled',
+				'MSFullscreenChange',
+				'MSFullscreenError'
+			]
+		];
+
+		var i = 0;
+		var l = fnMap.length;
+		var ret = {};
+
+		for (; i < l; i++) {
+			val = fnMap[i];
+			if (val && val[1] in document) {
+				for (i = 0; i < val.length; i++) {
+					ret[fnMap[0][i]] = val[i];
+				}
+				return ret;
+			}
+		}
+
+		return false;
+	})();
+
+	var eventNameMap = {
+		change: fn.fullscreenchange,
+		error: fn.fullscreenerror
+	};
+
+	var screenfull = {
+		request: function (elem) {
+			var request = fn.requestFullscreen;
+
+			elem = elem || document.documentElement;
+
+			// Work around Safari 5.1 bug: reports support for
+			// keyboard in fullscreen even though it doesn't.
+			// Browser sniffing, since the alternative with
+			// setTimeout is even worse.
+			if (/ Version\/5\.1(?:\.\d+)? Safari\//.test(navigator.userAgent)) {
+				elem[request]();
+			} else {
+				elem[request](keyboardAllowed ? Element.ALLOW_KEYBOARD_INPUT : {});
+			}
+		},
+		exit: function () {
+			document[fn.exitFullscreen]();
+		},
+		toggle: function (elem) {
+			if (this.isFullscreen) {
+				this.exit();
+			} else {
+				this.request(elem);
+			}
+		},
+		onchange: function (callback) {
+			this.on('change', callback);
+		},
+		onerror: function (callback) {
+			this.on('error', callback);
+		},
+		on: function (event, callback) {
+			var eventName = eventNameMap[event];
+			if (eventName) {
+				document.addEventListener(eventName, callback, false);
+			}
+		},
+		off: function (event, callback) {
+			var eventName = eventNameMap[event];
+			if (eventName) {
+				document.removeEventListener(eventName, callback, false);
+			}
+		},
+		raw: fn
+	};
+
+	if (!fn) {
+		if (isCommonjs) {
+			module.exports = false;
+		} else {
+			window.screenfull = false;
+		}
+
+		return;
+	}
+
+	Object.defineProperties(screenfull, {
+		isFullscreen: {
+			get: function () {
+				return Boolean(document[fn.fullscreenElement]);
+			}
+		},
+		element: {
+			enumerable: true,
+			get: function () {
+				return document[fn.fullscreenElement];
+			}
+		},
+		enabled: {
+			enumerable: true,
+			get: function () {
+				// Coerce to boolean in case of old WebKit
+				return Boolean(document[fn.fullscreenEnabled]);
+			}
+		}
+	});
+
+	if (isCommonjs) {
+		module.exports = screenfull;
+	} else {
+		window.screenfull = screenfull;
+	}
+})();
+
+
+/***/ }),
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -57696,6 +57891,7 @@ var render = function() {
     {
       staticClass:
         "navbar navbar-expand-lg navbar-dark black lighten-3 fixed-bottom",
+      staticStyle: { "z-index": "1060" },
       attrs: { id: "combiner-nav" }
     },
     [
@@ -57753,11 +57949,7 @@ var render = function() {
                 "a",
                 {
                   staticClass: "nav-link",
-                  attrs: {
-                    "data-toggle": "tooltip",
-                    title: "필터",
-                    "data-backdrop": "false"
-                  },
+                  attrs: { "data-toggle": "tooltip", title: "필터" },
                   on: { click: _vm.toggleCharacteristic }
                 },
                 [
@@ -57780,6 +57972,23 @@ var render = function() {
                 [
                   _c("i", {
                     staticClass: "fa fa-refresh",
+                    attrs: { "aria-hidden": "true" }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "nav-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  attrs: { "data-toggle": "tooltip", title: "전체화면" },
+                  on: { click: _vm.toggleFullScreen }
+                },
+                [
+                  _c("i", {
+                    staticClass: "fa fa-arrows-alt",
                     attrs: { "aria-hidden": "true" }
                   })
                 ]
@@ -57906,7 +58115,7 @@ if (false) {
 }
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

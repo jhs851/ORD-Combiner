@@ -29,7 +29,7 @@
         data() {
             return {
                 column_id: '',
-                name: 'Unknown',
+                name: '',
                 color: '#000',
                 columns: []
             };
@@ -43,7 +43,7 @@
             store() {
                 axios.post('/admin/rates', this.$data).then(({data}) => {
                     this.column_id = '';
-                    this.name = 'Unknown';
+                    this.name = '';
                     this.color = '#000';
 
                     this.$emit('created', data);

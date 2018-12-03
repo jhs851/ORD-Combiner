@@ -19,5 +19,8 @@ $this->prefix('/admin')->namespace('Admin')->name('admin.')->group(function() {
 
         // 조합
         $this->resource('formulas', 'FormulasController')->except(['create', 'show', 'edit']);
+
+        // 특성
+        $this->resource('characteristics', 'CharacteristicsController')->except(['create', 'show', 'edit']);
     });
 });

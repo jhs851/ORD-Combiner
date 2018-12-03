@@ -11,7 +11,7 @@
             this.$root.$on('maked', ({item}) => {
                 if (typeof this.fetch === 'function') return this.fetch();
 
-                if (this.criteria && item[this.criteria] == this[this.criteria]) this.items.push(item);
+                if (! this.criteria || (this.criteria && item[this.criteria] == this[this.criteria])) this.items.push(item);
             });
         },
 

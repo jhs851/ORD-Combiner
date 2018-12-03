@@ -34,7 +34,7 @@
             </li>
 
             <li class="nav-item mt-md-4 {{ str_contains(request()->path(), 'characteristics') ? 'active' : '' }}">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('admin.characteristics.index') }}">
                     <i class="fa fa-id-card-o d-none d-md-block" aria-hidden="true"></i>
                     특성
                 </a>

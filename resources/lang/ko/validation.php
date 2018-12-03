@@ -124,5 +124,6 @@ return [
         'image'     => '이미지',
         'target_id' => '유닛 ID',
         'unit_id'   => '유닛 ID',
+        'regexp'    => '정규식',
     ],
 ];

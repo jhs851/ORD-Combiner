@@ -40,6 +40,7 @@
     import CreateRateComponent from './rates/CreateRateComponent';
     import CreateUnitComponent from './units/CreateUnitComponent';
     import CreateLoadComponent from './loads/CreateLoadComponent';
+    import CreateCharacteristicComponent from './characteristics/CreateCharacteristicComponent';
 
     export default {
         props: {
@@ -53,7 +54,7 @@
             }
         },
 
-        components: { CreateRateComponent, CreateUnitComponent, CreateLoadComponent },
+        components: { CreateRateComponent, CreateUnitComponent, CreateLoadComponent, CreateCharacteristicComponent },
 
         methods: {
             launch() {

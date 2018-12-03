@@ -37,7 +37,7 @@
         data() {
             return {
                 rate_id: '',
-                name: 'Unknown',
+                name: '',
                 description: '',
                 count: 0,
                 image: '이미지를 선택해주세요.',
@@ -61,7 +61,7 @@
 
                 axios.post('/admin/units', formData).then(({data}) => {
                     this.rate_id = '';
-                    this.name = 'Unknown';
+                    this.name = '';
                     this.description = '';
                     this.count = 0;
 

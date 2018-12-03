@@ -26,7 +26,6 @@
             </div>
 
             <button class="btn btn-primary btn-sm btn-block m-0 mt-1" @click="update">Update</button>
-            <button class="btn btn-warning btn-sm btn-block m-0 mt-1" @click="reset">Reset</button>
             <button class="btn btn-danger btn-sm btn-block m-0 mt-1" @click="destroy">Destroy</button>
         </div>
     </div>
@@ -67,10 +66,6 @@
                          this.unit = data.unit;
                          this.currentImage = data.unit.image;
                      });
-            },
-
-            reset() {
-                this.unit = this.data;
             },
 
             destroy() {

@@ -16,7 +16,6 @@
                       :trigger-style="swatchTriggerStyles" />
 
             <button class="btn btn-primary btn-sm btn-block m-0" @click="update">Update</button>
-            <button class="btn btn-warning btn-sm btn-block m-0 mt-1" @click="reset">Reset</button>
             <button class="btn btn-danger btn-sm btn-block m-0 mt-1" @click="destroy">Destroy</button>
         </div>
     </div>
@@ -47,11 +46,6 @@
         methods: {
             update() {
                 axios.put(this.endpoint, this.$data);
-            },
-
-            reset() {
-                this.name = this.rate.name;
-                this.color = this.rate.color;
             },
 
             destroy() {

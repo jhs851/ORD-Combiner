@@ -4,7 +4,8 @@ namespace App\Models;
 
 use App\Core\Cacheable;
 use App\Exceptions\NotFoundVersionException;
-use Illuminate\Database\Eloquent\{Builder, Model};
+use App\Scopes\VersionScope;
+use Illuminate\Database\Eloquent\{Builder, Model, Relations\HasMany};
 
 class Version extends Model
 {
@@ -63,6 +64,22 @@ class Version extends Model
     public function scopeCurrentVersion(Builder $builder) : Builder
     {
         return $builder->where('version', static::$version ?: config('app.version'));
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function units() : HasMany
+    {
+        return $this->hasMany(Unit::class)->withoutGlobalScope(VersionScope::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function formulas() : HasMany
+    {
+        return $this->hasMany(Formula::class)->withoutGlobalScope(VersionScope::class);
     }
 
     /**

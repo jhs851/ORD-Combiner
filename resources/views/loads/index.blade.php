@@ -18,7 +18,7 @@
                     <div class="d-flex justify-content-between py-3">
                         <button class="btn btn-danger m-0" @click="deletes">삭제</button>
 
-                        <create-modal-component type="Load" title="코드 추가">
+                        <create-modal-component type="load" title="코드 추가">
                             <button class="btn btn-primary m-0">코드 추가</button>
                         </create-modal-component>
                     </div>

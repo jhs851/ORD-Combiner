@@ -8,6 +8,10 @@ $this->prefix('/admin')->namespace('Admin')->name('admin.')->group(function() {
     });
 
     $this->middleware('admin')->group(function() {
+        // 버전
+        $this->put('versions/deletes', 'VersionsController@deletes');
+        $this->resource('versions', 'VersionsController')->except(['create', 'show', 'edit']);
+
         // 등급
         $this->put('rates/{rate}/order', 'RatesController@order');
         $this->resource('rates', 'RatesController')->except(['create', 'show', 'edit']);

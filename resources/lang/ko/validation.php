@@ -125,5 +125,6 @@ return [
         'target_id' => '유닛 ID',
         'unit_id'   => '유닛 ID',
         'regexp'    => '정규식',
+        'version'   => '버전',
     ],
 ];

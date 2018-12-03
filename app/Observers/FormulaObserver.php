@@ -43,7 +43,7 @@ class FormulaObserver
      */
     public function deleted(Formula $formula)
     {
-        $formula->upper->delete();
+        $formula->upper()->delete();
 
         Rate::flush();
     }

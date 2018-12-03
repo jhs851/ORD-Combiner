@@ -16,6 +16,7 @@ class Formula extends Model
      */
     protected $fillable = [
         'version_id',
+        'target_id',
         'unit_id',
         'count',
     ];

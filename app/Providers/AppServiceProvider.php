@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\{Column, Formula, Unit, Version};
-use App\Observers\{FormulaObserver, UnitObserver};
+use App\Observers\{FormulaObserver, UnitObserver, VersionObserver};
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -63,5 +63,7 @@ class AppServiceProvider extends ServiceProvider
         Unit::observe(UnitObserver::class);
 
         Formula::observe(FormulaObserver::class);
+
+        Version::observe(VersionObserver::class);
     }
 }

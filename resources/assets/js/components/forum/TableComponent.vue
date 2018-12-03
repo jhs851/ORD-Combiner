@@ -2,11 +2,12 @@
     import PaginatorComponent from './PaginatorComponent';
     import collection from '../../mixins/collection';
     import SetLoadComponent from '../../components/loads/SetLoadComponent';
+    import SetVersionComponent from '../../components/versions/SetVersionComponent';
 
     export default {
         props: ['endpoint'],
 
-        components: { PaginatorComponent, SetLoadComponent },
+        components: { PaginatorComponent, SetLoadComponent, SetVersionComponent },
 
         mixins: [ collection ],
 

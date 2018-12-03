@@ -9,8 +9,10 @@ class VersionsController extends Controller
 {
     public function __invoke()
     {
-        return Version::cache(function($version) {
-            return $version->get();
-        });
+        $method = request()->has('page') ? 'paginate' : 'get';
+
+        return Version::cache(function($version) use ($method) {
+            return $version->$method();
+        }, ".{$method}");
     }
 }

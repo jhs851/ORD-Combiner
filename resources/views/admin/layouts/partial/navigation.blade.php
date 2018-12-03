@@ -12,7 +12,14 @@
 
     <div class="collapse navbar-collapse align-items-start w-100" id="navbarSupportedContent">
         <ul class="navbar-nav flex-column text-md-center w-100 mt-3 mt-md-0">
-            <li class="nav-item mt-md-5 {{ str_contains(request()->path(), 'rates') ? 'active' : '' }}">
+            <li class="nav-item mt-md-5 {{ str_contains(request()->path(), 'versions') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.versions.index') }}">
+                    <i class="fa fa-code-fork d-none d-md-block" aria-hidden="true"></i>
+                    버전
+                </a>
+            </li>
+
+            <li class="nav-item mt-md-4 {{ str_contains(request()->path(), 'rates') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.rates.index') }}">
                     <i class="fa fa-star d-none d-md-block" aria-hidden="true"></i>
                     등급

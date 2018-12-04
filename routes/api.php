@@ -12,5 +12,7 @@ $this->namespace('Api')->group(function() {
         $this->get('rates', 'RatesController');
 
         $this->get('formulas/{unit}', 'FormulasController');
+
+        $this->get('users', 'UsersController')->name('api.admin.users.index');
     });
 });

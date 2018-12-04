@@ -68,7 +68,7 @@ class LoadsController extends Controller
     {
         $this->authorize('update', $user);
 
-        Load::whereIn('id', request()->get('ids'))->get()->each->delete();
+        Load::whereIn('id', request()->get('ids'))->delete();
 
         return $this->respondForJson('삭제되었습니다.');
     }

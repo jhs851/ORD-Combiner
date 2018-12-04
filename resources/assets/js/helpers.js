@@ -5,29 +5,44 @@ import VueClipboard from 'vue-clipboard2';
 
 VueClipboard.config.autoSetContainer = true;
 
-Vue.mixin({
-    components: { Swatches },
+Vue
+    .use(Popover)
+    .use(VueClipboard)
+    .mixin({
+        components: { Swatches },
 
-    data() {
-        return {
-            user: {}
-        };
-    },
-
-    created() {
-        this.user = this.auth ? window.user : {};
-    },
-
-    computed: {
-        auth() {
-            return !! window.auth;
+        data() {
+            return {
+                user: {}
+            };
         },
 
-        swatchTriggerStyles() {
-            return {
-                width: '100%',
-                height: '42px'
+        created() {
+            this.user = this.auth ? window.user : {};
+        },
+
+        filters: {
+            diffForHumans(date) {
+                return moment(date).locale('ko').fromNow();
+            }
+        },
+
+        computed: {
+            auth() {
+                return !! window.auth;
+            },
+
+            swatchTriggerStyles() {
+                return {
+                    width: '100%',
+                    height: '42px'
+                }
+            }
+        },
+
+        methods: {
+            destroy(e) {
+                if (! confirm('정말 삭제하시겠습니까?')) e.preventDefault();
             }
         }
-    }
-}).use(Popover).use(VueClipboard);
+    });

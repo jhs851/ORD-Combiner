@@ -26,5 +26,9 @@ $this->prefix('/admin')->namespace('Admin')->name('admin.')->group(function() {
 
         // 특성
         $this->resource('characteristics', 'CharacteristicsController')->except(['create', 'show', 'edit']);
+
+        // 회원
+        $this->put('users/deletes', 'UsersController@deletes');
+        $this->resource('users', 'UsersController')->except(['create', 'store', 'show']);
     });
 });

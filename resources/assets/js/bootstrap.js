@@ -15,6 +15,8 @@ try {
 
     window.toastr = require('toastr');
 
+    window.moment = require('moment');
+
     require('bootstrap');
 
     require('textarea-autosize');

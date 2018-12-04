@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Core\Cacheable;
 use App\Notifications\{ResetPasswordNotification, VerifyEmail};
 use Illuminate\Database\Eloquent\{Builder, Relations\HasMany};
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use Cacheable, Notifiable;
 
     /**
      * The "booting" method of the model.
@@ -37,6 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'tel',
+        'email_verified_at',
     ];
 
     /**
@@ -80,9 +82,9 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * @param string $password
      */
-    public function setPasswordAttribute(string $password) : void
+    public function setPasswordAttribute(string $password = null) : void
     {
-        $this->attributes['password'] = Hash::make($password);
+        $this->attributes['password'] = $password ?Hash::make($password) : $this->password;
     }
 
     /**

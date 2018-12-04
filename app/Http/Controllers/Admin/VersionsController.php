@@ -52,7 +52,7 @@ class VersionsController extends Controller
      */
     public function deletes()
     {
-        Version::whereIn('id', request()->get('ids'))->get()->each->delete();
+        Version::whereIn('id', request()->get('ids'))->delete();
 
         return $this->respondForJson('삭제되었습니다.');
     }

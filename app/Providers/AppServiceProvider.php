@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\{Column, Formula, Unit, Version};
 use App\Observers\{FormulaObserver, UnitObserver, VersionObserver};
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,6 +18,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($version = request()->cookie('version')) version($version);
+
+        $this->setCarbonLocaleWithTimezone();
 
         $this->registerViewComposers();
 
@@ -65,5 +68,12 @@ class AppServiceProvider extends ServiceProvider
         Formula::observe(FormulaObserver::class);
 
         Version::observe(VersionObserver::class);
+    }
+
+    public function setCarbonLocaleWithTimezone()
+    {
+        Carbon::setLocale('ko');
+
+        date_default_timezone_set('Asia/Seoul');
     }
 }

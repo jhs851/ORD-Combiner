@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use App\Models\Version;
 use App\Scopes\VersionScope;
 
 trait Versionable
@@ -26,5 +27,10 @@ trait Versionable
     public function setVersionIdAttribute(int $versionId = null) : void
     {
         $this->attributes['version_id'] = $versionId ?: version()->id;
+    }
+
+    public function seed() : void
+    {
+        static::create(array_except($this->getAttributes(), ['id']));
     }
 }

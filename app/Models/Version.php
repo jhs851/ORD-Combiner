@@ -83,6 +83,29 @@ class Version extends Model
     }
 
     /**
+     * @param Version $version
+     * @throws NotFoundVersionException
+     */
+    public function seedUnitsAndFormulas(Version $version) : void
+    {
+        $currentVersion = static::getVersion();
+
+        static::setVersion($version);
+
+        $this->units->each->seed();
+
+        // 조합식 시딩도 추가해야함
+        // 주의할점은 새로 생성한 units를 기준으로 target과 unit id를 맞춰야한다는 점...
+
+        static::setVersion($currentVersion);
+    }
+
+    public function scopeBefore(Builder $builder, Version $version) : Builder
+    {
+        return $builder->where('id', '<>', $version->id)->orderBy('version', 'desc');
+    }
+
+    /**
      * Convert the model to its string representation.
      *
      * @return string

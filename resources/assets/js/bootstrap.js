@@ -18,6 +18,8 @@ try {
     require('bootstrap');
 
     require('textarea-autosize');
+
+    require('es6-promise').polyfill();
 } catch (e) {}
 
 /**

@@ -33,7 +33,7 @@ class RedirectIfAuthenticated
     protected function redirectTo($request) : string
     {
         return str_contains($request->path(), 'admin')
-            ? route('admin.rates.index')
+            ? route('admin.versions.index')
             : route('home');
     }
 }

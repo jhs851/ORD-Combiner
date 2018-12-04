@@ -36,12 +36,12 @@ class FormulaObserver
     }
 
     /**
-     * Handle the formula "deleted" event.
+     * Handle the formula "deleting" event.
      *
      * @param  Formula $formula
      * @return void
      */
-    public function deleted(Formula $formula)
+    public function deleting(Formula $formula)
     {
         $formula->upper()->delete();
 

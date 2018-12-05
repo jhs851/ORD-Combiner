@@ -22,13 +22,13 @@
         },
 
         created() {
-            axios.get(`/api${location.pathname}/next`)
+            axios.get(`/api/users/${this.user.id}/loads/next`)
                  .then(({data}) => this.clear = data);
         },
 
         methods: {
             store() {
-                axios.post(location.pathname, this.$data).then(({data}) => {
+                axios.post(`/users/${this.user.id}/loads`, this.$data).then(({data}) => {
                     this.clear++;
                     this.code = '';
 

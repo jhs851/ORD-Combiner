@@ -68966,7 +68966,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "modal left",
+      staticClass: "modal fade left",
       attrs: {
         id: "characteristics-modal",
         tabindex: "-1",
@@ -74464,7 +74464,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        axios.get('/api' + location.pathname + '/next').then(function (_ref) {
+        axios.get('/api/users/' + this.user.id + '/loads/next').then(function (_ref) {
             var data = _ref.data;
             return _this.clear = data;
         });
@@ -74475,7 +74475,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         store: function store() {
             var _this2 = this;
 
-            axios.post(location.pathname, this.$data).then(function (_ref2) {
+            axios.post('/users/' + this.user.id + '/loads', this.$data).then(function (_ref2) {
                 var data = _ref2.data;
 
                 _this2.clear++;
@@ -75189,7 +75189,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (!checked.length) return toastr.error('삭제할 컬럼을 하나 이상 선택해주세요.');
 
-            if (!confirm('정말 삭제하시겠습니가?\n삭제한 내용은 복구할 수 없습니다.')) return false;
+            if (!confirm('정말 삭제하시겠습니까?\n삭제한 내용은 복구할 수 없습니다.')) return false;
 
             axios.put(location.pathname + '/deletes', { ids: ids }).then(function () {
                 return _this.fetch();
@@ -76250,7 +76250,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             $('#characteristics-modal').modal('toggle');
         },
         toggleFullScreen: function toggleFullScreen() {
-            if (__WEBPACK_IMPORTED_MODULE_1_screenfull___default.a.enabled) __WEBPACK_IMPORTED_MODULE_1_screenfull___default.a.request();
+            if (__WEBPACK_IMPORTED_MODULE_1_screenfull___default.a.enabled) __WEBPACK_IMPORTED_MODULE_1_screenfull___default.a.toggle();
         }
     }
 });
@@ -76340,6 +76340,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -76354,6 +76357,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.maxLoad = this.user.maxLoad;
         this.currentLoad = this.user.maxLoad;
     },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$root.$on('maked', function (_ref) {
+            var item = _ref.item;
+            return _this.change(item).loads.unshift(item);
+        });
+    },
 
 
     computed: {
@@ -76365,6 +76376,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         change: function change(load) {
             this.currentLoad = load;
+
+            return this;
         },
         copy: function copy() {
             this.$copyText(this.code).then(function () {
@@ -76432,18 +76445,46 @@ var render = function() {
           domProps: { value: _vm.code }
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "input-group-append" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "btn btn-md btn-outline-default m-0 px-3 py-2 z-depth-0",
-              attrs: { type: "button", id: "button-addon" },
-              on: { click: _vm.copy }
-            },
-            [_vm._v("\n                    코드 복사\n                ")]
-          )
-        ])
+        _c(
+          "div",
+          { staticClass: "input-group-append" },
+          [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn btn-md btn-outline-default m-0 px-3 py-2 z-depth-0",
+                attrs: { id: "button-addon" },
+                on: { click: _vm.copy }
+              },
+              [_vm._v("\n                    코드 복사\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "create-modal-component",
+              {
+                staticClass: "d-flex align-items-stretch",
+                attrs: { type: "load", title: "코드 생성" }
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-md btn-outline-default m-0 px-3 py-2 z-depth-0",
+                    staticStyle: { "border-left": "0 !important" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        코드 추가\n                    "
+                    )
+                  ]
+                )
+              ]
+            )
+          ],
+          1
+        )
       ])
     ])
   ])

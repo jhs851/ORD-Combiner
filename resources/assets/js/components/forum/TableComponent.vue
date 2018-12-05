@@ -61,7 +61,7 @@
 
                 if (! checked.length) return toastr.error('삭제할 컬럼을 하나 이상 선택해주세요.');
 
-                if (! confirm('정말 삭제하시겠습니가?\n삭제한 내용은 복구할 수 없습니다.')) return false;
+                if (! confirm('정말 삭제하시겠습니까?\n삭제한 내용은 복구할 수 없습니다.')) return false;
 
                 axios.put(`${location.pathname}/deletes`, { ids: ids }).then(() => this.fetch());
             }

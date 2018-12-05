@@ -104,7 +104,7 @@
             },
 
             toggleFullScreen() {
-                if (screenfull.enabled) screenfull.request();
+                if (screenfull.enabled) screenfull.toggle();
             }
         }
     }

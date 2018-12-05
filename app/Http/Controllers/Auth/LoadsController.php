@@ -39,9 +39,9 @@ class LoadsController extends Controller
      */
     public function store(LoadsRequest $request, User $user)
     {
-        $user->loads()->create($request->all());
+        $item = $user->loads()->create($request->all());
 
-        return $this->respondForJson('생성되었습니다.');
+        return $this->respondForJson('생성되었습니다.', compact('item'));
     }
 
     /**

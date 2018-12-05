@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Validator;
 
 class LoadsRequest extends FormRequest
 {
@@ -28,5 +29,20 @@ class LoadsRequest extends FormRequest
             'clear' => ['required', 'integer'],
             'code'  => ['required', 'min:4'],
         ];
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  Validator $validator
+     * @return void
+     */
+    public function withValidator(Validator $validator)
+    {
+        $pattern = '/^-load /';
+        $code = $this->get('code');
+
+        if (preg_match($pattern, $code))
+            $this->merge(['code' => preg_replace($pattern, '', $code)]);
     }
 }

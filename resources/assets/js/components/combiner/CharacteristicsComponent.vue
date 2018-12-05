@@ -1,5 +1,5 @@
 <template>
-    <div class="modal left" id="characteristics-modal" tabindex="-1" role="dialog" aria-labelledby="characteristics-modal-label" aria-hidden="true">
+    <div class="modal fade left" id="characteristics-modal" tabindex="-1" role="dialog" aria-labelledby="characteristics-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-full-height modal-left" role="document" style="width: 14.28571429%;">
             <div class="modal-content">
                 <div class="modal-body px-0">

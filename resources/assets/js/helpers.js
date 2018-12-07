@@ -24,6 +24,12 @@ Vue
         filters: {
             diffForHumans(date) {
                 return moment(date).locale('ko').fromNow();
+            },
+
+            strLimit(value) {
+                if (! value) return value;
+
+                return (value.length > 10) ? value.substring(0, 11) + '...' : value;
             }
         },
 

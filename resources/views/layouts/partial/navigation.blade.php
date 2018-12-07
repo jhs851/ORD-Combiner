@@ -34,13 +34,18 @@
 
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="authDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle d-flex align-items-center" id="authDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="avatar rounded-circle img-fluid z-depth-1 mr-1" :src="user.avatarUrl" alt="">
                     {{ auth()->user()->name }}
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="authDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ route('loads.index', auth()->user()->name) }}">
+                    <a class="dropdown-item" href="{{ route('loads.index', auth()->user()->id) }}">
                         코드 설정
+                    </a>
+
+                    <a class="dropdown-item" href="{{ route('users.edit', auth()->user()->id) }}">
+                        회원정보 수정
                     </a>
 
                     <a class="dropdown-item" href="{{ route('logout') }}">

@@ -44,22 +44,15 @@
             };
         },
 
-        filters: {
-            strLimit(value) {
-                if (! value) return value;
-
-                return (value.length > 10) ? value.substring(0, 11) + '...' : value;
-            }
-        },
-
         methods: {
             update() {
                 let formData = new FormData();
+                let image = document.getElementById(`image-${this.unit.id}`).files[0];
 
                 formData.append('name', this.unit.name);
                 formData.append('description', this.unit.description);
                 formData.append('count', this.unit.count);
-                formData.append('image', document.getElementById(`image-${this.unit.id}`).files[0]);
+                if (image) formData.append('image', image);
 
                 axios.post(this.endpoint, formData)
                      .then(({data}) => {

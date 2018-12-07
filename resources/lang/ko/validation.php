@@ -38,6 +38,7 @@ return [
     'different' => ':attribute 값이 :other은(는) 서로 다르지 않습니다.',
     'digits' => ':attribute 값이 :digits 자릿수가 아닙니다.',
     'digits_between' => ':attribute 값이 :min ~ :max 자릿수를 벗어납니다.',
+    'dimensions' => ':attribute 값은 가로가 :min_width보다 커야하고 세로가 :min_height보다 커야합니다.',
     'distinct' => ':attribute 값에 중복된 항목이 있습니다.',
     'email' => ':attribute 값이 유효한 이메일 주소가 아닙니다.',
     'email_match' => '소셜 이메일과 입력하신 이메일이 같아야 합니다.',
@@ -126,5 +127,6 @@ return [
         'unit_id'   => '유닛 ID',
         'regexp'    => '정규식',
         'version'   => '버전',
+        'limit'     => '제한',
     ],
 ];

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\{Column, Formula, Unit, Version};
-use App\Observers\{FormulaObserver, UnitObserver, VersionObserver};
+use App\Models\{Avatar, Column, Formula, Unit, Version};
+use App\Observers\{AvatarObserver, FormulaObserver, UnitObserver, VersionObserver};
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
@@ -68,6 +68,8 @@ class AppServiceProvider extends ServiceProvider
         Formula::observe(FormulaObserver::class);
 
         Version::observe(VersionObserver::class);
+
+        Avatar::observe(AvatarObserver::class);
     }
 
     public function setCarbonLocaleWithTimezone()

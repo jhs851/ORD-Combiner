@@ -3,8 +3,10 @@
 @section('content')
     <div class="container-fluid mt-5">
         <div class="row">
-            <div class="col-14">
+            <div class="col-14 d-flex justify-content-between">
                 <h3 class="font-weight-bold">회원 설정</h3>
+
+                <a href="{{ route('admin.avatars.index') }}">아바타 설정</a>
             </div>
 
             <table-component class="col-14 mt-3" inline-template endpoint="{{ route('api.admin.users.index') }}" v-cloak>

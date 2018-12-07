@@ -30,5 +30,9 @@ $this->prefix('/admin')->namespace('Admin')->name('admin.')->group(function() {
         // 회원
         $this->put('users/deletes', 'UsersController@deletes');
         $this->resource('users', 'UsersController')->except(['create', 'store', 'show']);
+
+        // 아바타
+        $this->post('avatars/{avatar}', 'AvatarsController@update')->name('avatars.update');
+        $this->resource('avatars', 'AvatarsController')->except(['create', 'show', 'edit', 'update']);
     });
 });

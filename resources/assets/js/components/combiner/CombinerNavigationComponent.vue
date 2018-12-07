@@ -58,10 +58,15 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item dropup">
-                    <a class="nav-link dropdown-toggle" id="authDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-text="user.name"></a>
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" id="authDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="avatar rounded-circle img-fluid z-depth-1 mr-1" :src="user.avatarUrl" alt="">
+                        {{ user.name }}
+                    </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="authDropdownMenuLink">
                         <a class="dropdown-item" :href="`/users/${user.id}/loads`">코드 설정</a>
+
+                        <a class="dropdown-item" :href="`/users/${user.id}/edit`">회원정보 수정</a>
 
                         <a class="dropdown-item" href="/logout">로그아웃</a>
                     </div>

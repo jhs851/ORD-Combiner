@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\{Avatar, User};
 use Faker\Generator as Faker;
 
 /*
@@ -13,12 +14,15 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Models\User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => 'secret',
-        'tel' => $faker->phoneNumber,
+        'avatar_id'      => function() {
+            return factory(Avatar::class)->create()->id;
+        },
+        'name'           => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => 'secret',
+        'tel'            => $faker->phoneNumber,
         'remember_token' => str_random(10),
     ];
 });

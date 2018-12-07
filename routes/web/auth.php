@@ -36,4 +36,12 @@ $this->namespace('Auth')->group(function() {
 
     // Guests...
     $this->resource('/guests', 'GuestsController')->only(['edit', 'update']);
+
+    // Modify users information...
+    $this->get('users/{user}/dropout', 'UsersController@dropout')->name('users.dropout');
+    $this->resource('/users', 'UsersController')->only(['edit', 'update', 'destroy']);
+
+    // Avatars
+    $this->get('/users/{user}/avatars', 'AvatarsController@edit')->name('avatars.edit');
+    $this->put('/users/{user}/avatars', 'AvatarsController@update')->name('avatars.update');
 });

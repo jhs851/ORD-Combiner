@@ -2,10 +2,18 @@
 
 namespace App\Observers;
 
+use App\Core\Storeagable;
 use App\Models\{Formula, Rate, Unit};
 
 class UnitObserver
 {
+    use Storeagable;
+
+    /**
+     * @var string
+     */
+    const DIRECTORY = 'units';
+
     /**
      * Handle the unit "creating" event.
      *
@@ -69,21 +77,5 @@ class UnitObserver
     protected function isEtc() : bool
     {
         return request()->input('rate_id') && request()->input('rate_id') == Rate::etc()->value('id');
-    }
-
-    /**
-     * @return string
-     */
-    protected function getHashImageName() : string
-    {
-        return str_replace('units/', '', request()->file('image')->store('units'));
-    }
-
-    /**
-     * @return bool
-     */
-    protected function hasImage() : bool
-    {
-        return request()->hasFile('image') && request()->file('image')->isValid();
     }
 }

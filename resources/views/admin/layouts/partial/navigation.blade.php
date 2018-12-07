@@ -47,7 +47,7 @@
                 </a>
             </li>
 
-            <li class="nav-item mt-md-4 {{ str_contains(request()->path(), 'users') ? 'active' : '' }}">
+            <li class="nav-item mt-md-4 {{ str_contains(request()->path(), ['avatars', 'users']) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.users.index') }}">
                     <i class="fa fa-user d-none d-md-block" aria-hidden="true"></i>
                     회원

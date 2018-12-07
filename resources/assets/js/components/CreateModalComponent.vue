@@ -42,6 +42,7 @@
     import CreateLoadComponent from './loads/CreateLoadComponent';
     import CreateCharacteristicComponent from './characteristics/CreateCharacteristicComponent';
     import CreateVersionComponent from './versions/CreateVersionComponent';
+    import CreateAvatarComponent from './avatars/CreateAvatarComponent';
 
     export default {
         props: {
@@ -55,7 +56,7 @@
             }
         },
 
-        components: { CreateRateComponent, CreateUnitComponent, CreateLoadComponent, CreateCharacteristicComponent, CreateVersionComponent },
+        components: { CreateRateComponent, CreateUnitComponent, CreateLoadComponent, CreateCharacteristicComponent, CreateVersionComponent, CreateAvatarComponent },
 
         methods: {
             launch() {

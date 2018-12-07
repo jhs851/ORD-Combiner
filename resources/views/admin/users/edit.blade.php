@@ -4,7 +4,7 @@
     <div class="container my-9">
         <div class="row">
             <div class="col text-center">
-                {{--<img class="img-fluid rounded-circle z-depth-1" src="{{ $user->avatarUrl }}" alt="">--}}
+                <img class="img-fluid rounded-circle z-depth-1" src="{{ $user->avatarUrl }}" alt="">
             </div>
         </div>
 

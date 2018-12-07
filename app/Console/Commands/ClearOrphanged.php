@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Core\VersionScope;
+use App\Models\Avatar;
 use App\Models\Unit;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
@@ -41,20 +42,32 @@ class ClearOrphanged extends Command
     public function handle()
     {
         $images = Unit::withoutGlobalScope(VersionScope::class)->pluck('image')->toArray() + ['units/default.jpg'];
+        $this->clear($images, 'units');
 
-        foreach (Storage::files('units') as $file) if ($this->notNecessary($file, $images))
-            Storage::delete($file);
+        $images = Avatar::pluck('image')->toArray();
+        $this->clear($images, 'avatars');
 
         $this->info('I\'ve cleaned all orphaned files.');
     }
 
     /**
-     * @param       $file
-     * @param array $images
+     * @param        $file
+     * @param array  $images
+     * @param string $directory
      * @return bool
      */
-    protected function notNecessary($file, array $images) : bool
+    protected function notNecessary($file, array $images, string $directory) : bool
     {
-        return ! in_array(str_replace('units/', '', $file), $images);
+        return ! in_array(str_replace($directory . '/', '', $file), $images);
+    }
+
+    /**
+     * @param array  $images
+     * @param string $directory
+     */
+    protected function clear(array $images, string $directory) : void
+    {
+        foreach (Storage::files($directory) as $file) if ($this->notNecessary($file, $images, $directory))
+            Storage::delete($file);
     }
 }

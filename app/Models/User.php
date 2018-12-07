@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Core\Cacheable;
+use App\Exceptions\UnableDeleteAdmin;
 use App\Notifications\{ResetPasswordNotification, VerifyEmail};
-use Illuminate\Database\Eloquent\{Builder, Relations\HasMany};
+use Illuminate\Database\Eloquent\{Builder, Relations\BelongsTo, Relations\HasMany};
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,6 +24,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         parent::boot();
 
+        static::creating(function($user) {
+            $user->avatar_id = Avatar::wisp()->value('id');
+        });
+
+        static::deleting(function($user) {
+             static::unableDeleteAdmin($user);
+        });
+
         static::deleted(function($user) {
             $user->loads->each->delete();
         });
@@ -34,6 +43,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
+        'avatar_id',
         'name',
         'email',
         'password',
@@ -69,6 +79,16 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $appends = [
         'maxLoad',
+        'avatarUrl',
+    ];
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'avatar',
     ];
 
     /**
@@ -77,6 +97,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function loads() : HasMany
     {
         return $this->hasMany(Load::class)->orderBy('clear', 'desc');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function avatar() : BelongsTo
+    {
+        return $this->belongsTo(Avatar::class);
     }
 
     /**
@@ -138,5 +166,22 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getMaxLoadAttribute()
     {
         return $this->loads->first();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvatarUrlAttribute() : string
+    {
+        return $this->avatar->imageUrl;
+    }
+
+    /**
+     * @param User $user
+     * @throws UnableDeleteAdmin
+     */
+    protected static function unableDeleteAdmin(User $user)
+    {
+        if ($user->isAdmin()) throw new UnableDeleteAdmin();
     }
 }

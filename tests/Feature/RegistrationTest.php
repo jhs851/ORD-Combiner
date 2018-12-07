@@ -20,8 +20,9 @@ class RegistrationTest extends TestCase
     function receive_data_to_the_user_correctly()
     {
         foreach ((new User())->getFillable() as $field)
-            $this->get(route('register'))
-                 ->assertSee('name="' . $field . '"');
+            if ($field !== 'email_verified_at' && $field !== 'avatar_id')
+                $this->get(route('register'))
+                     ->assertSee('name="' . $field . '"');
     }
 
     /** @test */

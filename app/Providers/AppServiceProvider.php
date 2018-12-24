@@ -72,7 +72,7 @@ class AppServiceProvider extends ServiceProvider
         Avatar::observe(AvatarObserver::class);
     }
 
-    public function setCarbonLocaleWithTimezone()
+    protected function setCarbonLocaleWithTimezone()
     {
         Carbon::setLocale('ko');
 

@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-use App\Models\Version;
 use App\Scopes\VersionScope;
 
 trait Versionable

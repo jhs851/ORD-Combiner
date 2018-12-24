@@ -11,8 +11,6 @@ class VersionsController extends Controller
     {
         $method = request()->has('page') ? 'paginate' : 'get';
 
-        return Version::cache(function($version) use ($method) {
-            return $version->$method();
-        }, ".{$method}");
+        return Version::$method(request()->has('page') ? 10 : null);
     }
 }

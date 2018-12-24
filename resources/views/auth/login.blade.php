@@ -9,7 +9,10 @@
                 </h1>
                 <hr class="hr-light w-100 mt-1">
                 <h6>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores blanditiis dolor dolores eaque et fugit in iste labore minus nam neque nihil possimus vero vitae, voluptatem! Consequuntur dignissimos recusandae suscipit?
+                    워크래프트3 프로즌쓰론의 커스텀 맵인 원피스 랜덤 디펜스의 유닛 조합기 입니다.<br>
+                    유닛을 왼쪽 클릭하면 유닛의 갯수가 올라가고 유닛을 오른쪽 클릭하면 유닛을 조합합니다.<br>
+                    버전별로 조합기를 선택할수 있고, 물뎀, 마뎀, 방깎, 이감, 스턴 등 필요한 유닛을 구분하기 위한 필터 기능이 있으며, 코드를 저장하여 어디서든 코드를 불러 올 수 있습니다.<br>
+                    더 많은 기능을 넣을 예정입니다. (자동 유닛 카운트, 자동 유닛 조합, 자동 코드 저장)
                 </h6>
             </div>
 

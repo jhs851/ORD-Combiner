@@ -23,6 +23,7 @@ class Unit extends Orderable
         'name',
         'description',
         'order',
+        'image',
         'etc',
         'lowest',
         'count',
@@ -116,5 +117,19 @@ class Unit extends Orderable
     public static function scopeWisp(Builder $builder) : Builder
     {
         return $builder->where('name', static::WISP_NAME);
+    }
+
+    /**
+     * @param Builder $builder
+     * @param Unit    $unit
+     * @return Builder
+     */
+    public static function scopeDifferentVersions(Builder $builder, Unit $unit) : Builder
+    {
+        return $builder->where([
+            ['version_id', version()->id],
+            ['rate_id', $unit->rate_id],
+            ['name', $unit->name],
+        ]);
     }
 }

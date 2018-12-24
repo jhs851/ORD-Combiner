@@ -20,12 +20,12 @@ class VersionObserver
     }
 
     /**
-     * Handle the version "deleted" event.
+     * Handle the version "deleting" event.
      *
      * @param  \App\Models\Version  $version
      * @return void
      */
-    public function deleted(Version $version)
+    public function deleting(Version $version)
     {
         $version->units->each->delete();
     }

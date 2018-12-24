@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\{Builder, Model};
 class Orderable extends Model
 {
     /**
+     * @var bool
+     */
+    public static $isDisable = false;
+
+    /**
      * The "booting" method of the model.
      *
      * @return void
@@ -16,7 +21,7 @@ class Orderable extends Model
         parent::boot();
 
         static::created(function($model) {
-            $model->setOrder();
+            if (! static::$isDisable) $model->setOrder();
         });
     }
 
@@ -100,6 +105,26 @@ class Orderable extends Model
     {
         $this->order = ($lastOrderRate = static::lastOrder($this->{$this->getCriteriaId()})->first()) ? $lastOrderRate->order + 1 : 0;
         $this->save();
+    }
+
+    /**
+     * @return Orderable
+     */
+    public static function enableSetOrder() : Orderable
+    {
+        static::$isDisable = false;
+
+        return new static;
+    }
+
+    /**
+     * @return Orderable
+     */
+    public static function disableSetOrder() : Orderable
+    {
+        static::$isDisable = true;
+
+        return new static;
     }
 
     /**

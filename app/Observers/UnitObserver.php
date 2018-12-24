@@ -37,6 +37,8 @@ class UnitObserver
     public function created(Unit $unit)
     {
         if ($this->isLowest()) $unit->formulas()->create(['unit_id' => Unit::wisp()->value('id')]);
+
+        Rate::flush();
     }
 
     /**

@@ -67,7 +67,7 @@ class UsersController extends Controller
      */
     public function deletes()
     {
-        User::whereIn('id', request()->get('ids'))->delete();
+        User::whereIn('id', request()->get('ids'))->get()->each->delete();
 
         return $this->respondForJson('삭제되었습니다.');
     }

@@ -22,6 +22,14 @@
 
         components: { CharacteristicComponent },
 
+        mounted() {
+            this.$root.$on('reset', () => {
+                $('#characteristics-modal').modal('hide');
+
+                this.all();
+            });
+        },
+
         methods: {
             all() {
                 this.$refs.children.forEach(child => child.active = false);

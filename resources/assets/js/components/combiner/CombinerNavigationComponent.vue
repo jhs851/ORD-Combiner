@@ -99,8 +99,6 @@
             reset() {
                 if (! confirm('정말 새로고침 하시겠습니까?')) return;
 
-                this.$root.$emit('disableFilter');
-
                 this.$root.$emit('reset');
             },
 

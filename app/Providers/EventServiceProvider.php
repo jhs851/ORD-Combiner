@@ -15,7 +15,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            'SocialiteProviders\Naver\NaverExtendSocialite@handle',
+            'App\Acme\Providers\Naver\NaverExtendSocialite@handle',
         ],
         Login::class => [
             \App\Listeners\SessionsEventListener::class

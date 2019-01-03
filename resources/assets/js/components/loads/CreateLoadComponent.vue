@@ -22,18 +22,22 @@
         },
 
         created() {
-            axios.get(`/api/users/${this.user.id}/loads/next`)
-                 .then(({data}) => this.clear = data);
+            this.next();
         },
 
         methods: {
             store() {
                 axios.post(`/users/${this.user.id}/loads`, this.$data).then(({data}) => {
-                    this.clear++;
                     this.code = '';
 
+                    this.next();
                     this.$emit('created', data);
                 });
+            },
+
+            next() {
+                axios.get(`/api/users/${this.user.id}/loads/next`)
+                     .then(({data}) => this.clear = data);
             }
         }
     }

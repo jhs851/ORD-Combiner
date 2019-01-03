@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\{Guest, User};
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Facades\Socialite;
+use SocialiteProviders\Manager\OAuth2\User as SocialUser;
 
 class SocialController extends Controller
 {
@@ -28,7 +30,7 @@ class SocialController extends Controller
      */
     public function execute(Request $request, string $provider)
     {
-        if ($this->hasNotToken($request)) return $this->redirectToProvider($provider);
+        if ($this->hasNotCode($request)) return $this->redirectToProvider($provider);
 
         return $this->handleProviderCallback($provider);
     }
@@ -52,39 +54,40 @@ class SocialController extends Controller
      */
     protected function handleProviderCallback(string $provider)
     {
-        $socialUser = Socialite::driver($provider)->user();
-        $email = $socialUser->getEmail();
+        try {
+            $socialUser = Socialite::driver($provider)->user();
+        } catch (ValidationException $exception) {
+            return $this->toRespond('저희 서비스에는 이름과 이메일이 반드시 필요합니다. 다시 시도해주세요.', route('login'), 'error');
+        }
 
-        if ($user = User::where('email', $email)->first()) {
+        if ($user = User::where('email', $socialUser->getEmail())->first()) {
             auth()->login($user, true);
 
             return $this->sendLoginResponse(request());
         }
 
-        return $this->createGuest($email, $socialUser);
+        return $this->createGuest($socialUser);
     }
 
     /**
      * @param Request $request
      * @return bool
      */
-    protected function hasNotToken(Request $request) : bool
+    protected function hasNotCode(Request $request) : bool
     {
-        return ! $request->has('code')
-            && ! $request->has('oauth_token')       // for Twitter
-            && ! $request->has('access_token');     // for Facebook
+        return ! $request->has('code');
     }
 
     /**
-     * @param string     $email
-     * @param            $socialUser
+     * @param SocialUser $socialUser
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Exception
      */
-    protected function createGuest(string $email, $socialUser)
+    protected function createGuest(SocialUser $socialUser)
     {
+        $email = $socialUser->getEmail();
+
         $guest = (Guest::where('email', $email)->first()) ?: Guest::create([
-            'name'  => $socialUser->getName() ?: '이름없음',
+            'name'  => $socialUser->getName(),
             'email' => $email,
         ]);
 

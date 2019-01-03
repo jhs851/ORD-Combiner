@@ -40,9 +40,10 @@ class LoadsRequest extends FormRequest
     public function withValidator(Validator $validator)
     {
         $pattern = '/^-load /';
-        $code = $this->get('code');
+        $code = trim($this->get('code'));
 
-        if (preg_match($pattern, $code))
-            $this->merge(['code' => preg_replace($pattern, '', $code)]);
+        if (preg_match($pattern, $code)) $code = preg_replace($pattern, '', $code);
+
+        $this->merge(compact('code'));
     }
 }

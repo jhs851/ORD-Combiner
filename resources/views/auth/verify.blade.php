@@ -14,8 +14,10 @@
                             </div>
                         @endif
 
-                        계속하기 전에 이메일에서 확인 링크를 확인하십시오.
-                        이메일을 받지 못했다면 <a href="{{ route('verification.resend') }}">여기</a>를 클릭하여 다른 이메일을 요청하십시오.
+                        계속하기 전에 이메일 <a href="mailto:{{ request()->user()->email }}"><small>({{ request()->user()->email }})</small></a>에서 확인 링크를 확인하십시오.
+                        이메일을 받지 못했다면 <a href="{{ route('verification.resend') }}">여기</a>를 클릭하여 다른 이메일을 요청하십시오.<br><br>
+
+                        이메일을 변경하시려면 <a href="{{ route('logout') }}">여기</a>를 클릭하세요.
                     </div>
                 </div>
             </div>

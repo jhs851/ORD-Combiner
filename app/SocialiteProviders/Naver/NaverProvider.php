@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Acme\Providers\Naver;
+namespace App\SocialiteProviders\Naver;
 
 use App\Core\InterlockReleasable;
 use SocialiteProviders\Naver\NaverProvider as BaseProvider;

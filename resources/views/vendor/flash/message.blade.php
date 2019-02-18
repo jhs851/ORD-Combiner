@@ -7,7 +7,7 @@
         ])
     @else
         <script>
-            toastr['{{ $message['level'] }}']("{!! $message["message"] !!}")
+            toastr['{{ $message['level'] }}']('{!! str_replace("'", '\'', $message["message"]) !!}')
         </script>
     @endif
 @endforeach

@@ -30,7 +30,7 @@ class SocialController extends Controller
      */
     public function execute(Request $request, string $provider)
     {
-        if ($this->hasNotCode($request)) return $this->redirectToProvider($provider);
+        if (! $request->has('code')) return $this->redirectToProvider($provider);
 
         return $this->handleProviderCallback($provider);
     }
@@ -67,15 +67,6 @@ class SocialController extends Controller
         }
 
         return $this->createGuest($socialUser);
-    }
-
-    /**
-     * @param Request $request
-     * @return bool
-     */
-    protected function hasNotCode(Request $request) : bool
-    {
-        return ! $request->has('code');
     }
 
     /**

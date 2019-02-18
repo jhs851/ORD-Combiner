@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Acme\Providers\Naver;
+namespace App\SocialiteProviders\Naver;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;
 use SocialiteProviders\Naver\NaverExtendSocialite as BaseExtendSocialite;
